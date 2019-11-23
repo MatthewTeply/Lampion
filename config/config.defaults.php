@@ -1,7 +1,4 @@
 <?php
 
 # Defaults
-define("DEFAULTS", [
-   "app" => "carnival",
-   "language" => "cz"
-]);
+define('DEFAULT_APP', 'carnival');

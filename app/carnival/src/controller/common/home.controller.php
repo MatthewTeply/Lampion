@@ -7,12 +7,12 @@ class ControllerCommonHome extends ControllerBase
     public function index() {
         $view = $this->load()->view();
 
-        $view->header = $view->load("partials/header");
-        $view->footer = $view->load("partials/footer");
+        $data['header'] = $view->load("partials/header");
+        $data['footer'] = $view->load("partials/footer");
 
-        $view->firstName = "Matyáš";
-        $view->lastName  = "Teplý";
+        $data['firstName'] = "Matyáš";
+        $data['lastName']  = "Teplý";
 
-        $view->render("common/home");
+        $view->render("common/home", $data);
     }
 }

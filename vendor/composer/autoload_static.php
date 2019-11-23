@@ -36,6 +36,7 @@ class ComposerStaticInitf642c91053bacb92950a448aab8bf08a
         ),
         'D' => 
         array (
+            'Dotenv\\' => 7,
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
         ),
@@ -68,6 +69,10 @@ class ComposerStaticInitf642c91053bacb92950a448aab8bf08a
         array (
             0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
         ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
         'Doctrine\\Instantiator\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
@@ -75,6 +80,16 @@ class ComposerStaticInitf642c91053bacb92950a448aab8bf08a
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'PhpOption\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
+            ),
         ),
     );
 
@@ -622,6 +637,7 @@ class ComposerStaticInitf642c91053bacb92950a448aab8bf08a
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitf642c91053bacb92950a448aab8bf08a::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitf642c91053bacb92950a448aab8bf08a::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitf642c91053bacb92950a448aab8bf08a::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitf642c91053bacb92950a448aab8bf08a::$classMap;
 
         }, null, ClassLoader::class);

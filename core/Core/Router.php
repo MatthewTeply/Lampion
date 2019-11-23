@@ -5,6 +5,8 @@ namespace Lampion\Core;
 use Lampion\Http\Response;
 use Lampion\Http\Request;
 
+use Lampion\Core\Session;
+
 class Router
 {
     public $get;
@@ -20,10 +22,6 @@ class Router
 
         //$this->url = new URL;
         //$this->logs = new Logs;
-
-        if(!isset($_GET['url']) && !defined('HOMEPAGE')) {
-            $_GET['url'] = "home";
-        }
     }
 
     /**
@@ -133,7 +131,7 @@ class Router
     /**
      * Initiates route
      */
-    public function init() {
+    public function listen() {
         $request_method = strtolower($_SERVER['REQUEST_METHOD']); # Get request method, and convert it to lowercase
         $_GET['url'] = rtrim($_GET['url'], '/'); # Trim trailing slashes
 
@@ -154,9 +152,5 @@ class Router
                 die(HTTP_NOT_FOUND);
                 break;
         }
-    }
-
-    public function sayHello() {
-        echo "Hello there!";
     }
 }

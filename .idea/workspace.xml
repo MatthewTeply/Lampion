@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8571aaff-8148-4e66-b427-760e334d9cbe" name="Default Changelist" comment="- Added">
-      <change afterPath="$PROJECT_DIR$/app/carnival/public/template/common/home.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/carnival/public/template/partials/footer.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/carnival/public/template/partials/header.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/carnival/src/controller/common/home.controller.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/carnival/src/controller/partials/header.controller.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/Application/Application.php" afterDir="false" />
+    <list default="true" id="8571aaff-8148-4e66-b427-760e334d9cbe" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/carnival/app.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/carnival/config/config.defaults.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/Application/ApplicationManager.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Application/ApplicationManager.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Controller/ControllerBase.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Controller/ControllerBase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Controller/ControllerLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Controller/ControllerLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/src/controller/common/home.controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/src/controller/common/home.controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.defaults.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.defaults.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Application/Application.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Application/Application.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Bootstrap.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Bootstrap.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Core/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Core/Router.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Http/Response.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Http/Response.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/View/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/View/View.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/test.twig" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -101,6 +96,8 @@
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/vendor/twig/twig" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
     </include_path>
   </component>
   <component name="ProjectId" id="1ThIwREYzsZjgMwiCcGCONpCREP" />
@@ -155,8 +152,16 @@
       <workItem from="1573906139995" duration="10060000" />
       <workItem from="1573931247911" duration="15250000" />
       <workItem from="1573982439111" duration="541000" />
-      <workItem from="1574427619000" duration="37262000" />
+      <workItem from="1574427619000" duration="41298000" />
     </task>
+    <task id="LOCAL-00001" summary="- Added application management&#10;- Updated template loading">
+      <created>1574534724053</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1574534724053</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,6 +192,7 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="- Added application management&#10;- Updated template loading" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added application management&#10;- Updated template loading" />
   </component>
 </project>
