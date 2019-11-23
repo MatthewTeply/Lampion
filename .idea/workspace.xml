@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8571aaff-8148-4e66-b427-760e334d9cbe" name="Default Changelist" comment="" />
+    <list default="true" id="8571aaff-8148-4e66-b427-760e334d9cbe" name="Default Changelist" comment="- Added">
+      <change afterPath="$PROJECT_DIR$/app/carnival/public/template/common/home.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/carnival/public/template/partials/footer.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/carnival/public/template/partials/header.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/carnival/src/controller/common/home.controller.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/carnival/src/controller/partials/header.controller.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/Application/Application.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Application/ApplicationManager.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Controller/ControllerBase.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Controller/ControllerBase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Controller/ControllerLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Controller/ControllerLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Core/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Core/Router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Http/Response.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Http/Response.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/View/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/View/View.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/test.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +53,19 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Matyáš Teplý" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\xampp\htdocs\lampion\.idea" />
+      </set>
+    </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -75,7 +104,9 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1ThIwREYzsZjgMwiCcGCONpCREP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../mattLib2.5" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -124,11 +155,38 @@
       <workItem from="1573906139995" duration="10060000" />
       <workItem from="1573931247911" duration="15250000" />
       <workItem from="1573982439111" duration="541000" />
-      <workItem from="1574427619000" duration="25621000" />
+      <workItem from="1574427619000" duration="37262000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
   </component>
 </project>

@@ -8,6 +8,16 @@ define('CORE', ROOT . "core/");
 define('APP', ROOT . "app/");
 define('CONFIG', ROOT . "config/");
 
+# App paths
+define('CONTROLLER', "src/controller/");
+define('MODEL', "src/model/");
+define('TEMPLATE', "public/template/");
+define('ASSETS', "public/assets/");
+define('DATA', "data/");
+define('LANGUAGE', DATA . "language/");
+define('SQL', DATA . "sql/");
+define('STORAGE', DATA . "storage/");
+
 # HTTP codes
 define('HTTP_NOT_FOUND', 404);
 define('HTTP_FORBIDDEN', 403);

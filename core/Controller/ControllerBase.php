@@ -5,10 +5,9 @@ namespace Lampion\Controller;
 abstract class ControllerBase {
 
     /**
-     * @param array $params
      * @return mixed
      */
-    abstract public function index($params);
+    abstract public function index();
 
     /**
      * Returns an instance of ControllerLoader, so ControllerBase can load models, other controller, etc.

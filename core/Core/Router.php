@@ -155,4 +155,8 @@ class Router
                 break;
         }
     }
+
+    public function sayHello() {
+        echo "Hello there!";
+    }
 }
