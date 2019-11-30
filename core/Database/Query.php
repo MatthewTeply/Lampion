@@ -51,7 +51,7 @@ class Query extends Connection
      * @param array $conditions
      * @return string $conditionsString
      */
-    private function processConditions(array $conditions) {
+    private static function processConditions(array $conditions) {
         $conditionsString = "";
 
         foreach ($conditions as $key => $condition) {
@@ -67,7 +67,7 @@ class Query extends Connection
      * @param array $columns
      * @return int $last_insert_id
      */
-    public function insertQuery(string $table, array $columns) {
+    public static function insertQuery(string $table, array $columns) {
         # Looping through all columns, adding quotes to strings
         foreach ($columns as $key => $column) {
             if(is_string($column)) {
@@ -89,11 +89,12 @@ class Query extends Connection
      * @param string $table
      * @param array $columns
      * @param array $conditions
+     * @param Query $instance
      * @return array|mixed
      */
-    public function selectQuery(string $table, array $columns, array $conditions = []) {
+    public static function selectQuery(string $table, array $columns, array $conditions = []) {
         try {
-            $data = self::rawQuery("SELECT " . implode(",", $columns) . " FROM " . $table . $this->processConditions($conditions));
+            $data = self::rawQuery("SELECT " . implode(",", $columns) . " FROM " . $table . Query::processConditions($conditions));
         }
 
         catch (\Exception $e) {
@@ -120,9 +121,9 @@ class Query extends Connection
      * @param string $table
      * @param array $conditions
      */
-    public function deleteQuery(string $table, array $conditions) {
+    public static function deleteQuery(string $table, array $conditions) {
         try {
-            self::rawQuery("DELETE FROM " . $table . " WHERE " . $this->processConditions($conditions));
+            self::rawQuery("DELETE FROM " . $table . " WHERE " . Query::processConditions($conditions));
         }
 
         catch (\Exception $e) {
@@ -136,7 +137,7 @@ class Query extends Connection
      * @param array $columns
      * @param array $conditions
      */
-    public function updateQuery(string $table, array $columns, array $conditions) {
+    public static function updateQuery(string $table, array $columns, array $conditions) {
         $columnsString = "";
 
         foreach ($columns as $key => $column) {
@@ -147,7 +148,7 @@ class Query extends Connection
         }
 
         try {
-            self::rawQuery("UPDATE " . $table . $columnsString . $this->processConditions($conditions));
+            self::rawQuery("UPDATE " . $table . $columnsString . Query::processConditions($conditions));
         }
 
         catch (\Exception $e) {

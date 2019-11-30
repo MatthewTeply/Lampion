@@ -4,10 +4,10 @@ namespace Lampion\Database;
 
 class Connection
 {
-    static protected $dbhost = "localhost";//DB_HOST;
-    static protected $dbname = "lampion";//DB_NAME;
-    static protected $dbuser = "root";//DB_USER;
-    static protected $dbpass = "";//DB_PASS;
+    static protected $dbhost = DB_HOST;
+    static protected $dbname = DB_NAME;
+    static protected $dbuser = DB_USER;
+    static protected $dbpass = DB_PASS;
 
     /**
      * Connects to a database

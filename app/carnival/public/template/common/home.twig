@@ -1,7 +1,14 @@
 {{ header }}
 
 <main>
-    <p>Hello, {{ firstName }} {{ lastName }}</p>
+    <h1>Food</h1>
+    <b>{{ food.name }} costs {{ food.price }}$</b>
+    <hr>
+    <h3>Menu</h3>
+    <hr>
+    {% for item in menu %}
+        {{ item.name }} - {{ item.price }}$<br>
+    {% endfor %}
 </main>
 
 {{ footer }}

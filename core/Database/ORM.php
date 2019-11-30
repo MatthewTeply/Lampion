@@ -31,8 +31,16 @@ abstract class ORM extends Query
         $this->id = $id;
 
         # If table remains empty, it is presumed that table name is the same as class name
-        if($table === null)
-            $table = strtolower(get_called_class());
+        if($table === null) {
+            if(strpos(get_called_class(), "\\") !== false) {
+                $table = explode("\\", strtolower(get_called_class()));
+                $table = end($table);
+            }
+
+            else {
+                $table = strtolower(get_called_class());
+            }
+        }
 
         $this->db['table'] = $table;
 
@@ -46,9 +54,9 @@ abstract class ORM extends Query
         }
 
         if($this->id !== null) {
-            $person = $this->selectQuery($this->db['table'], ["*"], [
+            $person = Query::selectQuery($this->db['table'], ["*"], [
                 "where" => "id=$this->id"
-            ]);
+            ], $this);
 
             foreach ($columns as $key => $column) {
                 $this->$column = $person[$key];
@@ -81,16 +89,16 @@ abstract class ORM extends Query
 
         # If row exists in DB, update it
         if($this->id !== null) {
-            $this->updateQuery($this->db['table'], $columns, ["where" => "id=$this->id"]);
+            Query::updateQuery($this->db['table'], $columns, ["where" => "id=$this->id"]);
         }
 
         # If row does not exist in DB, insert it
         else {
-            $this->id = $this->insertQuery($this->db['table'], $columns);
+            $this->id = Query::insertQuery($this->db['table'], $columns);
         }
     }
 
     public function deleteORM() {
-        $this->deleteQuery($this->db['table'], ["id" => "=$this->id"]);
+        Query::deleteQuery($this->db['table'], ["id" => "=$this->id"]);
     }
 }

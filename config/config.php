@@ -9,11 +9,13 @@ define('APP', ROOT . "app/");
 define('CONFIG', ROOT . "config/");
 
 # App paths
-define('CONTROLLER', "src/controller/");
-define('MODEL', "src/model/");
-define('TEMPLATE', "public/template/");
-define('ASSETS', "public/assets/");
-define('DATA', "data/");
+define('SRC', APP . $_SESSION['lampionApp'] . "/src/");
+define('CONTROLLER', APP . $_SESSION['lampionApp'] . "/src/controller/");
+define('MODEL', APP . $_SESSION['lampionApp'] . "/src/model/");
+define('OBJECT', APP . $_SESSION['lampionApp'] . "/src/object/");
+define('TEMPLATE', APP . $_SESSION['lampionApp'] . "/public/template/");
+define('ASSETS', APP . $_SESSION['lampionApp'] . "/public/assets/");
+define('DATA', APP . $_SESSION['lampionApp'] . "/data/");
 define('LANGUAGE', DATA . "language/");
 define('SQL', DATA . "sql/");
 define('STORAGE', DATA . "storage/");

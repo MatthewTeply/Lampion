@@ -24,7 +24,9 @@ class ControllerLoader
         if(is_file($longPath)) {
             require_once $longPath;
 
-            $className = ucfirst($type) . implode("", explode("/", $shortPath));
+            $className = explode("/", $shortPath);
+            $className = end($className);
+            $className = ucfirst(Session::get("lampionApp")) . "\\" . ucfirst($type) . "\\" . \ucfirst($className) . \ucfirst($type);
 
             return new $className;
         }
@@ -41,7 +43,7 @@ class ControllerLoader
     public function model(string $path) {
         try {
             return self::loadFile(
-                APP . $this->app . "/" . MODEL . "$path.model.php",
+                MODEL . "$path.php",
                 $path,
                 "model"
             );
@@ -59,7 +61,7 @@ class ControllerLoader
     public function controller(string $path) {
         try {
             return self::loadFile(
-                APP . $this->app . "/" . CONTROLLER . "$path.controller.php",
+                CONTROLLER . $path . "Controller.php",
                 $path,
                 "controller"
             );
@@ -77,7 +79,7 @@ class ControllerLoader
     public function language(string $path) {
         try {
             return self::loadFile(
-                APP . $this->app . "/" . LANGUAGE . "$path.lang.php",
+                LANGUAGE . "$path.lang.php",
                 $path,
                 "language"
             );
@@ -92,6 +94,26 @@ class ControllerLoader
      * @return View
      */
     public function view() {
-        return new View(APP . $this->app . "/" . TEMPLATE);
+        return new View(TEMPLATE);
+    }
+
+    /**
+     * @param string $path
+     * @return ucfirst
+     */
+    public function object(string $path, int $id = null) {
+        $className = explode("/", $path);
+        $className = end($className);
+        $path = OBJECT . "$path.obj.php";
+
+        if(is_file($path)) {
+            include_once $path;
+
+            return new $className($id);
+        }
+
+        else {
+            echo "Object '$className' doest not exist!";
+        }
     }
 }

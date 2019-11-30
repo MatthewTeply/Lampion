@@ -1,8 +1,9 @@
 <?php
+namespace Carnival\Controller;
 
 use Lampion\Controller\ControllerBase;
 
-class ControllerPartialsHeader extends  ControllerBase
+class HeaderController extends ControllerBase
 {
     public function index()
     {

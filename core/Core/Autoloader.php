@@ -9,10 +9,27 @@ class Autoloader
      */
     public static function register() {
         spl_autoload_register(function($className) {
-            $className = explode("Lampion\\", $className)[1];
+            $classNameExplode = explode("\\", $className);
 
-            if(file_exists(CORE . "$className.php"))
-                include CORE . "$className.php";
+            $app = array_shift($classNameExplode);
+            $className = implode("\\", $classNameExplode);
+
+            if($app == "Lampion") {
+                $sources = [
+                    CORE
+                ];
+            }
+
+            else {
+                $sources = [
+                    SRC
+                ];
+            }
+
+            foreach ($sources as $source) {
+                if(file_exists($source . "$className.php"))
+                    include $source . "$className.php";
+            }
         });
     }
 }
