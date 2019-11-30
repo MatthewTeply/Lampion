@@ -2,23 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8571aaff-8148-4e66-b427-760e334d9cbe" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/carnival/public/template/common/home.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/public/templates/common/home.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/carnival/public/template/partials/footer.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/public/templates/partials/footer.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/carnival/public/template/partials/header.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/public/templates/partials/header.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/carnival/src/controller/common/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/src/Controller/common/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/carnival/src/controller/partials/HeaderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/src/Controller/partials/HeaderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/carnival/src/model/FoodModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/src/Model/FoodModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/carnival/src/object/Food.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/src/Object/Food.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Application/ApplicationManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Application/ApplicationManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Bootstrap.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Bootstrap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Controller/ControllerBase.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Controller/ControllerBase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Controller/ControllerLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Controller/ControllerLoader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Core/Autoloader.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Core/Autoloader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Database/ORM.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Database/ORM.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Model/ModelLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Model/ModelLoader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/View/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/View/View.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -162,7 +147,7 @@
       <workItem from="1574427619000" duration="45610000" />
       <workItem from="1574778565676" duration="4338000" />
       <workItem from="1574856977354" duration="12000" />
-      <workItem from="1575121607630" duration="5853000" />
+      <workItem from="1575121607630" duration="6531000" />
     </task>
     <task id="LOCAL-00001" summary="- Added application management&#10;- Updated template loading">
       <created>1574534724053</created>
@@ -185,7 +170,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575124076753</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="- Work on namespaces&#10;- $_SESSION['lampionApp'] has been changed to $_SESSION['Lampion']['app'], this session variable is also going to include other data that is going to have to persist during runtime">
+      <created>1575134306213</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1575134306213</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,6 +213,7 @@
     <MESSAGE value="- Added application management&#10;- Updated template loading" />
     <MESSAGE value="- Added ApplicationManager&#10;- Apps are now working&#10;- Added configs for apps" />
     <MESSAGE value="- Applications now also use namespaces&#10;- Major update of ControllerLoader&#10;- All Query methods have been made static&#10;- Added dotenv for storing database credentials" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Applications now also use namespaces&#10;- Major update of ControllerLoader&#10;- All Query methods have been made static&#10;- Added dotenv for storing database credentials" />
+    <MESSAGE value="- Work on namespaces&#10;- $_SESSION['lampionApp'] has been changed to $_SESSION['Lampion']['app'], this session variable is also going to include other data that is going to have to persist during runtime" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Work on namespaces&#10;- $_SESSION['lampionApp'] has been changed to $_SESSION['Lampion']['app'], this session variable is also going to include other data that is going to have to persist during runtime" />
   </component>
 </project>
