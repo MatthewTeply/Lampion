@@ -10,7 +10,7 @@ abstract class ControllerBase {
     abstract public function index();
 
     /**
-     * Returns an instance of ControllerLoader, so ControllerBase can load models, other controller, etc.
+     * Returns an instance of ControllerLoader, so ControllerBase can load Model, other Controller, etc.
      * @return ControllerLoader
      */
     public function load() {

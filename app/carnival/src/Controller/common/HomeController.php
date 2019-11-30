@@ -15,6 +15,8 @@ class HomeController extends ControllerBase
 
         $data['food'] = FoodModel::getFood(14);
 
+        $food = new Food();
+
         $data['menu'] = FoodModel::getFoodAll();
 
         $view->render("common/home", $data);

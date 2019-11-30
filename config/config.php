@@ -9,14 +9,19 @@ define('APP', ROOT . "app/");
 define('CONFIG', ROOT . "config/");
 
 # App paths
-define('SRC', APP . $_SESSION['lampionApp'] . "/src/");
-define('CONTROLLER', APP . $_SESSION['lampionApp'] . "/src/controller/");
-define('MODEL', APP . $_SESSION['lampionApp'] . "/src/model/");
-define('OBJECT', APP . $_SESSION['lampionApp'] . "/src/object/");
-define('TEMPLATE', APP . $_SESSION['lampionApp'] . "/public/template/");
-define('ASSETS', APP . $_SESSION['lampionApp'] . "/public/assets/");
-define('DATA', APP . $_SESSION['lampionApp'] . "/data/");
-define('LANGUAGE', DATA . "language/");
+define('SRC', APP . $_SESSION['Lampion']['app'] . "/src/");
+define('CONTROLLERS', APP . $_SESSION['Lampion']['app'] . "/src/Controller/");
+define('MODELS', APP . $_SESSION['Lampion']['app'] . "/src/Model/");
+define('OBJECTS', APP . $_SESSION['Lampion']['app'] . "/src/Object/");
+define('TEMPLATES', APP . $_SESSION['Lampion']['app'] . "/public/templates/");
+
+define('ASSETS', APP . $_SESSION['Lampion']['app'] . "/public/assets/");
+define('CSS', ASSETS . "css/");
+define('IMG', ASSETS . "images/");
+define('SCRIPTS', ASSETS . "scripts/");
+
+define('DATA', APP . $_SESSION['Lampion']['app'] . "/data/");
+define('LANGUAGE', DATA . "languages/");
 define('SQL', DATA . "sql/");
 define('STORAGE', DATA . "storage/");
 

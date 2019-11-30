@@ -11,25 +11,21 @@ class Autoloader
         spl_autoload_register(function($className) {
             $classNameExplode = explode("\\", $className);
 
-            $app = array_shift($classNameExplode);
+            $app       = array_shift($classNameExplode);
             $className = implode("\\", $classNameExplode);
 
+            # If core classes are called
             if($app == "Lampion") {
-                $sources = [
-                    CORE
-                ];
+                $source = CORE;
             }
 
+            # If application classes are called
             else {
-                $sources = [
-                    SRC
-                ];
+                $source = SRC;
             }
 
-            foreach ($sources as $source) {
-                if(file_exists($source . "$className.php"))
-                    include $source . "$className.php";
-            }
+            if(file_exists($source . "$className.php"))
+                include $source . "$className.php";
         });
     }
 }

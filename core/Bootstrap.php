@@ -21,7 +21,7 @@ else {
     $app = DEFAULT_APP;
 }
 
-$_SESSION['lampionApp'] = $app;
+$_SESSION['Lampion']['app'] = $app;
 
 \Lampion\Core\Autoloader::register();
 \Lampion\Application\ApplicationManager::init();

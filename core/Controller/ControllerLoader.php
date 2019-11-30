@@ -10,7 +10,7 @@ class ControllerLoader
     public $app;
 
     public function __construct() {
-        $this->app = Session::get("lampionApp");
+        $this->app = Session::get("Lampion")['app'];
     }
 
     /**
@@ -26,7 +26,7 @@ class ControllerLoader
 
             $className = explode("/", $shortPath);
             $className = end($className);
-            $className = ucfirst(Session::get("lampionApp")) . "\\" . ucfirst($type) . "\\" . \ucfirst($className) . \ucfirst($type);
+            $className = ucfirst(Session::get("Lampion")['app']) . "\\" . ucfirst($type) . "\\" . \ucfirst($className) . \ucfirst($type);
 
             return new $className;
         }
@@ -43,9 +43,9 @@ class ControllerLoader
     public function model(string $path) {
         try {
             return self::loadFile(
-                MODEL . "$path.php",
+                MODELS . "$path.php",
                 $path,
-                "model"
+                "Model"
             );
         }
 
@@ -61,7 +61,7 @@ class ControllerLoader
     public function controller(string $path) {
         try {
             return self::loadFile(
-                CONTROLLER . $path . "Controller.php",
+                CONTROLLERS . $path . "Controller.php",
                 $path,
                 "controller"
             );
@@ -81,7 +81,7 @@ class ControllerLoader
             return self::loadFile(
                 LANGUAGE . "$path.lang.php",
                 $path,
-                "language"
+                "languages"
             );
         }
 
@@ -94,7 +94,7 @@ class ControllerLoader
      * @return View
      */
     public function view() {
-        return new View(TEMPLATE);
+        return new View(TEMPLATES);
     }
 
     /**
@@ -104,7 +104,7 @@ class ControllerLoader
     public function object(string $path, int $id = null) {
         $className = explode("/", $path);
         $className = end($className);
-        $path = OBJECT . "$path.obj.php";
+        $path = OBJECTS . "$path.php";
 
         if(is_file($path)) {
             include_once $path;

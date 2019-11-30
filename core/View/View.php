@@ -22,7 +22,7 @@ class View {
     }
 
     /**
-     * Renders a template
+     * Renders a templates
      * @param string $path
      * @param array $args
      * @return $this
@@ -37,7 +37,7 @@ class View {
     }
 
     /**
-     * Loads a template, if a controller with the same directory path is found, it is used to render the template with variables inserted
+     * Loads a templates, if a Controller with the same directory path is found, it is used to render the templates with variables inserted
      * @param string $path
      * @param array $args
      * @param bool $rawTemplate

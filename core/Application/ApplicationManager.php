@@ -8,7 +8,7 @@ use Lampion\Core\Session;
 class ApplicationManager
 {
     public static function init() {
-        $app = Session::get("lampionApp");
+        $app = Session::get("Lampion")['app'];
 
         # App configs
         $dotenv = Dotenv::create(APP . $app);

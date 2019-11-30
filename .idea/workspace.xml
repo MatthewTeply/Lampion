@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8571aaff-8148-4e66-b427-760e334d9cbe" name="Default Changelist" comment="- Added ApplicationManager&#10;- Apps are now working&#10;- Added configs for apps">
-      <change afterPath="$PROJECT_DIR$/app/carnival/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/carnival/config/config.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/carnival/src/model/FoodModel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/carnival/src/object/Food.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/Model/ModelBase.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/Model/ModelLoader.php" afterDir="false" />
+    <list default="true" id="8571aaff-8148-4e66-b427-760e334d9cbe" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/carnival/config/config.defaults.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/config/config.defaults.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/carnival/public/template/common/home.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/public/template/common/home.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/carnival/src/controller/common/home.controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/src/controller/common/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/carnival/src/controller/partials/header.controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/src/controller/partials/HeaderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/public/template/common/home.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/public/templates/common/home.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/public/template/partials/footer.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/public/templates/partials/footer.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/public/template/partials/header.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/public/templates/partials/header.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/src/controller/common/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/src/Controller/common/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/src/controller/partials/HeaderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/src/Controller/partials/HeaderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/src/model/FoodModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/src/Model/FoodModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/src/object/Food.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/src/Object/Food.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Application/ApplicationManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Application/ApplicationManager.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Bootstrap.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Bootstrap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Controller/ControllerBase.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Controller/ControllerBase.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Controller/ControllerLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Controller/ControllerLoader.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Core/Autoloader.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Core/Autoloader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Database/Connection.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Database/Connection.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Database/ORM.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Database/ORM.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Database/Query.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Database/Query.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Model/ModelLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Model/ModelLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/View/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/View/View.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -164,7 +162,7 @@
       <workItem from="1574427619000" duration="45610000" />
       <workItem from="1574778565676" duration="4338000" />
       <workItem from="1574856977354" duration="12000" />
-      <workItem from="1575121607630" duration="2107000" />
+      <workItem from="1575121607630" duration="5853000" />
     </task>
     <task id="LOCAL-00001" summary="- Added application management&#10;- Updated template loading">
       <created>1574534724053</created>
@@ -180,7 +178,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574544938289</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="- Applications now also use namespaces&#10;- Major update of ControllerLoader&#10;- All Query methods have been made static&#10;- Added dotenv for storing database credentials">
+      <created>1575124076753</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1575124076753</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,6 +220,7 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="- Added application management&#10;- Updated template loading" />
     <MESSAGE value="- Added ApplicationManager&#10;- Apps are now working&#10;- Added configs for apps" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added ApplicationManager&#10;- Apps are now working&#10;- Added configs for apps" />
+    <MESSAGE value="- Applications now also use namespaces&#10;- Major update of ControllerLoader&#10;- All Query methods have been made static&#10;- Added dotenv for storing database credentials" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Applications now also use namespaces&#10;- Major update of ControllerLoader&#10;- All Query methods have been made static&#10;- Added dotenv for storing database credentials" />
   </component>
 </project>

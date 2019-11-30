@@ -27,7 +27,7 @@ abstract class ORM extends Query
      * @param string $table
      * @param array $columns
      */
-    public function initORM($id, string $table = null, array $columns = []) {
+    protected function initORM($id, string $table = null, array $columns = []) {
         $this->id = $id;
 
         # If table remains empty, it is presumed that table name is the same as class name
@@ -68,7 +68,7 @@ abstract class ORM extends Query
      * 'Saves' ORM values, either inserts them if ID is no set, or updates if it is
      * @param array $columns
      */
-    public function saveORM(array $columns = []) {
+    protected function saveORM(array $columns = []) {
         # If columns remain empty, it is presumed that var names and table column names are the same
         # If the columns are empty and the id is null, that means we want to create a new entry with table column names same as variable names
         if(empty($columns)) {
@@ -98,7 +98,7 @@ abstract class ORM extends Query
         }
     }
 
-    public function deleteORM() {
+    protected function deleteORM() {
         Query::deleteQuery($this->db['table'], ["id" => "=$this->id"]);
     }
 }
