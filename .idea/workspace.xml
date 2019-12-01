@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8571aaff-8148-4e66-b427-760e334d9cbe" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Core/Autoloader.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Core/Autoloader.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -147,7 +148,7 @@
       <workItem from="1574427619000" duration="45610000" />
       <workItem from="1574778565676" duration="4338000" />
       <workItem from="1574856977354" duration="12000" />
-      <workItem from="1575121607630" duration="6531000" />
+      <workItem from="1575121607630" duration="10327000" />
     </task>
     <task id="LOCAL-00001" summary="- Added application management&#10;- Updated template loading">
       <created>1574534724053</created>
@@ -177,7 +178,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575134306213</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="- Added .gitignore">
+      <created>1575134898754</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1575134898754</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -214,6 +222,7 @@
     <MESSAGE value="- Added ApplicationManager&#10;- Apps are now working&#10;- Added configs for apps" />
     <MESSAGE value="- Applications now also use namespaces&#10;- Major update of ControllerLoader&#10;- All Query methods have been made static&#10;- Added dotenv for storing database credentials" />
     <MESSAGE value="- Work on namespaces&#10;- $_SESSION['lampionApp'] has been changed to $_SESSION['Lampion']['app'], this session variable is also going to include other data that is going to have to persist during runtime" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Work on namespaces&#10;- $_SESSION['lampionApp'] has been changed to $_SESSION['Lampion']['app'], this session variable is also going to include other data that is going to have to persist during runtime" />
+    <MESSAGE value="- Added .gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added .gitignore" />
   </component>
 </project>

@@ -21,7 +21,7 @@ class Autoloader
 
             # If application classes are called
             else {
-                $source = SRC;
+                $source = APP . "$app/src/";
             }
 
             if(file_exists($source . "$className.php"))
