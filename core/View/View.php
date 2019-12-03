@@ -41,13 +41,14 @@ class View {
      * @param string $path
      * @param array $args
      * @param bool $rawTemplate
+     * @param string $app
      * @return Markup
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function load(string $path, array $args = [], bool $rawTemplate = false) {
-        $loader = new ControllerLoader();
+    public function load(string $path, array $args = [], bool $rawTemplate = false, string $app = null) {
+        $loader = new ControllerLoader($app);
 
         if($loader->controller($path) && !$rawTemplate) {
             ob_start();

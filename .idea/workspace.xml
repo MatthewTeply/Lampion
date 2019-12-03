@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8571aaff-8148-4e66-b427-760e334d9cbe" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/carnival/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Core/Autoloader.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Core/Autoloader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Controller/ControllerBase.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Controller/ControllerBase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Controller/ControllerLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Controller/ControllerLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/View/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/View/View.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -148,7 +149,9 @@
       <workItem from="1574427619000" duration="45610000" />
       <workItem from="1574778565676" duration="4338000" />
       <workItem from="1574856977354" duration="12000" />
-      <workItem from="1575121607630" duration="10327000" />
+      <workItem from="1575121607630" duration="11278000" />
+      <workItem from="1575301575907" duration="663000" />
+      <workItem from="1575397677841" duration="6000" />
     </task>
     <task id="LOCAL-00001" summary="- Added application management&#10;- Updated template loading">
       <created>1574534724053</created>
@@ -185,7 +188,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575134898754</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="- Work on autoloader">
+      <created>1575232718605</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1575232718615</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -223,6 +233,7 @@
     <MESSAGE value="- Applications now also use namespaces&#10;- Major update of ControllerLoader&#10;- All Query methods have been made static&#10;- Added dotenv for storing database credentials" />
     <MESSAGE value="- Work on namespaces&#10;- $_SESSION['lampionApp'] has been changed to $_SESSION['Lampion']['app'], this session variable is also going to include other data that is going to have to persist during runtime" />
     <MESSAGE value="- Added .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added .gitignore" />
+    <MESSAGE value="- Work on autoloader" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Work on autoloader" />
   </component>
 </project>

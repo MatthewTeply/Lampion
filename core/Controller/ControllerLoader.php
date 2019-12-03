@@ -9,8 +9,14 @@ class ControllerLoader
 {
     public $app;
 
-    public function __construct() {
-        $this->app = Session::get("Lampion")['app'];
+    public function __construct(string $app = null) {
+        if($app !== null) {
+            $this->app = $app;
+        }
+
+        else {
+            $this->app = Session::get("Lampion")['app'];
+        }
     }
 
     /**

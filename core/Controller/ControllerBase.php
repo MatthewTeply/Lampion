@@ -11,9 +11,10 @@ abstract class ControllerBase {
 
     /**
      * Returns an instance of ControllerLoader, so ControllerBase can load Model, other Controller, etc.
+     * @param string $app
      * @return ControllerLoader
      */
-    public function load() {
-        return new ControllerLoader();
+    public function load(string $app = null) {
+        return new ControllerLoader($app);
     }
 }
