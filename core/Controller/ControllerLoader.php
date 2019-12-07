@@ -2,7 +2,7 @@
 
 namespace Lampion\Controller;
 
-use Lampion\Core\Session;
+use Lampion\Debug\Error;
 use Lampion\View\View;
 
 class ControllerLoader
@@ -18,7 +18,6 @@ class ControllerLoader
      * @param string $shortPath
      * @param string $type
      * @return mixed
-     * @throws \Exception
      */
     private function loadFile(string $longPath, string $shortPath, string $type) {
         if(is_file($longPath)) {
@@ -32,7 +31,7 @@ class ControllerLoader
         }
 
         else {
-            throw new \Exception(ucfirst($type) . " '$shortPath' does not exist!");
+            Error::set("File '$longPath' does not exist!");
         }
     }
 
@@ -41,17 +40,11 @@ class ControllerLoader
      * @return mixed
      */
     public function model(string $path) {
-        try {
-            return $this->loadFile(
-                APP . "$this->app/src/Model/$path" . "Model.php",
-                $path,
-                "Model"
-            );
-        }
-
-        catch (\Exception $e) {
-            return false;
-        }
+        return $this->loadFile(
+            APP . "$this->app/src/Model/$path" . "Model.php",
+            $path,
+            "Model"
+        );
     }
 
     /**
@@ -59,17 +52,11 @@ class ControllerLoader
      * @return mixed
      */
     public function controller(string $path) {
-        try {
-            return $this->loadFile(
-                APP . "$this->app/src/Controller/$path" . "Controller.php",
-                $path,
-                "controller"
-            );
-        }
-
-        catch (\Exception $e) {
-            return false;
-        }
+        return $this->loadFile(
+            APP . "$this->app/src/Controller/$path" . "Controller.php",
+            $path,
+            "controller"
+        );
     }
 
     /**
@@ -77,17 +64,11 @@ class ControllerLoader
      * @return mixed
      */
     public function language(string $path) {
-        try {
-            return $this->loadFile(
-                APP . "$this->app/data/language/$path.lang.php",
-                $path,
-                "language"
-            );
-        }
-
-        catch (\Exception $e) {
-            return false;
-        }
+        return $this->loadFile(
+            APP . "$this->app/data/language/$path.lang.php",
+            $path,
+            "language"
+        );
     }
 
     /**
@@ -95,26 +76,5 @@ class ControllerLoader
      */
     public function view() {
         return new View(APP . "$this->app/public/templates", $this->app);
-    }
-
-    /**
-     * @param string $path
-     * @param int|null $id
-     * @return ucfirst
-     */
-    public function object(string $path, int $id = null) {
-        $className = explode("/", $path);
-        $className = end($className);
-        $path = APP . "$this->app/src/Entity/$path.php";
-
-        if(is_file($path)) {
-            include_once $path;
-
-            return new $className($id);
-        }
-
-        else {
-            echo "Entity '$className' doest not exist!";
-        }
     }
 }

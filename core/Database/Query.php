@@ -2,6 +2,8 @@
 
 namespace Lampion\Database;
 
+use Lampion\Debug\Error;
+
 class Query extends Connection
 {
     /**
@@ -19,7 +21,8 @@ class Query extends Connection
         $stmnt = $pdo->prepare($query);
 
         if(!$stmnt && $report_err) {
-            throw new Exception('DB error: ' . $pdo->errorInfo());
+            Error::set('DB error: ' . $pdo->errorInfo());
+            exit();
         }
 
         if($escape) {
@@ -77,13 +80,7 @@ class Query extends Connection
             }
         }
 
-        try {
-            return (int)self::rawQuery("INSERT INTO " . $table . " (" . implode(",", array_keys($columns)) . ") VALUES (" . implode(",", $columns) . ")");
-        }
-
-        catch (\Exception $e) {
-            echo $e;
-        }
+        return (int)self::rawQuery("INSERT INTO " . $table . " (" . implode(",", array_keys($columns)) . ") VALUES (" . implode(",", $columns) . ")");
     }
 
     /**
@@ -95,14 +92,7 @@ class Query extends Connection
      * @return array|mixed
      */
     public static function selectQuery(string $table, array $columns, array $conditions = []) {
-        try {
-            $data = self::rawQuery("SELECT " . implode(",", $columns) . " FROM " . $table . Query::processConditions($conditions));
-        }
-
-        catch (\Exception $e) {
-            echo $e;
-            return;
-        }
+        $data = self::rawQuery("SELECT " . implode(",", $columns) . " FROM " . $table . Query::processConditions($conditions));
 
         if(sizeof($data) == 0)
             return [];
@@ -124,13 +114,7 @@ class Query extends Connection
      * @param array $conditions
      */
     public static function deleteQuery(string $table, array $conditions) {
-        try {
-            self::rawQuery("DELETE FROM " . $table . " WHERE " . Query::processConditions($conditions));
-        }
-
-        catch (\Exception $e) {
-            echo $e;
-        }
+        self::rawQuery("DELETE FROM " . $table . " WHERE " . Query::processConditions($conditions));
     }
 
     /**
@@ -149,13 +133,7 @@ class Query extends Connection
                 $columnsString .= " SET $key='$column'";
         }
 
-        try {
-            self::rawQuery("UPDATE " . $table . $columnsString . Query::processConditions($conditions));
-        }
-
-        catch (\Exception $e) {
-            echo $e;
-        }
+        self::rawQuery("UPDATE " . $table . $columnsString . Query::processConditions($conditions));
     }
 
     public static function isColumn(string $table, string $column) {

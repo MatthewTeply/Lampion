@@ -1,6 +1,6 @@
 <?php
 
-namespace Lampion\User;
+namespace Lampion\User\Entity;
 
 use Lampion\Database\ORM;
 
@@ -10,8 +10,6 @@ class User extends ORM
     public $username;
     protected $pwd;
     public $role;
-
-    public $loggedIn;
 
     public function __construct($id = null) {
         $this->initORM($id, "users");
