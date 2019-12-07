@@ -1,10 +1,10 @@
 <?php
 namespace Carnival\Model;
 
-use Carnival\Object\Food;
+use Carnival\Entity\Food;
 use Lampion\Database\Query;
 
-class FoodModel extends Query
+class FoodModel
 {
     public static function getFood($id) {
         $food = new Food($id);

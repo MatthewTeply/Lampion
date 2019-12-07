@@ -26,6 +26,8 @@ class Autoloader
 
             if(file_exists($source . "$className.php"))
                 include $source . "$className.php";
+            else
+                echo $source . "$className.php not found!<br>";
         });
     }
 }

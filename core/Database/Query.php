@@ -44,6 +44,8 @@ class Query extends Connection
         if($queryType == "insert") {
             return (int)$pdo->lastInsertId();
         }
+
+        return $stmnt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -154,5 +156,11 @@ class Query extends Connection
         catch (\Exception $e) {
             echo $e;
         }
+    }
+
+    public static function isColumn(string $table, string $column) {
+        $result = self::rawQuery("SHOW COLUMNS FROM `$table` LIKE '$column'");
+
+        return sizeof($result) != 0 ? true : false;
     }
 }

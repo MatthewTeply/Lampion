@@ -10,15 +10,19 @@ use Twig\Markup;
 class View {
 
     private $twig;
+    private $app;
 
     /**
      * View constructor.
      * @param $templateFolder
+     * @param $app
      */
-    public function __construct($templateFolder)
+    public function __construct($templateFolder, $app)
     {
         $loader = new FilesystemLoader($templateFolder);
         $this->twig = new Environment($loader);
+
+        $this->app = $app;
     }
 
     /**
@@ -47,8 +51,8 @@ class View {
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function load(string $path, array $args = [], bool $rawTemplate = false, string $app = null) {
-        $loader = new ControllerLoader($app);
+    public function load(string $path, array $args = [], bool $rawTemplate = false) {
+        $loader = new ControllerLoader($this->app);
 
         if($loader->controller($path) && !$rawTemplate) {
             ob_start();

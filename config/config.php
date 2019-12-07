@@ -12,7 +12,7 @@ define('CONFIG', ROOT . "config/");
 define('SRC', APP . $_SESSION['Lampion']['app'] . "/src/");
 define('CONTROLLERS', APP . $_SESSION['Lampion']['app'] . "/src/Controller/");
 define('MODELS', APP . $_SESSION['Lampion']['app'] . "/src/Model/");
-define('OBJECTS', APP . $_SESSION['Lampion']['app'] . "/src/Object/");
+define('OBJECTS', APP . $_SESSION['Lampion']['app'] . "/src/Entity/");
 define('TEMPLATES', APP . $_SESSION['Lampion']['app'] . "/public/templates/");
 
 define('ASSETS', APP . $_SESSION['Lampion']['app'] . "/public/assets/");
@@ -21,7 +21,7 @@ define('IMG', ASSETS . "images/");
 define('SCRIPTS', ASSETS . "scripts/");
 
 define('DATA', APP . $_SESSION['Lampion']['app'] . "/data/");
-define('LANGUAGE', DATA . "languages/");
+define('LANGUAGE', DATA . "language/");
 define('SQL', DATA . "sql/");
 define('STORAGE', DATA . "storage/");
 

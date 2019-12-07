@@ -22,7 +22,7 @@ class ModelLoader
         }
 
         else {
-            echo "Object '$className' doest not exist!";
+            echo "Entity '$className' doest not exist!";
         }
     }
 }

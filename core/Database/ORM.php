@@ -48,7 +48,9 @@ abstract class ORM extends Query
         if(empty($columns)) {
             foreach (get_object_vars($this) as $key => $var) {
                 if($key != self::$dbVarName && $key != "id") {
-                    $columns[$key] = $key;
+                    if(self::isColumn($table, $key)) {
+                        $columns[$key] = $key;
+                    }
                 }
             }
         }
@@ -56,7 +58,7 @@ abstract class ORM extends Query
         if($this->id !== null) {
             $person = Query::selectQuery($this->db['table'], ["*"], [
                 "where" => "id=$this->id"
-            ], $this);
+            ]);
 
             foreach ($columns as $key => $column) {
                 $this->$column = $person[$key];
@@ -74,7 +76,11 @@ abstract class ORM extends Query
         if(empty($columns)) {
             foreach (get_object_vars($this) as $key => $var) {
                 if($key != self::$dbVarName && $key != "id") {
-                    $columns[$key] = $var;
+                    if(self::isColumn($this->db['table'], $key)) {
+                        if(!empty($var)) {
+                            $columns[$key] = $var;
+                        }
+                    }
                 }
             }
         }
