@@ -4,23 +4,23 @@
 define('ROOT', getcwd() . "/");
 define('WEB_ROOT', $_SERVER['HTTP_HOST'] . "/");
 
-define('CORE', ROOT . "core/");
-define('APP', ROOT . "app/");
-define('CONFIG', ROOT . "config/");
+define('CORE', "core/");
+define('APP', "app/");
+define('CONFIG', "config/");
 
 # App paths
-define('SRC', APP . $_SESSION['Lampion']['app'] . "/src/");
-define('CONTROLLERS', APP . $_SESSION['Lampion']['app'] . "/src/Controller/");
-define('MODELS', APP . $_SESSION['Lampion']['app'] . "/src/Model/");
-define('OBJECTS', APP . $_SESSION['Lampion']['app'] . "/src/Entity/");
-define('TEMPLATES', APP . $_SESSION['Lampion']['app'] . "/public/templates/");
+define('SRC', "/src/");
+define('CONTROLLERS', "/src/Controller/");
+define('MODELS', "/src/Model/");
+define('OBJECTS', "/src/Entity/");
+define('TEMPLATES', "/public/templates/");
 
-define('ASSETS', APP . $_SESSION['Lampion']['app'] . "/public/assets/");
+define('ASSETS', "/public/assets/");
 define('CSS', ASSETS . "css/");
 define('IMG', ASSETS . "images/");
 define('SCRIPTS', ASSETS . "scripts/");
 
-define('DATA', APP . $_SESSION['Lampion']['app'] . "/data/");
+define('DATA', "/data/");
 define('LANGUAGE', DATA . "language/");
 define('SQL', DATA . "sql/");
 define('STORAGE', DATA . "storage/");

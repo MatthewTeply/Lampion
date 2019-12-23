@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8571aaff-8148-4e66-b427-760e334d9cbe" name="Default Changelist" comment="- Improvements to ORM&#10;- Added isColumn method to Query&#10;- Started work on user management">
-      <change afterPath="$PROJECT_DIR$/core/Cookie/Cookie.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/Debug/DebugInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/Debug/Error.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/Debug/Info.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/Debug/Notice.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/User/Auth.php" afterDir="false" />
+    <list default="true" id="8571aaff-8148-4e66-b427-760e334d9cbe" name="Default Changelist" comment="- Added Cookie class for managing cookies&#10;- Started working on debug features&#10;- Added Error, Notice and Info classes for debugging&#10;- Added DebugInterface&#10;- Replaced old errors with new debug classes&#10;- Started working on user authentication&#10;- Added basic User entity">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/Dummies/Controller.dummy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/Objects/Controller.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/igniter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/src/ConsoleInput.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/carnival/src/Controller/common/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/src/Controller/common/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/carnival/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/public/templates/common/home.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/public/templates/partials/footer.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/public/templates/partials/header.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/src/Controller/common/HomeController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/src/Controller/partials/HeaderController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/carnival/src/Model/FoodModel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Controller/ControllerLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Controller/ControllerLoader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Core/Autoloader.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Core/Autoloader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Database/Query.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Database/Query.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/User/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/User/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/View/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/View/View.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +48,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JavaScript File" />
         <option value="CSS File" />
       </list>
     </option>
@@ -116,11 +122,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\lampion\app\carnival\public\assets\scripts\vendor" />
       <recent name="C:\xampp\htdocs\lampion\core\User\Entity" />
       <recent name="C:\xampp\htdocs\lampion\app\carnival\src\controller\common" />
       <recent name="C:\xampp\htdocs\lampion\app\carnival\src\controller" />
       <recent name="C:\xampp\htdocs\lampion\app\carnival\src\model" />
-      <recent name="C:\xampp\htdocs\lampion\core\Http" />
     </key>
   </component>
   <component name="RunManager">
@@ -168,7 +174,11 @@
       <workItem from="1575403118575" duration="4078000" />
       <workItem from="1575453165846" duration="1209000" />
       <workItem from="1575565525431" duration="746000" />
-      <workItem from="1575743958990" duration="12490000" />
+      <workItem from="1575743958990" duration="12751000" />
+      <workItem from="1575879320629" duration="819000" />
+      <workItem from="1575913171447" duration="1256000" />
+      <workItem from="1575926444383" duration="5907000" />
+      <workItem from="1577102923892" duration="1771000" />
     </task>
     <task id="LOCAL-00001" summary="- Added application management&#10;- Updated template loading">
       <created>1574534724053</created>
@@ -226,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575747223041</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="- Added Cookie class for managing cookies&#10;- Started working on debug features&#10;- Added Error, Notice and Info classes for debugging&#10;- Added DebugInterface&#10;- Replaced old errors with new debug classes&#10;- Started working on user authentication&#10;- Added basic User entity">
+      <created>1575759945540</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1575759945540</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,29 +283,37 @@
     <MESSAGE value="- Added .gitignore" />
     <MESSAGE value="- Work on autoloader" />
     <MESSAGE value="- Improvements to ORM&#10;- Added isColumn method to Query&#10;- Started work on user management" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Improvements to ORM&#10;- Added isColumn method to Query&#10;- Started work on user management" />
+    <MESSAGE value="- Added Cookie class for managing cookies&#10;- Started working on debug features&#10;- Added Error, Notice and Info classes for debugging&#10;- Added DebugInterface&#10;- Replaced old errors with new debug classes&#10;- Started working on user authentication&#10;- Added basic User entity" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added Cookie class for managing cookies&#10;- Started working on debug features&#10;- Added Error, Notice and Info classes for debugging&#10;- Added DebugInterface&#10;- Replaced old errors with new debug classes&#10;- Started working on user authentication&#10;- Added basic User entity" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="500" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1575745800223">
+    <state x="500" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1575988298473">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
+    <state x="500" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834/0.-1080.1920.1050@0.0.1536.834" timestamp="1575988298473" />
     <state x="500" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1575745800223" />
-    <state x="393" y="0" key="CommitChangelistDialog2" timestamp="1575752141806">
+    <state x="393" y="0" key="CommitChangelistDialog2" timestamp="1577104164466">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="393" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1575752141806" />
-    <state x="570" y="231" key="NewPhpClassDialog" timestamp="1575757744558">
+    <state x="393" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1577104164466" />
+    <state x="570" y="231" key="NewPhpClassDialog" timestamp="1575929472658">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
+    <state x="570" y="231" key="NewPhpClassDialog/0.0.1536.834/0.-1080.1920.1050@0.0.1536.834" timestamp="1575929472658" />
     <state x="570" y="231" key="NewPhpClassDialog/0.0.1536.834@0.0.1536.834" timestamp="1575757744558" />
-    <state x="604" y="340" key="NewPhpFileDialog" timestamp="1575757596483">
+    <state x="604" y="340" key="NewPhpFileDialog" timestamp="1575929020787">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
+    <state x="604" y="340" key="NewPhpFileDialog/0.0.1536.834/0.-1080.1920.1050@0.0.1536.834" timestamp="1575929020787" />
     <state x="604" y="340" key="NewPhpFileDialog/0.0.1536.834@0.0.1536.834" timestamp="1575757596483" />
-    <state x="361" y="150" key="Vcs.Push.Dialog.v2" timestamp="1575747228924">
+    <state x="361" y="150" key="Vcs.Push.Dialog.v2" timestamp="1575759953565">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="361" y="150" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1575747228924" />
+    <state x="361" y="150" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1575759953565" />
+    <state x="465" y="241" key="com.intellij.ide.util.TipDialog" timestamp="1575879346173">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="465" y="241" key="com.intellij.ide.util.TipDialog/0.0.1536.834/1138.-1080.1920.1050/-782.-1080.1920.1050@0.0.1536.834" timestamp="1575879346173" />
     <state x="463" y="154" width="609" height="526" key="find.popup" timestamp="1575565877444">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -297,9 +322,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="492" y="59" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1575746396496" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1575757633033">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1575927780366">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834/0.-1080.1920.1050@0.0.1536.834" timestamp="1575927780366" />
     <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1575757633033" />
   </component>
 </project>

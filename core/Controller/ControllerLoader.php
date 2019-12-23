@@ -53,7 +53,7 @@ class ControllerLoader
      */
     public function controller(string $path) {
         return $this->loadFile(
-            APP . "$this->app/src/Controller/$path" . "Controller.php",
+            APP . "$this->app/src/Controller/$path" . "Controller.dummy",
             $path,
             "controller"
         );

@@ -35,6 +35,10 @@ class View {
      * @throws \Twig\Error\SyntaxError
      */
     public function render(string $path, array $args = []) {
+        $args['__css__']     = APP . $this->app . CSS;
+        $args['__scripts__'] = APP . $this->app . SCRIPTS;
+        $args['__img__']     = APP . $this->app . IMG;
+
         echo $this->twig->render("$path.twig", !empty($args) ? $args : get_object_vars($this));
 
         return $this;

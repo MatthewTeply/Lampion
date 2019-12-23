@@ -1,0 +1,13 @@
+<?php
+
+namespace {{ APP }}\Controller\{{ NAMESPACE }}
+
+use Lampion\Controller\ControllerBase;
+
+class {{ NAME }}Controller extends ControllerBase
+{
+    public function index()
+    {
+        $view = $this->load()->view();
+    }
+}
