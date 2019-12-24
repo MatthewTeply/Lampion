@@ -61,8 +61,9 @@ class Router
             }
         }
 
-        if(!empty(HTTP_NOT_FOUND))
-            Url::redirect(HTTP_NOT_FOUND_REDIR);
+        if(!empty(HTTP_NOT_FOUND_REDIR))
+            die(HTTP_NOT_FOUND_REDIR);
+            //Url::redirect(HTTP_NOT_FOUND_REDIR);
 
         die(HTTP_NOT_FOUND);
     }

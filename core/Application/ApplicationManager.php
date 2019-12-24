@@ -17,8 +17,15 @@ class ApplicationManager
         require_once  APP . "$app/config/config.php";
         require_once  APP . "$app/config/config.defaults.php";
 
+        $_GET['url'] = rtrim($_GET['url'], '/'); // Remove trailing slashes from URL
+
+        # If the first URL param is the app's name, remove it
+        if(explode("/", $_GET['url'])[0] == $app && sizeof(explode("/", $_GET['url'])) > 1) {
+            $_GET['url'] = explode("$app/", $_GET['url'])[1];
+        }
+
         # Set default homepage
-        if(!isset($_GET['url'])) {
+        if(!isset($_GET['url']) || $_GET['url'] == $app) {
             $_GET['url'] = DEFAULT_HOMEPAGE;
         }
 
