@@ -12,4 +12,8 @@ class Application
     public function __construct() {
         $this->router = new Router();
     }
+
+    public static function name() {
+        return $_SESSION['Lampion']['app'] != DEFAULT_APP ? $_SESSION['Lampion']['app'] : "";
+    }
 }
