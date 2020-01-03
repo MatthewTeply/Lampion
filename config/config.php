@@ -7,6 +7,7 @@ define('WEB_ROOT', $_SERVER['HTTP_HOST'] . "/");
 define('CORE', "core/");
 define('APP', "app/");
 define('CONFIG', "config/");
+define('TOOLS', 'tools/');
 
 # App paths
 define('SRC', "/src/");
@@ -24,6 +25,9 @@ define('DATA', "/data/");
 define('LANGUAGE', DATA . "language/");
 define('SQL', DATA . "sql/");
 define('STORAGE', DATA . "storage/");
+
+# Files
+define('MAX_FILESIZE', 1000000000000);
 
 # HTTP codes
 define('HTTP_NOT_FOUND', 404);

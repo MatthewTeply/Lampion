@@ -2,6 +2,7 @@
 
 require_once 'Core/Autoloader.php';
 
+# Sorting out URL and app
 if(isset($_GET['url'])) {
     $firstUrlParam = explode("/", $_GET['url'])[0];
 
@@ -21,7 +22,13 @@ else {
     $app = DEFAULT_APP;
 }
 
+# Initializing default session variables
 $_SESSION['Lampion']['app'] = $app;
+$_SESSION['Lampion']['DB']['queryCount'] = 0;
+$_SESSION['Lampion']['DB']['queries'] = [];
+
+# Initializing global variables
+$_ERRORS = [];
 
 \Lampion\Core\Autoloader::register();
 \Lampion\Application\ApplicationManager::init();

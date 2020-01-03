@@ -15,4 +15,15 @@ class Error implements DebugInterface
     public static function emit(string $message) {
         echo self::$code . ": " . $message;
     }
+
+    public static function errorHandler($errno, $errstr, $errfile, $errline) {
+        global $_ERRORS;
+        $_ERRORS[] = array("errno" => $errno, "errstr" => $errstr, "errfile" => $errfile, "errline" => $errline);
+    }
+
+    public static function shutdownHandler() {
+        global $_ERRORS;
+
+        $_ERRORS[] = error_get_last();
+    }
 }

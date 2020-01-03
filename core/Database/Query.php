@@ -2,6 +2,7 @@
 
 namespace Lampion\Database;
 
+use Lampion\Core\Runtime;
 use Lampion\Debug\Error;
 
 class Query extends Connection
@@ -12,26 +13,49 @@ class Query extends Connection
      * @param array $params
      * @param bool $escape
      * @param bool $report_err
-     * @return array
+     * @return mixed
      */
     public static function rawQuery(string $query, array $params = [], $escape = true, $report_err = true) {
         $pdo = self::connect();
-        if($report_err) $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );
 
         $stmnt = $pdo->prepare($query);
 
         if(!$stmnt && $report_err) {
             Error::set('DB error: ' . $pdo->errorInfo());
+            //Runtime::setDbInfo($query, $params, $pdo->errorInfo(), "Error");
             exit();
         }
 
         if($escape) {
             foreach($params as $key => $param) {
                 $params[$key] = htmlspecialchars($param);
+
+                if(is_numeric($param))
+                    $params[$key] = $param + 0;
             }
         }
 
+        $queryStartTime = round(microtime(true) * 1000, 2);
+
         $stmnt->execute($params);
+
+        $queryEndTime = round(microtime(true) * 1000, 2);
+
+        $warningsStmnt = $pdo->query('SHOW WARNINGS');
+        $warnings = $warningsStmnt->fetchAll();
+
+        $queryInfo['query'] = $query;
+        $queryInfo['execTime'] = $queryEndTime - $queryStartTime;
+        $queryInfo['timestamp'] = date('H:i:s');
+
+        if(empty($warnings)) {
+            Runtime::setDbInfo($queryInfo, $params, $stmnt->fetchAll(\PDO::FETCH_ASSOC),"Query was successful", "Success", 0);
+        }
+        else {
+            $warnings = $warnings[0];
+
+            Runtime::setDbInfo($queryInfo, $params, null, $warnings['Message'], $warnings['Level'], $warnings['Code']);
+        }
 
         $queryType = strtolower(explode(" ", $query)[0]);
 
@@ -48,7 +72,7 @@ class Query extends Connection
             return (int)$pdo->lastInsertId();
         }
 
-        return $stmnt->fetchAll(\PDO::FETCH_ASSOC);
+        return true;
     }
 
     /**
@@ -59,11 +83,45 @@ class Query extends Connection
     private static function processConditions(array $conditions) {
         $conditionsString = "";
 
+        if(sizeof($conditions) == 0)
+            return;
+
+        $conditionsString .= " WHERE ";
+
+        $i = 0;
+        foreach ($conditions as $key => $condition) {
+            if($i != 0 && isset($condition[2])) {
+                $conditionsString .= " $condition[2] ";
+            }
+
+            else if($i != 0 && !isset($condition[2])) {
+                $conditionsString .= " AND ";
+            }
+
+            $conditionsString .= $key;
+            $conditionsString .= " $condition[0] ";
+            $conditionsString .= ":$key";
+
+            $i++;
+        }
+
+        /*
         foreach ($conditions as $key => $condition) {
             $conditionsString .= " " . strtoupper($key) . " " . $condition;
         }
+        */
 
         return $conditionsString;
+    }
+
+    public static function processParams(array $conditions) {
+        $params = [];
+
+        foreach ($conditions as $key => $condition) {
+            $params[":$key"] = is_array($condition) ? $condition[1] : $condition;
+        }
+
+        return $params;
     }
 
     /**
@@ -73,14 +131,19 @@ class Query extends Connection
      * @return int $last_insert_id
      */
     public static function insertQuery(string $table, array $columns) {
-        # Looping through all columns, adding quotes to strings
-        foreach ($columns as $key => $column) {
-            if(is_string($column)) {
-                $columns[$key] = "'" . $column . "'";
-            }
+        $insert = "INSERT INTO " . $table . " (" . implode(",", array_keys($columns)) . ") ";
+        $values = "VALUES (";
+
+        foreach (array_keys($columns) as $key => $column) {
+            $values .= ":$column";
+
+            if($key != sizeof($columns) - 1)
+                $values .= ",";
         }
 
-        return (int)self::rawQuery("INSERT INTO " . $table . " (" . implode(",", array_keys($columns)) . ") VALUES (" . implode(",", $columns) . ")");
+        $values .= ")";
+
+        return (int)self::rawQuery($insert . $values, $columns);
     }
 
     /**
@@ -92,7 +155,7 @@ class Query extends Connection
      * @return array|mixed
      */
     public static function selectQuery(string $table, array $columns, array $conditions = []) {
-        $data = self::rawQuery("SELECT " . implode(",", $columns) . " FROM " . $table . Query::processConditions($conditions));
+        $data = self::rawQuery("SELECT " . implode(",", $columns) . " FROM " . $table . self::processConditions($conditions), self::processParams($conditions));
 
         if(sizeof($data) == 0)
             return [];
@@ -101,8 +164,10 @@ class Query extends Connection
 
             if(sizeof($keys) > 1)
                 return $data[0];
-            else
-                return $data[0][$keys[0]];
+            else {
+                if(!empty($data[0]))
+                    return $data[0][$keys[0]];
+            }
         }
         else
             return $data;
@@ -114,7 +179,7 @@ class Query extends Connection
      * @param array $conditions
      */
     public static function deleteQuery(string $table, array $conditions) {
-        self::rawQuery("DELETE FROM " . $table . " WHERE " . Query::processConditions($conditions));
+        self::rawQuery("DELETE FROM " . $table . self::processConditions($conditions), self::processParams($conditions));
     }
 
     /**
@@ -126,14 +191,19 @@ class Query extends Connection
     public static function updateQuery(string $table, array $columns, array $conditions) {
         $columnsString = "";
 
-        foreach ($columns as $key => $column) {
+        foreach (array_keys($columns) as $key) {
             if(!empty($columnsString))
-                $columnsString .= ", $key='$column'";
+                $columnsString .= ", $key = :$key";
             else
-                $columnsString .= " SET $key='$column'";
+                $columnsString .= " SET $key = :$key";
         }
 
-        self::rawQuery("UPDATE " . $table . $columnsString . Query::processConditions($conditions));
+        $conditionsArray = [];
+
+        $conditionsArray = array_merge($conditionsArray, self::processParams($columns));
+        $conditionsArray = array_merge($conditionsArray, self::processParams($conditions));
+
+        self::rawQuery("UPDATE " . $table . $columnsString . self::processConditions($conditions), $conditionsArray);
     }
 
     public static function isColumn(string $table, string $column) {
