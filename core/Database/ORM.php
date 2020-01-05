@@ -56,7 +56,7 @@ abstract class ORM extends Query
         }
 
         if($this->id !== null) {
-            $person = Query::selectQuery($this->db['table'], ["*"], [
+            $person = Query::select($this->db['table'], ["*"], [
                 "id" => ["=", $this->id]
             ]);
 
@@ -95,18 +95,18 @@ abstract class ORM extends Query
 
         # If row exists in DB, update it
         if($this->id !== null) {
-            Query::updateQuery($this->db['table'], $columns, [
+            Query::update($this->db['table'], $columns, [
                 'id' => ["=", $this->id]
             ]);
         }
 
         # If row does not exist in DB, insert it
         else {
-            $this->id = Query::insertQuery($this->db['table'], $columns);
+            $this->id = Query::insert($this->db['table'], $columns);
         }
     }
 
     protected function deleteORM() {
-        Query::deleteQuery($this->db['table'], ["id" => ["=", $this->id]]);
+        Query::delete($this->db['table'], ["id" => ["=", $this->id]]);
     }
 }

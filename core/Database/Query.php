@@ -15,7 +15,7 @@ class Query extends Connection
      * @param bool $report_err
      * @return mixed
      */
-    public static function rawQuery(string $query, array $params = [], $escape = true, $report_err = true) {
+    public static function raw(string $query, array $params = [], $escape = true, $report_err = true) {
         $pdo = self::connect();
 
         $stmnt = $pdo->prepare($query);
@@ -130,7 +130,7 @@ class Query extends Connection
      * @param array $columns
      * @return int $last_insert_id
      */
-    public static function insertQuery(string $table, array $columns) {
+    public static function insert(string $table, array $columns) {
         $insert = "INSERT INTO " . $table . " (" . implode(",", array_keys($columns)) . ") ";
         $values = "VALUES (";
 
@@ -143,7 +143,7 @@ class Query extends Connection
 
         $values .= ")";
 
-        return (int)self::rawQuery($insert . $values, $columns);
+        return (int)self::raw($insert . $values, $columns);
     }
 
     /**
@@ -154,8 +154,8 @@ class Query extends Connection
      * @param Query $instance
      * @return array|mixed
      */
-    public static function selectQuery(string $table, array $columns, array $conditions = []) {
-        $data = self::rawQuery("SELECT " . implode(",", $columns) . " FROM " . $table . self::processConditions($conditions), self::processParams($conditions));
+    public static function select(string $table, array $columns, array $conditions = []) {
+        $data = self::raw("SELECT " . implode(",", $columns) . " FROM " . $table . self::processConditions($conditions), self::processParams($conditions));
 
         if(sizeof($data) == 0)
             return [];
@@ -178,8 +178,8 @@ class Query extends Connection
      * @param string $table
      * @param array $conditions
      */
-    public static function deleteQuery(string $table, array $conditions) {
-        self::rawQuery("DELETE FROM " . $table . self::processConditions($conditions), self::processParams($conditions));
+    public static function delete(string $table, array $conditions) {
+        self::raw("DELETE FROM " . $table . self::processConditions($conditions), self::processParams($conditions));
     }
 
     /**
@@ -188,7 +188,7 @@ class Query extends Connection
      * @param array $columns
      * @param array $conditions
      */
-    public static function updateQuery(string $table, array $columns, array $conditions) {
+    public static function update(string $table, array $columns, array $conditions) {
         $columnsString = "";
 
         foreach (array_keys($columns) as $key) {
@@ -203,11 +203,11 @@ class Query extends Connection
         $conditionsArray = array_merge($conditionsArray, self::processParams($columns));
         $conditionsArray = array_merge($conditionsArray, self::processParams($conditions));
 
-        self::rawQuery("UPDATE " . $table . $columnsString . self::processConditions($conditions), $conditionsArray);
+        self::raw("UPDATE " . $table . $columnsString . self::processConditions($conditions), $conditionsArray);
     }
 
     public static function isColumn(string $table, string $column) {
-        $result = self::rawQuery("SHOW COLUMNS FROM `$table` LIKE '$column'");
+        $result = self::raw("SHOW COLUMNS FROM `$table` LIKE '$column'");
 
         return sizeof($result) != 0 ? true : false;
     }
