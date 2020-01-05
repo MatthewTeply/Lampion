@@ -48,8 +48,10 @@ class Query extends Connection
         $queryInfo['execTime'] = $queryEndTime - $queryStartTime;
         $queryInfo['timestamp'] = date('H:i:s');
 
+        $result = $stmnt->fetchAll(\PDO::FETCH_ASSOC);
+
         if(empty($warnings)) {
-            Runtime::setDbInfo($queryInfo, $params, $stmnt->fetchAll(\PDO::FETCH_ASSOC),"Query was successful", "Success", 0);
+            Runtime::setDbInfo($queryInfo, $params, $result,"Query was successful", "Success", 0);
         }
         else {
             $warnings = $warnings[0];
@@ -60,19 +62,17 @@ class Query extends Connection
         $queryType = strtolower(explode(" ", $query)[0]);
 
         if($queryType == "select") {
-            $data = $stmnt->fetchAll(\PDO::FETCH_ASSOC);
+            if($result == null)
+                return [$result]; # Return data in array, only containing null in the position 0
 
-            if($data == null)
-                return [$data]; # Return data in array, only containing null in the position 0
-
-            return $data;
+            return $result;
         }
 
         if($queryType == "insert") {
             return (int)$pdo->lastInsertId();
         }
 
-        return true;
+        return $result;
     }
 
     /**

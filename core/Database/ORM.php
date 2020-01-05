@@ -14,7 +14,7 @@ abstract class ORM extends Query
      * Save method, where the saveORM method is going to be used
      * @return mixed
      */
-    abstract public function save();
+    abstract public function persist();
 
     static $dbVarName = 'db';
 

@@ -19,7 +19,7 @@ class User extends ORM
         $this->pwd = password_hash($pwd, PASSWORD_DEFAULT);
     }
 
-    public function save() {
+    public function persist() {
         $this->saveORM();
     }
 }

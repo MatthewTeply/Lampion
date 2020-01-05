@@ -14,10 +14,15 @@ class Url
         $paramsString = "?";
 
         foreach ($params as $key => $value) {
-            if($paramsString == "?")
-                $paramsString .= "$key=$value";
-            else
-                $paramsString .= "&$key=$value";
+            $paramTranslated = !empty($value) ? "$key=$value" : $key;
+
+            if($paramsString == "?") {
+                $paramsString .= "$paramTranslated";
+            }
+
+            else {
+                $paramsString .= "&$paramTranslated";
+            }
         }
 
         return $paramsString != "?" ? $paramsString : "";
@@ -39,7 +44,15 @@ class Url
      * @return string
      */
     public static function link(string $route, array $params = []) {
-        return rtrim(preg_replace('#/+#', "/", WEB_ROOT . Application::name() . "/$route" . self::processParams($params)));
+        $webRoot = WEB_ROOT;
+
+        if(WEB_ROOT == "localhost/" || WEB_ROOT == "127.0.0.1/") {
+            $webRoot = str_replace($_SERVER['DOCUMENT_ROOT'],'', getcwd());
+        }
+
+        $link = rtrim(preg_replace('#/+#', "/", $webRoot . Application::name() . "/$route" . self::processParams($params)));
+
+        return $link;
     }
 
     /**
