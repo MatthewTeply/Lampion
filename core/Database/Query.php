@@ -209,6 +209,9 @@ class Query extends Connection
     public static function isColumn(string $table, string $column) {
         $result = self::raw("SHOW COLUMNS FROM `$table` LIKE '$column'");
 
-        return sizeof($result) != 0 ? true : false;
+        if(is_array($result))
+            return sizeof($result) != 0 ? true : false;
+        elseif(is_bool($result))
+            return $result;
     }
 }

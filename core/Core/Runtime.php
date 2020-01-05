@@ -46,7 +46,7 @@ class Runtime
             $paramsInfo[$key]['value'] = $param;
             $paramsInfo[$key]['type']  = gettype($param);
 
-            $queryTranslated = str_replace($key, is_string($param) ? "'$param'" : $param, $queryTranslated);
+            $queryTranslated = str_replace(":$key", is_string($param) ? "'$param'" : $param, $queryTranslated);
         }
 
         $_SESSION['Lampion']['DB']['queryCount']++; // Add one to query count
