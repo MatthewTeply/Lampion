@@ -4,7 +4,7 @@
 define('ROOT', getcwd() . "/");
 define('WEB_ROOT', $_SERVER['HTTP_HOST'] . "/");
 
-define('CORE', "core/");
+define('KERNEL', "kernel/");
 define('APP', "app/");
 define('CONFIG', "config/");
 define('TOOLS', 'tools/');

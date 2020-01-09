@@ -5,7 +5,7 @@ namespace Lampion\Core;
 class Autoloader
 {
     /**
-     * Registers all core functions, as well as current application's methods
+     * Registers all kernel functions, as well as current application's methods
      */
     public static function register() {
         spl_autoload_register(function($className) {
@@ -14,9 +14,9 @@ class Autoloader
             $app       = array_shift($classNameExplode);
             $className = implode("/", $classNameExplode);
 
-            # If core classes are called
+            # If kernel classes are called
             if($app == "Lampion") {
-                $source = CORE;
+                $source = KERNEL;
             }
 
             # If application classes are called

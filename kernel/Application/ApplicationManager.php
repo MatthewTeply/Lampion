@@ -19,12 +19,12 @@ class ApplicationManager
 
         if(isset($_GET['url'])) {
             $_GET['url'] = rtrim($_GET['url'], '/'); // Remove trailing slashes from URL
-    
+
             # If the first URL param is the app's name, remove it
             if(explode("/", $_GET['url'])[0] == $app && sizeof(explode("/", $_GET['url'])) > 1) {
                 $_GET['url'] = explode("$app/", $_GET['url'])[1];
             }
-    
+
             # Set default homepage
             if(!isset($_GET['url']) || $_GET['url'] == $app) {
                 $_GET['url'] = DEFAULT_HOMEPAGE;
@@ -37,5 +37,20 @@ class ApplicationManager
 
         # Require app.php, where app gets configured and all the routes get registered
         require_once APP . "$app/app.php";
+    }
+
+    public static function getApps() {
+        $appDirs = scandir(APP);
+        $apps = [];
+
+        foreach($appDirs as $key => $dir) {
+            if($dir[0] !== ".") {
+                if(is_file(APP . "$dir/app.manifest.json")) {
+                    $apps[$dir] = json_decode(file_get_contents(APP . "$dir/app.manifest.json"));
+                }
+            }
+        }
+
+        return $apps;
     }
 }

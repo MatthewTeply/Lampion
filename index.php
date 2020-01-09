@@ -10,7 +10,7 @@ require_once 'config/config.defaults.php';
 
 # Loading all necessary classes
 require_once 'vendor/autoload.php';
-require_once 'core/Bootstrap.php';
+require_once 'kernel/Bootstrap.php';
 
 $ru = getrusage();
 \Lampion\Core\Runtime::rutime($ru, $rustart, "utime");
