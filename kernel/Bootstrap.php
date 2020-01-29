@@ -2,6 +2,9 @@
 
 require_once 'Core/Autoloader.php';
 
+$dotenv = \Dotenv\Dotenv::create(".");
+$dotenv->load();
+
 # Sorting out URL and app
 if(isset($_GET['url'])) {
     $firstUrlParam = explode("/", $_GET['url'])[0];
@@ -23,12 +26,17 @@ else {
 }
 
 # Initializing default session variables
-$_SESSION['Lampion']['app'] = $app;
+$_SESSION['Lampion']['app']              = $app;
 $_SESSION['Lampion']['DB']['queryCount'] = 0;
-$_SESSION['Lampion']['DB']['queries'] = [];
+$_SESSION['Lampion']['DB']['queries']    = [];
+$_SESSION['Lampion']['scripts']          = [];
 
 # Initializing global variables
 $_ERRORS = [];
 
 \Lampion\Core\Autoloader::register();
+\Lampion\Core\Autoloader::registerPluginFunctions();
+\Lampion\Core\Autoloader::registerShutdownFunctions();
+
 \Lampion\Application\ApplicationManager::init();
+\Lampion\Database\Initializer::checkKernelTables();

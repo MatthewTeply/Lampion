@@ -72,6 +72,18 @@ class ControllerLoader
     }
 
     /**
+     * Loads js
+     * @param string $path
+     */
+    public static function script(string $path) {
+        $path = WEB_ROOT . $path;
+
+        if(!in_array($path, $_SESSION['Lampion']['scripts'])) {
+            $_SESSION['Lampion']['scripts'][] = $path;
+        }
+    }
+
+    /**
      * @return View
      */
     public function view() {

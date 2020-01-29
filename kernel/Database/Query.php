@@ -214,4 +214,8 @@ class Query extends Connection
         elseif(is_bool($result))
             return $result;
     }
+
+    public static function tableExists(string $tableName) {
+        return self::raw("DESCRIBE `$tableName`") ?? false;
+    }
 }

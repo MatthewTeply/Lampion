@@ -14,6 +14,6 @@ class Application
     }
 
     public static function name() {
-        return $_SESSION['Lampion']['app'] != DEFAULT_APP ? $_SESSION['Lampion']['app'] : "";
+        return $_SESSION['Lampion']['app'];
     }
 }

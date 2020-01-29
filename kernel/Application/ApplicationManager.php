@@ -39,7 +39,7 @@ class ApplicationManager
         require_once APP . "$app/app.php";
     }
 
-    public static function getApps() {
+    public static function apps() {
         $appDirs = scandir(APP);
         $apps = [];
 

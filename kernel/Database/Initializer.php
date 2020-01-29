@@ -2,12 +2,16 @@
 
 namespace Lampion\Database;
 
-use Lampion\Application\ApplicationManager;
 use Lampion\Database\Query;
 
 class Initializer
 {
-    public function __construct() {
-        echo ApplicationManager::getApps()['monitor']->color;
+    /**
+     * This method checks if tables that are required by Kernel exist, if they don't, they will be created
+     */
+    public static function checkKernelTables() {
+        if(!Query::tableExists("app")) {
+            Query::raw(file_get_contents(KERNEL_SQL . "app.sql"));
+        }
     }
 }

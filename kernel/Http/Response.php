@@ -19,4 +19,11 @@ class Response
     public function view() {
         return $this->loader->view();
     }
+
+    public function send($msg) {
+        if(is_array($msg))
+            print_r($msg);
+        else
+            echo $msg;
+    }
 }

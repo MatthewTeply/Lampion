@@ -1,25 +1,45 @@
 <?php
+/**
+ * Lampion Framework File System by Matyáš Teplý - 2020
+ * ----------------------------------------------------
+ * Basic filesystem written from scratch
+ */
+
+# TODOs
+// TODO: Replace vanilla PHP Exceptions with Lampion Exceptions, so they can be caught by Monitor
+// TODO: Download method
 
 namespace Lampion\Core;
 
+use Exception;
 use Lampion\Application\Application;
 
 class FileSystem {
 
     private $storagePath;
 
-    public function __construct() {
-        $this->storagePath = ROOT . APP . Application::name() . "/" . STORAGE;
+    /**
+     * FileSystem constructor. If the storagePath param remains null, it defaults to current app's storage directory
+     * @param null $storagePath
+     */
+    public function __construct($storagePath = null) {
+        if($storagePath === null) {
+            $this->storagePath = ROOT . APP . Application::name() . STORAGE;
+        }
+
+        else {
+            $this->storagePath = $storagePath;
+        }
     }
 
     /**
      * @param $file
-     * @param $dir
+     * @param string $dir
      * @param array $allowedExts
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
-    public function upload($file, $dir, $allowedExts = array()) {
+    public function upload($file, string $dir, array $allowedExts = []) {
         $fileName       = $file['name'];
         $fileSize       = $file['size'];
         $fileTmpName    = $file['tmp_name'];
@@ -30,21 +50,21 @@ class FileSystem {
         $fileExtenstion = strtolower(end($fileExtenstion));
 
         if(!empty($allowedExts) && !in_array($fileExtenstion, $allowedExts)) {
-            throw new \Exception("File extension .$fileExtenstion is not allowed!");
+            throw new Exception("File extension '.$fileExtenstion' is not allowed!");
         }
 
         $uploadPath = $this->storagePath . $dir . basename($fileName);
 
         if(is_file($uploadPath)) {
-            throw new \Exception("File '$uploadPath' already exists!");
+            throw new Exception("File '$uploadPath' already exists!");
         }
 
         if($fileError) {
-            throw new \Exception($fileError);
+            throw new Exception($fileError);
         }
 
         if($fileSize > MAX_FILESIZE) {
-            throw new \Exception("File size exceeded file size limit!");
+            throw new Exception("File size exceeded file size limit!");
         }
 
         if(move_uploaded_file($fileTmpName, $uploadPath)) {
@@ -52,21 +72,21 @@ class FileSystem {
         }
 
         else {
-            throw new \Exception("There was an error moving the file!");
+            throw new Exception("There was an error moving the file!");
         }
     }
 
     /**
      * Returns a path of a file, if it is found in app's storage
-     * @param string $file
+     * @param string $path
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
-    public function path(string $file): string {
-        $path = $this->storagePath . $file;
+    public function path(string $path): string {
+        $path = $this->storagePath . $path;
 
-        if(!is_file($path)) {
-            throw new \Exception("'$file' does not exist!");
+        if(!is_file($path) || !is_dir($path)) {
+            throw new Exception("'$path' does not exist!");
         }
 
         return $path;
@@ -76,11 +96,11 @@ class FileSystem {
      * @param string $file
      * @param string $path
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function mv(string $file, string $path): bool {
         if(!rename($this->storagePath . $file, $this->storagePath . $path)) {
-            throw new \Exception("File could not be moved!");
+            throw new Exception("File could not be moved!");
         }
 
         return true;
@@ -89,107 +109,96 @@ class FileSystem {
     /**
      * @param string $file
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function rm(string $file): bool {
         if(!unlink($this->storagePath . $file)) {
-            throw new \Exception("File could not be deleted!");
+            throw new Exception("File could not be deleted!");
         }
 
         return true;
     }
 
     /**
-     * @param string $dir_name
-     * @param bool $listDirs
+     * Lists directory items
+     * @param string $path
+     * @param array $flags
+     *     -files = Lists only files
+     *     -dirs  = Lists only directories
+     *     <empty> = Lists both, combination of both -files and -dirs can also be used
      * @return array
+     * @throws Exception
      */
-    public function listFiles(string $dir_name, bool $listDirs = false): array {
-        if(!is_dir($dir_name)) {
-            return [];
-        }
+    public function ls(string $path, array $flags = []) {
+        $fullPath = $this->storagePath . $path;
 
-        $dir = scandir($dir_name);
+        if(is_dir($fullPath)) {
+            $files = [];
+            $dirs = [];
 
-        $real_path = explode("\\", realpath($dir_name));
+            $items = scandir($fullPath);
 
-        if(!$listDirs || end($real_path) == STORAGE) {
-            $dir = array_diff($dir, array(".", ".."));
+            # Get rid of the . and ..
+            unset($items[0]);
+            unset($items[1]);
+
+            foreach ($items as $key => $item) {
+                if(!in_array("-dirs", $flags)) {
+                    if(is_file($fullPath . $item)) {
+                        $ext = explode(".", $item);
+
+                        $files[] = [
+                            'name'         => $item,
+                            'relativePath' => $path . $item,
+                            'fullPath'     => $fullPath . $item,
+                            'extension'    => end($ext),
+                            'size'         => $this->fileSize($path . $item)
+                        ];
+                    }
+                }
+
+                if(!in_array("-files", $flags)) {
+                    if(is_dir($fullPath . $item)) {
+                        $dirs[] = [
+                            'name'         => $item,
+                            'relativePath' => $path . $item,
+                            'fullPath'     => $fullPath . $item,
+                            'size'         => $this->dirSize($path . "$item/")
+                        ];
+                    }
+                }
+            }
+
+            if((in_array("-files", $flags) && in_array("-dirs", $flags)) || empty($flags)) {
+                return [
+                    'files' => $files,
+                    'dirs'  => $dirs
+                ];
+            }
+
+            elseif(!in_array("-files", $flags)) {
+                return $dirs;
+            }
+
+            elseif(!in_array("-dirs", $flags)) {
+                return $files;
+            }
         }
 
         else {
-            $dir = array_diff($dir, array("."));
+            throw new Exception("'$this->storagePath$path' is not a directory!");
         }
-
-        $dir = array_values($dir);
-        $dir_final = array();
-
-        foreach($dir as $file) {
-            if(is_dir($dir_name . $file) && !$listDirs) {
-                continue;
-            }
-
-            $file_ext = "";
-
-            if(strpos($file, ".")) {
-                $file_ext = explode(".", $file);
-                $file_ext = end($file_ext);
-                $isDir = false;
-            }
-
-            else {
-                $isDir = true;
-            }
-
-            $dir_final[] = array(
-                "name"  => $file,
-                "ext"   => $file_ext,
-                "isDir" => $isDir
-            );
-        }
-
-        return $dir_final;
-    }
-
-    /**
-     * @param string $dir_name
-     * @return array
-     * @throws \Exception
-     */
-    public function listDirs(string $dir_name) {
-        if(!is_dir($dir_name)) {
-            throw new \Exception("'$dir_name' is not a directory!");
-        }
-
-        $dir = scandir($dir_name);
-
-        $dir = array_diff($dir, array(".", ".."));
-
-        $dir = array_values($dir);
-        $dir_final = array();
-
-        foreach($dir as $file) {
-            if(!is_dir($dir_name . $file)) {
-                continue;
-            }
-
-            $dir_final[] = array(
-                "name"  => $file
-            );
-        }
-
-        return $dir_final;
     }
 
     /**
      * @param string $file
      * @param string $name
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function rename(string $file, string $name): bool {
         if(!rename($this->storagePath . $file, $this->storagePath . $name)) {
-            throw new \Exception("File '$file' could not be renamed!");
+            throw new Exception("File '$file' could not be renamed!");
         }
 
         return true;
@@ -199,13 +208,14 @@ class FileSystem {
      * Returns size of a directory
      * @param string $dir
      * @return float
+     * @throws Exception
      */
     public function dirSize(string $dir): float {
-        $files = $this->listFiles($this->storagePath . $dir);
+        $files = $this->ls($dir, ["-files"]);
         $total_size = 0;
 
         foreach($files as $file) {
-            $total_size += filesize($this->storagePath . $dir . "/" . $file['name']);
+            $total_size += filesize($file['fullPath']);
         }
 
         return round((float)$total_size / 1000000, 2);
@@ -223,21 +233,21 @@ class FileSystem {
     /**
      * @param string $dirName
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function mkdir(string $dirName): bool {
         if(!mkdir($this->storagePath . htmlspecialchars($dirName), 0777, true)) {
-            throw new \Exception("Directory '$dirName' could not be created!");
+            throw new Exception("Directory '$dirName' could not be created!");
         }
 
         return true;
     }
 
     /**
-     * @param $dir
+     * @param string $dir
      * @return bool
      */
-    function rmdir($dir) {
+    function rmdir(string $dir) {
         $dir = $this->storagePath . $dir;
 
         $i = new DirectoryIterator($dir);
@@ -252,6 +262,30 @@ class FileSystem {
 
         rmdir($dir);
         return true;
+    }
+
+    /**
+     * @param string $source
+     * @param string $destination
+     * @return bool
+     * @throws Exception
+     */
+    function cp(string $source, string $destination) {
+        if(!is_file($this->storagePath . $source)) {
+            throw new Exception("'$source' is not a file!");
+        }
+
+        if(is_file($this->storagePath . $destination . $source)) {
+            throw new Exception("'$source' already exists in '$destination'!");
+        }
+
+        if(copy($this->storagePath . $source, $this->storagePath . $destination . $source)) {
+            return true;
+        }
+
+        else {
+            throw new Exception("Could not copy '$source'!");
+        }
     }
 
 }

@@ -21,7 +21,7 @@ class Runtime
      * @return array
      */
     public static function execTime() {
-        return $_SESSION['Lampion']['execTime'];
+        return $_SESSION['Lampion']['execTime'] ?? null;
     }
 
     /**

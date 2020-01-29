@@ -11,18 +11,21 @@ class View {
 
     private $twig;
     private $app;
+    private $isPlugin;
 
     /**
      * View constructor.
-     * @param $templateFolder
-     * @param $app
+     * @param string $templateFolder
+     * @param string $app
+     * @param bool $isPlugin
      */
-    public function __construct($templateFolder, $app)
+    public function __construct(string $templateFolder, string $app, bool $isPlugin = false)
     {
         $loader = new FilesystemLoader($templateFolder);
         $this->twig = new Environment($loader);
 
         $this->app = $app;
+        $this->isPlugin = $isPlugin;
     }
 
     /**
@@ -35,9 +38,17 @@ class View {
      * @throws \Twig\Error\SyntaxError
      */
     public function render(string $path, array $args = []) {
-        $args['__css__']     = APP . $this->app . CSS;
-        $args['__scripts__'] = APP . $this->app . SCRIPTS;
-        $args['__img__']     = APP . $this->app . IMG;
+        if($this->isPlugin) {
+            $initialPath = PLUGINS;
+        }
+
+        else {
+            $initialPath = APP;
+        }
+
+        $args['__css__']     = $initialPath . $this->app . CSS;
+        $args['__scripts__'] = $initialPath . $this->app . SCRIPTS;
+        $args['__img__']     = $initialPath . $this->app . IMG;
 
         echo $this->twig->render("$path.twig", !empty($args) ? $args : get_object_vars($this));
 
@@ -68,5 +79,4 @@ class View {
             return new Markup($this->twig->render("$path.twig", $args), 'UTF-8');
         }
     }
-
 }
