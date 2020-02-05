@@ -2,7 +2,7 @@
 
 # Core framework paths
 define('ROOT', getcwd() . "/");
-define('WEB_ROOT', $_SERVER['HTTP_HOST'] == "localhost" ? "http://" . $_SERVER['HTTP_HOST'] . "/" . explode("htdocs/", dirname(__DIR__))[1] . "/" : $_SERVER['HTTP_HOST']);
+define('WEB_ROOT', $_SERVER['HTTP_HOST'] == "localhost" ? "http://" . $_SERVER['HTTP_HOST'] . "/" . explode("htdocs\\", dirname(__DIR__))[1] . "/" : $_SERVER['HTTP_HOST']);
 
 define('KERNEL', "kernel/");
 define('APP', "app/");
@@ -29,7 +29,7 @@ define('LANGUAGE', DATA . "language/");
 define('SQL', DATA . "sql/");
 define('STORAGE', DATA . "storage/");
 
-# Plugin paths
+# Loader paths
 define('PLUGINS', "plugins/");
 
 # Files

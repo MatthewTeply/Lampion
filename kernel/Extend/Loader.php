@@ -5,9 +5,11 @@ namespace Lampion\Extend;
 use Lampion\Controller\ControllerLoader;
 use Lampion\View\View;
 
-class Plugin
+class Loader
 {
     private static function getCaller(array $backtrace) {
+        $backtrace[0]['file'] = str_replace("\\", "/", $backtrace[0]['file']);
+
         return explode("/", explode(PLUGINS, $backtrace[0]['file'])[1])[0];
     }
 
