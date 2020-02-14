@@ -65,7 +65,7 @@ class ControllerLoader
      */
     public function language(string $path) {
         return $this->loadFile(
-            APP . "$this->app/data/language/$path.lang.php",
+            APP . "$this->app/var/language/$path.lang.php",
             $path,
             "language"
         );

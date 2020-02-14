@@ -63,7 +63,7 @@ class Query extends Connection
 
         if($queryType == "select") {
             if($result == null)
-                return [$result]; # Return data in array, only containing null in the position 0
+                return [$result]; # Return var in array, only containing null in the position 0
 
             return $result;
         }
@@ -159,16 +159,6 @@ class Query extends Connection
 
         if(sizeof($data) == 0)
             return [];
-        elseif(sizeof($data) == 1) {
-            $keys = array_keys($data[0]);
-
-            if(sizeof($keys) > 1)
-                return $data[0];
-            else {
-                if(!empty($data[0]))
-                    return $data[0][$keys[0]];
-            }
-        }
         else
             return $data;
     }

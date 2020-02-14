@@ -1,6 +1,6 @@
 <?php
 
-# Core framework paths
+# Kernel paths
 define('ROOT', getcwd() . "/");
 define('WEB_ROOT', $_SERVER['HTTP_HOST'] == "localhost" ? "http://" . $_SERVER['HTTP_HOST'] . "/" . explode("htdocs\\", dirname(__DIR__))[1] . "/" : $_SERVER['HTTP_HOST']);
 
@@ -9,8 +9,10 @@ define('APP', "app/");
 define('CONFIG', "config/");
 define('TOOLS', 'tools/');
 
-define('KERNEL_DATA', 'data/');
-define('KERNEL_SQL', KERNEL_DATA . 'sql/');
+define('KERNEL_VAR', 'var/');
+define('KERNEL_SQL', KERNEL_VAR . 'sql/');
+
+define('KERNEL_USR', 'usr/');
 
 # App paths
 define('SRC', "/src/");
@@ -24,10 +26,12 @@ define('CSS', ASSETS . "css/");
 define('IMG', ASSETS . "images/");
 define('SCRIPTS', ASSETS . "scripts/");
 
-define('DATA', "/data/");
-define('LANGUAGE', DATA . "language/");
-define('SQL', DATA . "sql/");
-define('STORAGE', DATA . "storage/");
+define('APP_VAR', "/var/");
+define('LANGUAGE', APP_VAR . "language/");
+define('SQL', APP_VAR . "sql/");
+define('STORAGE', APP_VAR . "storage/");
+
+define('USR', '/usr/');
 
 # Loader paths
 define('PLUGINS', "plugins/");

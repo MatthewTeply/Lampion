@@ -16,7 +16,11 @@ class Session
         return $_SESSION[$name];
     }
 
-    public static function getId() {
+    public function destroy() {
+        session_destroy();
+    }
+
+    public static function id() {
         return session_id();
     }
 }

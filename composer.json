@@ -5,6 +5,7 @@
     "require": {
         "twig/twig": "3.0",
         "vlucas/phpdotenv": "^3.6",
-      "ext-json": "*"
+      "ext-json": "*",
+        "doctrine/inflector": "^1.3"
     }
 }

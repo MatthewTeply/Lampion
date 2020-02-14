@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Core/Autoloader.php';
+require_once 'vendor/autoload.php';
 
 $dotenv = \Dotenv\Dotenv::create(".");
 $dotenv->load();

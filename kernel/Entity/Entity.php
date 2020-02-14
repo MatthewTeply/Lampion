@@ -1,20 +1,27 @@
 <?php
 
-namespace Lampion\Database;
+namespace Lampion\Entity;
 
-abstract class ORM extends Query
+use Lampion\Database\Query;
+use Doctrine\Common\Inflector\Inflector;
+
+abstract class Entity
 {
     /**
-     * ORM constructor.
+     * Entity constructor.
      * @param $id
      */
     abstract public function __construct($id = null);
 
     /**
-     * Save method, where the saveORM method is going to be used
-     * @return mixed
+     * Method for saving entity, persisting it
      */
     abstract public function persist();
+
+    /**
+     * Method for destroying entity, deleting it
+     */
+    abstract public function destroy();
 
     static $dbVarName = 'db';
 
@@ -27,7 +34,7 @@ abstract class ORM extends Query
      * @param string $table
      * @param array $columns
      */
-    protected function initORM($id, string $table = null, array $columns = []) {
+    protected function init($id, string $table = null, array $columns = []) {
         $this->id = $id;
 
         # If table remains empty, it is presumed that table name is the same as class name
@@ -43,25 +50,37 @@ abstract class ORM extends Query
         }
 
         $this->db['table'] = $table;
+        
+        # Check if table with entity's name exists, if not try pluralizing it, if that doesn't exist, return false
+        if(!Query::tableExists($this->db['table'])) {
+            $this->db['table'] = Inflector::pluralize($this->db['table']);
+
+            if(!Query::tableExists($this->db['table'])) {
+                return false;
+            }
+        }
 
         # If columns remain empty, it is presumed that var names and table column names are the same
         if(empty($columns)) {
             foreach (get_object_vars($this) as $key => $var) {
                 if($key != self::$dbVarName && $key != "id") {
-                    if(self::isColumn($table, $key)) {
+                    if(Query::isColumn($this->db['table'], $key)) {
                         $columns[$key] = $key;
                     }
                 }
             }
         }
 
+        # If id is specified, insert table values into entity's variables
         if($this->id !== null) {
-            $person = Query::select($this->db['table'], ["*"], [
+            $tableVals = Query::select($this->db['table'], ["*"], [
                 "id" => ["=", $this->id]
             ]);
 
-            foreach ($columns as $key => $column) {
-                $this->$column = $person[$key];
+            if(!empty($tableVals[0])) {
+                foreach ($columns as $key => $column) {
+                    $this->$column = $tableVals[0][$key];
+                }
             }
         }
     }
@@ -70,13 +89,13 @@ abstract class ORM extends Query
      * 'Saves' ORM values, either inserts them if ID is no set, or updates if it is
      * @param array $columns
      */
-    protected function saveORM(array $columns = []) {
+    protected function save(array $columns = []) {
         # If columns remain empty, it is presumed that var names and table column names are the same
         # If the columns are empty and the id is null, that means we want to create a new entry with table column names same as variable names
         if(empty($columns)) {
             foreach (get_object_vars($this) as $key => $var) {
                 if($key != self::$dbVarName && $key != "id") {
-                    if(self::isColumn($this->db['table'], $key)) {
+                    if(Query::isColumn($this->db['table'], $key)) {
                         if(!empty($var)) {
                             $columns[$key] = $var;
                         }
@@ -98,15 +117,24 @@ abstract class ORM extends Query
             Query::update($this->db['table'], $columns, [
                 'id' => ["=", $this->id]
             ]);
+
+            return true;
         }
 
         # If row does not exist in DB, insert it
         else {
             $this->id = Query::insert($this->db['table'], $columns);
+
+            return true;
         }
     }
 
-    protected function deleteORM() {
+    protected function delete() {
+        if($this->id === null)
+            return false;
+
         Query::delete($this->db['table'], ["id" => ["=", $this->id]]);
+
+        return true;
     }
 }
