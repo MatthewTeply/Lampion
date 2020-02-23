@@ -1,0 +1,14 @@
+{% macro render(scriptName, code) %}
+<div class="card code-card">
+    <div class="card-header">
+        <i class="fas fa-code code-icon"></i> <b>{{ scriptName }}</b>
+    </div>
+    <div class="card-body" style="padding: 0;">
+        <pre style="margin: 0; height: 80%;">
+            <code class="language-php">
+                {{ code }}
+            </code>
+        </pre>
+    </div>
+</div>
+{% endmacro %}

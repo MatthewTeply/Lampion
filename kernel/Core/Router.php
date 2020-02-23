@@ -13,6 +13,12 @@ class Router
     public static $put    = array();
     public static $delete = array();
 
+    public $listening;
+
+    public function __construct() {
+        $this->listening = false;
+    }
+
     protected static function processURL($request_method, $request_method_args = null) {
         if($request_method_args) { # If method arguments are already set, don't get arguments from URL
             $request_method[$_GET['url']]['callback'](new Request($request_method_args), new Response);
@@ -78,41 +84,43 @@ class Router
         }
     }
 
-    public static function get(string $path, $callback) {
+    public function get(string $path, $callback) {
         self::$get[$path] = [
             "path"     => $path,
             "callback" => $callback
         ];
     }
 
-    public static function post(string $path, $callback) {
+    public function post(string $path, $callback) {
         self::$post[$path] = [
             "path" => $path,
             "callback" => $callback
         ];
     }
 
-    public static function put(string $path, $callback) {
+    public function put(string $path, $callback) {
         self::$put[$path] = [
             "path"     => $path,
             "callback" => $callback
         ];
     }
 
-    public static function delete(string $path, $callback) {
+    public function delete(string $path, $callback) {
         self::$delete[$path] = [
             "path" => $path,
             "callback" => $callback
         ];
     }
 
-    public static function redirect(string $to) {
+    public function redirect(string $to) {
         Url::redirect($to);
     }
 
-    public static function listen() {
+    public function listen() {
         $request_method = strtolower($_SERVER['REQUEST_METHOD']); # Get request methdos, and convert it to lowercase
         $_GET['url'] = rtrim($_GET['url'], '/'); # Trim trailing slashes
+
+        $this->listening = true;
 
         switch($request_method) {
             case "get":
@@ -130,6 +138,12 @@ class Router
             default:
                 die(ERR_NOT_FOUND);
                 break;
+        }
+    }
+
+    public function __destruct() {
+        if(!$this->listening) {
+            Runtime::error(1);
         }
     }
 }

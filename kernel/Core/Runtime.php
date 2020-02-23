@@ -2,6 +2,10 @@
 
 namespace Lampion\Core;
 
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
+use Twig\Markup;
+
 class Runtime
 {
     /**
@@ -62,5 +66,19 @@ class Runtime
             'status' => $status,
             'code' => $code
         ];
+    }
+
+    public static function error(int $errCode) {
+        $loader = new FilesystemLoader(KERNEL_TEMPLATES);
+        $twig = new Environment($loader);
+
+        $args['__templates__'] = KERNEL_TEMPLATES;
+        $args['__css__']       = KERNEL_ASSETS . 'css/';
+        $args['__scripts__']   = KERNEL_ASSETS . 'js/';
+        $args['__img__']       = KERNEL_ASSETS . 'img/';
+
+        $args['errCode'] = $errCode;
+
+        echo $twig->render('error_base.twig', $args);
     }
 }

@@ -1,0 +1,19 @@
+{% macro error(msg, errCode) %}
+    <div class="jumbotron jumbotron-fluid bg-danger">
+    <div class="container">
+        <h1 class="display-4"><i class="fas fa-skull-crossbones"></i> Error</h1>
+        <p class="lead" style="font-weight: 400;">{{ msg }}</p>
+        <p class="lead">Error code {{ errCode }}</p>
+    </div>
+    </div>
+{% endmacro %}
+
+{% macro warning(msg, errCode) %}
+    <div class="jumbotron jumbotron-fluid bg-warning">
+    <div class="container">
+        <h1 class="display-4"><i class="fas fa-exclamation-triangle"></i> Warning</h1>
+        <p class="lead" style="font-weight: 400;">{{ msg }}</p>
+        <p class="lead">Error code {{ errCode }}</p>
+    </div>
+    </div>
+{% endmacro %}

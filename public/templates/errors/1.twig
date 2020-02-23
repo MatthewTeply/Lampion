@@ -1,0 +1,28 @@
+{# Macros #}
+{% import "partials/code/php.twig" as php %}
+{% import "partials/error/error.twig" as error %}
+
+{{ error.error('Router has been initialized, but is not listening!', 1) }}
+
+<div class="container-fluid error-body">
+
+    <h5>You can make router listen using:</h5>
+    {{ php.render('app.php', '
+    $router->listen();' )}}
+
+    <h5>So the final <code>app.php</code> might look like this:</h5>
+    {{ php.render('app.php', '
+    use Lampion\\Core\\Router;
+    use Lampion\\Http\\Request;
+    use Lampion\\Http\\Response;
+
+    $router = new Router();
+
+    $router->get("home", function(Request $req, Response $res) {
+        $res->send("This is the homepage!");
+    });
+
+    $router->listen();'
+    )}}
+
+</div>
