@@ -17,7 +17,7 @@ class View {
      * View constructor.
      * @param string $templateFolder
      * @param string $app
-     * @param bool $isPlugin
+     * @param bool   $isPlugin
      */
     public function __construct(string $templateFolder, string $app, bool $isPlugin = false)
     {
@@ -31,7 +31,7 @@ class View {
     /**
      * Renders a templates
      * @param string $path
-     * @param array $args
+     * @param array  $args
      * @return $this
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
@@ -58,8 +58,8 @@ class View {
     /**
      * Loads a templates, if a Controller with the same directory path is found, it is used to render the templates with variables inserted
      * @param string $path
-     * @param array $args
-     * @param bool $rawTemplate
+     * @param array  $args
+     * @param bool   $rawTemplate
      * @param string $app
      * @return Markup
      * @throws \Twig\Error\LoaderError

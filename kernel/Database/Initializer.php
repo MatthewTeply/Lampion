@@ -17,7 +17,6 @@ class Initializer
         foreach ($kernelTables as $table) {
             if(!Query::tableExists($table)) {
                 Query::raw(file_get_contents(KERNEL_SQL . "$table.sql"));
-                ldm("Table $table created!");
             }
         }
     }

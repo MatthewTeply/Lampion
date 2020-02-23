@@ -4,7 +4,6 @@ namespace Lampion\Core;
 
 class Scheduler
 {
-
     /**
      * This function is for registering functions to be run at the very end of execution
      * @param string $funcName

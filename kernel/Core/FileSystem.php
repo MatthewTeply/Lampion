@@ -1,13 +1,12 @@
 <?php
 /**
  * Lampion Framework File System by Matyáš Teplý - 2020
- * ----------------------------------------------------
- * Basic filesystem written from scratch
+ *  Basic filesystem written from scratch
+ * 
+ * TODO:
+ * Replace vanilla PHP Exceptions with Lampion Exceptions, so they can be caught by Monitor
+ * Download method
  */
-
-# TODOs
-// TODO: Replace vanilla PHP Exceptions with Lampion Exceptions, so they can be caught by Monitor
-// TODO: Download method
 
 namespace Lampion\Core;
 

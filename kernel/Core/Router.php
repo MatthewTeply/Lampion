@@ -2,11 +2,9 @@
 
 namespace Lampion\Core;
 
-use http\Url;
 use Lampion\Http\Response;
 use Lampion\Http\Request;
-
-use Lampion\Core\Session;
+use Lampion\Http\Url;
 
 class Router
 {
@@ -109,7 +107,7 @@ class Router
     }
 
     public static function redirect(string $to) {
-        header("Location:" . self::$url->link($to));
+        Url::redirect($to);
     }
 
     public static function listen() {

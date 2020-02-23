@@ -10,9 +10,9 @@ class Query extends Connection
     /**
      * Performs a raw PDO query
      * @param string $query
-     * @param array $params
-     * @param bool $escape
-     * @param bool $report_err
+     * @param array  $params
+     * @param bool   $escape
+     * @param bool   $report_err
      * @return mixed
      */
     public static function raw(string $query, array $params = [], $escape = true, $report_err = true) {
@@ -77,7 +77,7 @@ class Query extends Connection
 
     /**
      * Processes conditions
-     * @param array $conditions
+     * @param array   $conditions
      * @return string $conditionsString
      */
     private static function processConditions(array $conditions) {
@@ -114,6 +114,10 @@ class Query extends Connection
         return $conditionsString;
     }
 
+    /**
+     * Processes array of conditions into a string, that is readable by SQL
+     * @param array $conditions
+     */
     public static function processParams(array $conditions) {
         $params = [];
 
@@ -127,8 +131,8 @@ class Query extends Connection
     /**
      * Performs an INSERT query
      * @param string $table
-     * @param array $columns
-     * @return int $last_insert_id
+     * @param array  $columns
+     * @return int   $last_insert_id
      */
     public static function insert(string $table, array $columns) {
         $insert = "INSERT INTO " . $table . " (" . implode(",", array_keys($columns)) . ") ";
@@ -149,9 +153,9 @@ class Query extends Connection
     /**
      * Performs a SELECT query
      * @param string $table
-     * @param array $columns
-     * @param array $conditions
-     * @param Query $instance
+     * @param array  $columns
+     * @param array  $conditions
+     * @param Query  $instance
      * @return array|mixed
      */
     public static function select(string $table, array $columns, array $conditions = []) {
@@ -166,7 +170,7 @@ class Query extends Connection
     /**
      * Performs a DELETE query
      * @param string $table
-     * @param array $conditions
+     * @param array  $conditions
      */
     public static function delete(string $table, array $conditions) {
         self::raw("DELETE FROM " . $table . self::processConditions($conditions), self::processParams($conditions));
@@ -175,8 +179,8 @@ class Query extends Connection
     /**
      * Performs an UPDATE query
      * @param string $table
-     * @param array $columns
-     * @param array $conditions
+     * @param array  $columns
+     * @param array  $conditions
      */
     public static function update(string $table, array $columns, array $conditions) {
         $columnsString = "";

@@ -14,6 +14,10 @@ define('KERNEL_SQL', KERNEL_VAR . 'sql/');
 
 define('KERNEL_USR', 'usr/');
 
+define('KERNEL_PUBLIC', 'public/');
+define('KERNEL_TEMPLATES', KERNEL_PUBLIC . 'templates/');
+define('KERNEL_ASSETS', KERNEL_PUBLIC . 'assets/');
+
 # App paths
 define('SRC', "/src/");
 define('CONTROLLERS', "/src/Controller/");
