@@ -1,8 +1,8 @@
 <?php
 
-namespace Lampion\Core;
+namespace Lampion\Session;
 
-class Session
+class Main implements SessionInterface
 {
     public static function set(string $name, $value) {
         $_SESSION[$name] = $value;

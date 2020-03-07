@@ -4,26 +4,27 @@ namespace Lampion\User\Entity;
 
 use Lampion\Entity\Entity;
 
-class User extends Entity
-{
+class Session extends Entity {
+
     # Public:
     public $id;
-    public $username;
-    public $role;
+    public $created;
+    public $updated;
+    public $user_id;
 
     # Protected:
-    protected $pwd;
+    protected $token;
 
     public function __construct($id = null) {
         $this->init($id);
     }
 
-    public function setPassword(string $pwd) {
-        $this->pwd = password_hash($pwd, PASSWORD_DEFAULT);
+    public function setToken() {
+        $this->token = bin2hex(random_bytes(64));
     }
 
-    public function getPassword() {
-        return $this->pwd;
+    public function getToken() {
+        return $this->token;
     }
 
     public function persist() {
@@ -32,9 +33,5 @@ class User extends Entity
 
     public function destroy() {
         $this->delete();
-    }
-
-    public function __toString() {
-        return $this->username;
     }
 }

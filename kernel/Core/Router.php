@@ -89,6 +89,8 @@ class Router
             "path"     => $path,
             "callback" => $callback
         ];
+
+        return $this;
     }
 
     public function post(string $path, $callback) {
@@ -96,6 +98,8 @@ class Router
             "path" => $path,
             "callback" => $callback
         ];
+
+        return $this;
     }
 
     public function put(string $path, $callback) {
@@ -103,6 +107,8 @@ class Router
             "path"     => $path,
             "callback" => $callback
         ];
+
+        return $this;
     }
 
     public function delete(string $path, $callback) {
@@ -110,6 +116,8 @@ class Router
             "path" => $path,
             "callback" => $callback
         ];
+
+        return $this;
     }
 
     public function redirect(string $to) {

@@ -3,7 +3,7 @@
 namespace Lampion\Application;
 
 use Dotenv\Dotenv;
-use Lampion\Core\Session;
+use Lampion\Session\Main as Session;
 
 class ApplicationManager
 {

@@ -14,8 +14,7 @@ class Runtime
      * @param $index
      */
     public static function rutime($ru, $rus, $index) {
-        $_SESSION['Lampion']['execTime'][$index] = ($ru["ru_$index.tv_sec"]*1000 + intval($ru["ru_$index.tv_usec"]/1000))
-            -  ($rus["ru_$index.tv_sec"]*1000 + intval($rus["ru_$index.tv_usec"]/1000));
+        $_SESSION['Lampion']['execTime'][$index] = ($ru["ru_$index.tv_sec"]*1000 + intval($ru["ru_$index.tv_usec"]/1000)) - ($rus["ru_$index.tv_sec"]*1000 + intval($rus["ru_$index.tv_usec"]/1000));
     }
 
     /**
@@ -57,20 +56,20 @@ class Runtime
 
         # Add query to the DB array
         $_SESSION['Lampion']['DB']['queries'][] = [
-            'query' => $queryInfo['query'],
+            'query'           => $queryInfo['query'],
             'queryTranslated' => $queryTranslated,
-            'info' => $queryInfo,
-            'params' => $paramsInfo,
-            'results' => $results,
-            'message' => $message,
-            'status' => $status,
-            'code' => $code
+            'info'            => $queryInfo,
+            'params'          => $paramsInfo,
+            'results'         => $results,
+            'message'         => $message,
+            'status'          => $status,
+            'code'            => $code
         ];
     }
 
     public static function error(int $errCode) {
         $loader = new FilesystemLoader(KERNEL_TEMPLATES);
-        $twig = new Environment($loader);
+        $twig   = new Environment($loader);
 
         $args['__templates__'] = KERNEL_TEMPLATES;
         $args['__css__']       = KERNEL_ASSETS . 'css/';

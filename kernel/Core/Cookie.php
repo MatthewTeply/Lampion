@@ -1,6 +1,6 @@
 <?php
 
-namespace Lampion\Cookie;
+namespace Lampion\Core;
 
 use Lampion\Debug\Error;
 
@@ -10,7 +10,7 @@ class Cookie
      * Sets cookie, time can either be an int, which means time is set in seconds, or an array with specified time units and their values
      * @param string $name
      * @param $value
-     * @param $time
+     * @param $time Either an int unix timestamp, or array eg. ['s' => 30, 'm' => 1, 'h' => 2] (02:01:30)
      */
     public static function set(string $name, $value, $time) {
         $acceptedUnits = [

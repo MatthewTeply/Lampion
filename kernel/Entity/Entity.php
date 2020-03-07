@@ -33,6 +33,7 @@ abstract class Entity
      * @param int $id
      * @param string $table
      * @param array $columns
+     * @return bool
      */
     protected function init($id, string $table = null, array $columns = []) {
         $this->id = $id;
@@ -77,17 +78,21 @@ abstract class Entity
                 "id" => ["=", $this->id]
             ]);
 
-            if(!empty($tableVals[0])) {
-                foreach ($columns as $key => $column) {
-                    $this->$column = $tableVals[0][$key];
-                }
+            if(empty($tableVals[0])) {
+                return false;
             }
+
+            foreach ($columns as $key => $column) {
+                $this->$column = $tableVals[0][$key];
+            }
+            
         }
     }
 
     /**
      * 'Saves' ORM values, either inserts them if ID is no set, or updates if it is
      * @param array $columns
+     * @return bool
      */
     protected function save(array $columns = []) {
         # If columns remain empty, it is presumed that var names and table column names are the same

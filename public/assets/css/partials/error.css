@@ -1,3 +1,9 @@
+.error-jumbotron {
+    background: rgb(220,53,69);
+    background: linear-gradient(90deg, rgba(220,53,69,1) 43%, rgba(131,58,180,1) 100%);
+    color: #fff;
+}
+
 .error-body {
     padding: 0 60px;
 }

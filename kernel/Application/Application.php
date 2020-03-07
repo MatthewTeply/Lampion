@@ -3,7 +3,7 @@
 namespace Lampion\Application;
 
 use Lampion\Core\Router;
-use Lampion\Core\Session;
+use Lampion\Session\Main as Session;
 
 class Application
 {

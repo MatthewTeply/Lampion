@@ -1,0 +1,12 @@
+.lampion-header .gradient-line {
+    width: 20px;
+    height: 2px;
+    margin-right: 4px;
+    transform: translateY(-2px);
+    background: rgb(220,53,69);
+    background: linear-gradient(90deg, rgba(220,53,69,1) 0%, rgba(131,58,180,1) 100%);
+}
+
+.lampion-header .navbar-brand {
+    color: rgba(131,58,180,1);
+}

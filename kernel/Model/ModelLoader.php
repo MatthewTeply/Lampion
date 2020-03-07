@@ -2,7 +2,7 @@
 
 namespace Lampion\Model;
 
-use Lampion\Core\Session;
+use Lampion\Session\Main as Session;
 
 class ModelLoader
 {

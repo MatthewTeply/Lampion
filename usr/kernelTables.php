@@ -3,6 +3,7 @@
 function kernelTables() {
     return [
       'app',
-      'managed_file'
+      'managed_file',
+      'user'
     ];
 }
