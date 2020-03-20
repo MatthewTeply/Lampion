@@ -22,7 +22,7 @@ define('KERNEL_ASSETS', KERNEL_PUBLIC . 'assets/');
 define('SRC', "/src/");
 define('CONTROLLERS', "/src/Controller/");
 define('MODELS', "/src/Model/");
-define('OBJECTS', "/src/Entity/");
+define('ENTITY', "/src/Entity/");
 define('TEMPLATES', "/public/templates/");
 
 define('ASSETS', "/public/assets/");

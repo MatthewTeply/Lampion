@@ -2,6 +2,7 @@
 
 namespace Lampion\User;
 
+use Lampion\Core\Cookie;
 use Lampion\Session\Lampion as LampionSession;
 use Lampion\Database\Query;
 use Lampion\User\Entity\User;
@@ -36,17 +37,19 @@ class Auth
         # Logged in
         if(password_verify($pwd, $user->getPassword())) {
             # Pass user entity into session, so it can be easily accessed later
-
             $user->token = Session::create($user->id);
 
             LampionSession::set('user', $user);
+
+            Cookie::set('lampToken', $user->token, [ 'w' => 1 ]);
+            Cookie::set('_lampToken', ' ', [ 'w' => 1 ]);
             
-            return 1;
+            return true;
         }
 
         # Wrong credentials (password)
         else {
-            return 0;
+            return false;
         }
     }
     
@@ -59,10 +62,12 @@ class Auth
             return false;
         }
         
-        $user = new User(LampionSession::get('user')->id);
+        @$user = new User(LampionSession::get('user')->id);
 
         if(!$user) {
             return false;
         }
+
+        return true;
     }
 }

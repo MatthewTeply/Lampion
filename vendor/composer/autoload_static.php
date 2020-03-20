@@ -33,6 +33,7 @@ class ComposerStaticInitf642c91053bacb92950a448aab8bf08a
         'P' => 
         array (
             'Prophecy\\' => 9,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'D' => 
         array (
@@ -69,6 +70,10 @@ class ComposerStaticInitf642c91053bacb92950a448aab8bf08a
         'Prophecy\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Dotenv\\' => 
         array (

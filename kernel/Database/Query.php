@@ -15,7 +15,7 @@ class Query extends Connection
      * @param bool   $report_err
      * @return mixed
      */
-    public static function raw(string $query, array $params = [], $escape = true, $report_err = true) {
+    public static function raw(string $query, array $params = [], $escape = false, $report_err = true) {
         $pdo = self::connect();
 
         $stmnt = $pdo->prepare($query);
@@ -211,5 +211,9 @@ class Query extends Connection
 
     public static function tableExists(string $tableName) {
         return self::raw("DESCRIBE `$tableName`") ?? false;
+    }
+
+    public static function getColumns(string $table) {
+        return self::raw('SHOW COLUMNS FROM ' . $table);
     }
 }

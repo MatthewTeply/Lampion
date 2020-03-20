@@ -11,6 +11,9 @@ class Session extends Entity {
     public $created;
     public $updated;
     public $user_id;
+    public $ip;
+    public $device;
+    public $os;
 
     # Protected:
     protected $token;

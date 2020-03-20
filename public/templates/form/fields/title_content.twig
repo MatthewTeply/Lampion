@@ -1,0 +1,91 @@
+<div class="card node-card col-lg-12" style="margin-bottom: 10px">
+    <div class="card-header">
+        {{ label }}
+    </div>
+    <div class="card-body">
+        <input type="hidden" name="{{ name }}" id="{{ name }}-output" {% if value is defined %}value="{{ value|json_encode() }}"{% endif %}>
+
+        <section id="{{ name }}-node-container">
+            {% if value is defined %}
+                {% for key, node in value %}
+                    <div class="form-group">
+                        <div class="col-lg-12 form-input-around"><input type="text" class="form-control" placeholder="Nadpis sekce" data-key="{{ key }}" value="{{ node.title }}"></div>
+                        <div class="col-lg-12 form-input-around"><textarea class="form-control" placeholder="Obsah sekce" data-key="{{ key }}">{{ node.content }}</textarea></div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="form-group">
+                    <div class="col-lg-12 form-input-around"><input type="text" class="form-control" placeholder="Nadpis sekce" data-key="0"></div>
+                    <div class="col-lg-12 form-input-around"><textarea class="form-control" placeholder="Obsah sekce" data-key="0"></textarea></div>
+                </div>
+            {% endif %}
+        </section>
+        
+        <div class="col-lg-12 form-input-around"><button type="button" id="{{ name }}-add-btn" class="yellow-button" data-node-name="{{ name }}">
+            Přidat {{ label|lower }}
+            </button></div>
+
+    </div>
+</div>
+
+<script>
+    let {{ name }}_output = document.querySelector('#{{ name }}-output').value != "" ? JSON.parse(document.querySelector('#{{ name }}-output').value) : {};
+
+    function {{ name }}_setNode(key, title = null, content = null) {
+        console.log(title);
+        console.log(content);
+
+        if({{ name }}_output[key] === undefined) {
+            {{ name }}_output[key] = {};
+        }
+
+        if(title != null) {
+            {{ name }}_output[key].title = title;
+        }
+
+        if(content != null) {
+            {{ name }}_output[key].content = content;
+        }
+
+        console.log(key);
+
+        console.log({{ name }}_output);
+
+        document.querySelector('#{{ name }}-output').value = JSON.stringify({{ name }}_output);
+    }
+
+    $(document).ready(function() {
+        $('#{{ name }}-add-btn').click(function() {
+            let container = document.querySelector('#{{ name }}-node-container');
+            let nodes = document.querySelectorAll('#{{ name }}-node-container .form-group')
+    
+            let title   = document.createElement('input');
+            let content = document.createElement('textarea');
+            let group   = document.createElement('div');
+    
+            title.setAttribute('class', 'form-control');
+            title.setAttribute('placeholder', 'Nadpis skce');
+            title.setAttribute('data-key', nodes.length);
+    
+            content.setAttribute('class', 'form-control');
+            content.setAttribute('placeholder', 'Obsah sekce');
+            content.setAttribute('data-key', nodes.length);
+    
+            group.setAttribute('class', 'form-group');
+    
+            group.appendChild(title);
+            group.appendChild(content);
+    
+            container.appendChild(group);
+        });
+    });
+
+    $('body').on('change', '#{{ name }}-node-container input', function() {
+        {{ name }}_setNode($(this).attr('data-key'), $(this).val());
+    });
+
+    $('body').on('change', '#{{ name }}-node-container textarea', function() {
+        {{ name }}_setNode($(this).attr('data-key'), null, $(this).val());
+    });
+
+</script>

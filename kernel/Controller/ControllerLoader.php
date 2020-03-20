@@ -4,13 +4,14 @@ namespace Lampion\Controller;
 
 use Lampion\Debug\Error;
 use Lampion\View\View;
+use Lampion\Session\Lampion as Session;
 
 class ControllerLoader
 {
     public $app;
 
     public function __construct(string $app = null) {
-        $this->app = $app;
+        $this->app = $app ?? Session::get('app');
     }
 
     /**
@@ -31,7 +32,8 @@ class ControllerLoader
         }
 
         else {
-            Error::set("File '$longPath' does not exist!");
+            return false;
+            //TODO: Error::set("File '$longPath' does not exist!");
         }
     }
 
@@ -53,7 +55,7 @@ class ControllerLoader
      */
     public function controller(string $path) {
         return $this->loadFile(
-            APP . "$this->app/src/Controller/$path" . "Controller.dummy",
+            APP . "$this->app/src/Controller/$path" . "Controller.php",
             $path,
             "controller"
         );

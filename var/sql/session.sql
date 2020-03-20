@@ -3,5 +3,8 @@ CREATE TABLE session (
     token varchar(255) not null,
     user_id int(11) not null,
     created int(11) not null,
-    updated int(11) not null
+    updated int(11) not null,
+    ip varchar(255) not null,
+    device varchar(255) not null,
+    os varchar(255) not null
 ) CHAR SET 'utf8mb4'
