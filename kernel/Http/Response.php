@@ -26,4 +26,8 @@ class Response
         else
             echo $msg;
     }
+
+    public function redirect(string $route, array $params = []) {
+        return Url::redirect($route, $params);
+    }
 }

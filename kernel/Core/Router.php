@@ -20,47 +20,68 @@ class Router
     }
 
     protected static function processURL($request_method, $request_method_args = null) {
+        /*
         if($request_method_args) { # If method arguments are already set, don't get arguments from URL
-            $request_method[$_GET['url']]['callback'](new Request($request_method_args), new Response);
+            ldm($request_method_args);
+
+            if(!is_string($request_method[$_GET['url']]['callback'])) {
+                $request_method[$_GET['url']]['callback'](new Request($request_method_args), new Response);
+            }
+
+            else {
+                self::short_method($request_method[$_GET['url']]['callback'], [
+                    'req' => new Request($request_method_args),
+                    'res' => new Response
+                ]);
+            }
+            
             return;
         }
 
-        else { # If arguments are not set, get them from URL
-            $url_explode = explode("/", $_GET['url']); # Get url divided by slashes
+        else {
+            
+        }
+        */
 
-            foreach($request_method as $route) {
-                $path = $route['path']; # Route's path (string)
+        $url_explode = explode("/", $_GET['url']); # Get url divided by slashes
 
-                if(sizeof(explode("/", $path)) == sizeof($url_explode)) { # Find a route that matches the length of URL
-                    $args = array(); # Initialize array containing arguments for given page
+        foreach($request_method as $route) {
+            $path = $route['path']; # Route's path (string)
 
-                    foreach(explode("/", $path) as $key => $field) {
-                        if(strpos($field, "{") !== false && strpos($field, "}") !== false) { # If field contains { and }, it is an argument
-                            array_push($args, [
-                                "pos"  => $key, # Save argument's position
-                                "name" => substr($field, 1, -1) # Save argument's name
-                            ]);
-                        }
+            if(sizeof(explode("/", $path)) == sizeof($url_explode)) { # Find a route that matches the length of URL
+                $args = array(); # Initialize array containing arguments for given page
+
+                foreach(explode("/", $path) as $key => $field) {
+                    if(strpos($field, "{") !== false && strpos($field, "}") !== false) { # If field contains { and }, it is an argument
+                        array_push($args, [
+                            "pos"  => $key, # Save argument's position
+                            "name" => substr($field, 1, -1) # Save argument's name
+                        ]);
+                    }
+                }
+
+                $path_new = explode("/", $path); # Initialize new path, containing path exploded by slashes
+                $args_new = array(); # Initialize array, that is going to contain arguments with values under an index that is argument's name in request method's array
+
+                foreach($args as $arg) {
+                    $path_new[$arg['pos']]  = $url_explode[$arg['pos']]; # Composing new path
+                    $args_new[$arg['name']] = $url_explode[$arg['pos']]; # Adding arguments
+                }
+
+                $path_new = implode("/", $path_new); # Glue pieces together with slashes
+
+                if($path_new == $_GET['url']) { # If new path is equal to current URL, execute callback
+                    if(!is_string($route['callback'])) # If callback is not short method
+                        $route['callback'](new Request($args_new), new Response); # Execute callback with request and respone as params
+                    else {
+
+                        $args_new['req'] = new Request($args_new);
+                        $args_new['res'] = new Response;
+
+                        self::short_method($route['callback'], $args_new); # Else call short method
                     }
 
-                    $path_new = explode("/", $path); # Initialize new path, containing path exploded by slashes
-                    $args_new = array(); # Initialize array, that is going to contain arguments with values under an index that is argument's name in request method's array
-
-                    foreach($args as $arg) {
-                        $path_new[$arg['pos']]  = $url_explode[$arg['pos']]; # Composing new path
-                        $args_new[$arg['name']] = $url_explode[$arg['pos']]; # Adding arguments
-                    }
-
-                    $path_new = implode("/", $path_new); # Glue pieces together with slashes
-
-                    if($path_new == $_GET['url']) { # If new path is equal to current URL, execute callback
-                        if(!is_string($route['callback'])) # If callback is not short method
-                            $route['callback'](new Request($args_new), new Response); # Execute callback with request and respone as params
-                        else
-                            self::short_method($route['callback'], $args_new); # Else call short method
-
-                        return;
-                    }
+                    return;
                 }
             }
         }
@@ -72,14 +93,18 @@ class Router
         die(HTTP_NOT_FOUND);
     }
 
-    protected static function short_method($callback, $params) {
+    protected static function short_method($callback, $args = []) {
         if(is_string($callback)) {
             $callback = explode("::", $callback);
+
+            $_GET['Request'] = $args['req'];
+            $_GET['Response'] = $args['res'];
 
             $path   = $callback[0];
             $method = $callback[1];
 
             $class = new $path;
+
             $class->$method();
         }
     }
@@ -95,7 +120,7 @@ class Router
 
     public function post(string $path, $callback) {
         self::$post[$path] = [
-            "path" => $path,
+            "path"     => $path,
             "callback" => $callback
         ];
 
@@ -113,7 +138,7 @@ class Router
 
     public function delete(string $path, $callback) {
         self::$delete[$path] = [
-            "path" => $path,
+            "path"     => $path,
             "callback" => $callback
         ];
 

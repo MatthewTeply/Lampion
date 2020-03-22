@@ -45,6 +45,10 @@ class FileSystem {
         $fileType       = $file['type'];
         $fileError      = $file['error'];
 
+        if(empty($fileName)) {
+            return;
+        }
+
         $fileExtenstion = explode('.', $fileName);
         $fileExtenstion = strtolower(end($fileExtenstion));
 
@@ -54,9 +58,11 @@ class FileSystem {
 
         $uploadPath = $this->storagePath . $dir . basename($fileName);
 
+        /*
         if(is_file($uploadPath)) {
             throw new Exception("File '$uploadPath' already exists!");
         }
+        */
 
         if($fileError) {
             throw new Exception($fileError);
@@ -67,7 +73,7 @@ class FileSystem {
         }
 
         if(move_uploaded_file($fileTmpName, $uploadPath)) {
-            return true;
+            return $fileName;
         }
 
         else {

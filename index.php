@@ -1,6 +1,6 @@
 <?php
-$rustart = getrusage();
 session_start();
+$rustart = getrusage();
 
 unset($_SESSION['Lampion']['queryCount']);
 

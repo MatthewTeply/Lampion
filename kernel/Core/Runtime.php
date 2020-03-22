@@ -72,9 +72,9 @@ class Runtime
         $twig   = new Environment($loader);
 
         $args['__templates__'] = KERNEL_TEMPLATES;
-        $args['__css__']       = KERNEL_ASSETS . 'css/';
-        $args['__scripts__']   = KERNEL_ASSETS . 'js/';
-        $args['__img__']       = KERNEL_ASSETS . 'img/';
+        $args['__css__']       = WEB_ROOT . KERNEL_ASSETS . 'css/';
+        $args['__scripts__']   = WEB_ROOT . KERNEL_ASSETS . 'js/';
+        $args['__img__']       = WEB_ROOT . KERNEL_ASSETS . 'img/';
 
         $args['errCode'] = $errCode;
 

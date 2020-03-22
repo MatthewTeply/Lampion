@@ -6,6 +6,8 @@ use Lampion\Controller\ControllerLoader;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Twig\Markup;
+use Lampion\Http\Url;
+use Twig\TwigFunction;
 
 class View {
 
@@ -21,10 +23,16 @@ class View {
      */
     public function __construct(string $templateFolder, string $app, bool $isPlugin = false)
     {
-        $loader = new FilesystemLoader($templateFolder);
+        $loader = new FilesystemLoader(strtolower($templateFolder));
         $this->twig = new Environment($loader);
+        
+        $pathFunc = new TwigFunction('path', function($route) {
+            return Url::link($route);
+        });
 
-        $this->app = $app;
+        $this->twig->addFunction($pathFunc);
+
+        $this->app = strtolower($app);
         $this->isPlugin = $isPlugin;
     }
 
@@ -46,9 +54,10 @@ class View {
             $initialPath = APP;
         }
 
-        $args['__css__']     = $initialPath . $this->app . CSS;
-        $args['__scripts__'] = $initialPath . $this->app . SCRIPTS;
-        $args['__img__']     = $initialPath . $this->app . IMG;
+        $args['__css__']     = WEB_ROOT . $initialPath . $this->app . CSS;
+        $args['__scripts__'] = WEB_ROOT . $initialPath . $this->app . SCRIPTS;
+        $args['__img__']     = WEB_ROOT . $initialPath . $this->app . IMG;
+        $args['__webRoot__'] = WEB_ROOT;
 
         echo $this->twig->render("$path.twig", !empty($args) ? $args : get_object_vars($this));
 
@@ -76,6 +85,19 @@ class View {
         }
 
         else {
+            if($this->isPlugin) {
+                $initialPath = PLUGINS;
+            }
+    
+            else {
+                $initialPath = APP;
+            }
+
+            $args['__css__']     = WEB_ROOT . $initialPath . $this->app . CSS;
+            $args['__scripts__'] = WEB_ROOT . $initialPath . $this->app . SCRIPTS;
+            $args['__img__']     = WEB_ROOT . $initialPath . $this->app . IMG;
+            $args['__webRoot__'] = WEB_ROOT;
+
             return new Markup($this->twig->render("$path.twig", $args), 'UTF-8');
         }
     }

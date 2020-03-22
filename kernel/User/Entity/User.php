@@ -15,7 +15,7 @@ class User extends Entity
     protected $pwd;
 
     public function __construct($id = null) {
-        $this->init($id);
+        return $this->init($id);
     }
 
     public function setPassword(string $pwd) {

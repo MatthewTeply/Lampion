@@ -46,11 +46,7 @@ class Url
     public static function link(string $route, array $params = []) {
         $webRoot = WEB_ROOT;
 
-        if(WEB_ROOT == "localhost/" || WEB_ROOT == "127.0.0.1/") {
-            $webRoot = str_replace($_SERVER['DOCUMENT_ROOT'],'', getcwd());
-        }
-
-        $link = rtrim(preg_replace('#/+#', "/", $webRoot . Application::name() . "/$route" . self::processParams($params)));
+        $link = rtrim($webRoot . Application::name() . "/$route" . self::processParams($params));
 
         return $link;
     }
@@ -60,6 +56,17 @@ class Url
      * @param array $params
      */
     public static function redirect($route, array $params = []) {
-        header("Location:" . self::link($route, $params));
+        header("Location: " . self::link($route, $params));
+    }
+
+    public static function get(string $url) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        return $result;
     }
 }

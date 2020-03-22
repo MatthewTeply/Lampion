@@ -32,7 +32,7 @@ class Autoloader
 
             # If application classes are called
             else {
-                $source = APP . "$app/src/";
+                $source = APP . strtolower($app) . "/src/";
             }
 
             if(file_exists($source . "$classNameImplode.php")) {
