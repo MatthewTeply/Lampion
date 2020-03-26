@@ -3,7 +3,6 @@
 namespace Lampion\Form;
 
 use Lampion\View\View;
-use Lampion\Session\Lampion as Session;
 
 class Form {
 
