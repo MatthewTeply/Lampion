@@ -45,8 +45,9 @@ class Url
      */
     public static function link(string $route, array $params = []) {
         $webRoot = WEB_ROOT;
+        $appName = Application::name() != DEFAULT_APP ? Application::name() . '/' : '';
 
-        $link = rtrim($webRoot . Application::name() . "/$route" . self::processParams($params));
+        $link = rtrim($webRoot . $appName . $route . self::processParams($params));
 
         return $link;
     }
