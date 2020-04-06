@@ -1,4 +1,6 @@
 <?php
 
 # Defaults
-define('DEFAULT_APP', 'chladime'); 
+<<<<<<< .minedefine('DEFAULT_APP', 'chladime'); 
+=======define('DEFAULT_APP', 'carnival'); 
+>>>>>>> .theirs
