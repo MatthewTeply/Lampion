@@ -4,6 +4,7 @@ function kernelTables() {
     return [
       'app',
       'managed_file',
-      'user'
+      'user',
+      'api_keys'
     ];
 }

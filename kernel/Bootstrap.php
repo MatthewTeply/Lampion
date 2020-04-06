@@ -4,8 +4,14 @@ require_once 'vendor/autoload.php';
 require_once 'Misc/decodeUrl.php';
 
 # Initialize dotenv
-$dotenv = \Dotenv\Dotenv::create('.');
+$dotenv = \Dotenv\Dotenv::create(CONFIG);
 $dotenv->load();
+
+# Database
+define('DB_HOST', getenv("DB_HOST"));
+define('DB_NAME', getenv("DB_NAME"));
+define('DB_PASS', getenv("DB_PASS"));
+define('DB_USER', getenv("DB_USER"));
 
 # Initializing default session variables
 $_SESSION['Lampion']['app']              = $app;

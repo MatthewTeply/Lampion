@@ -12,7 +12,6 @@ class Autoloader
             $classNameExplode = explode("\\", $className);
             $ext = "php";
 
-            $isPlugin = false;
             $app = array_shift($classNameExplode);
 
             if($classNameExplode[0] == "Plugin") {

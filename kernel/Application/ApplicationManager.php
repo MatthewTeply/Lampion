@@ -10,11 +10,6 @@ class ApplicationManager
     public static function init() {
         $app = Session::get("Lampion")['app'];
 
-        # App configs
-        $dotenv = Dotenv::create(APP . $app);
-        $dotenv->load();
-
-        require_once  APP . "$app/config/config.php";
         require_once  APP . "$app/config/config.defaults.php";
 
         if(isset($_GET['url'])) {

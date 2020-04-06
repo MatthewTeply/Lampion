@@ -49,12 +49,12 @@ abstract class Entity
                 $table = strtolower(get_called_class());
             }
         }
-
+        
         $this->db['table'] = $table;
         
         # Check if table with entity's name exists, if not try pluralizing it, if that doesn't exist, return false
         if(!Query::tableExists($this->db['table'])) {
-            $this->db['table'] = Inflector::pluralize($this->db['table']);
+            $this->db['table'] = 'entity_' . $this->db['table'];
 
             if(!Query::tableExists($this->db['table'])) {
                 return false;
