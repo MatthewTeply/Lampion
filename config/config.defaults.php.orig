@@ -1,8 +1,0 @@
-<?php
-
-# Defaults
-<<<<<<< HEAD
-define('DEFAULT_APP', 'chladime'); 
-=======
-define('DEFAULT_APP', 'carnival'); 
->>>>>>> cf4af5d170a108b1e065b78ccb2c33299629b4a0
