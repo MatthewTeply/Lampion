@@ -53,3 +53,9 @@ define('HTTP_OK', 200);
 # Error redirects
 define('HTTP_NOT_FOUND_REDIR', '404');
 define('HTTP_FORBIDDEN_REDIR', '403');
+
+# Database
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'carnival');
+define('DB_USER', 'root');
+define('DB_PASS', '');
