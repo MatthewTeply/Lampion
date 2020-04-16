@@ -20,18 +20,34 @@ class Form {
     }
 
     public function field(string $type, array $options) {
-        $types = [
-            'text'     => 'input',
-            'number'   => 'input',
-            'textarea' => 'textarea',
-            'button'   => 'button',
-            'nodes'    => 'title_content',
-            'boolean'  => 'boolean',
-            'date'     => 'input',
-            'file'     => 'file'
-        ];
+        $inputType = null;
 
-        if(!isset($types[$type])) {
+        switch($type) {
+            case 'text':
+            case 'number':
+            case 'date':
+            case 'varchar':
+                $inputType = 'input';
+                break;
+            case 'longtext':
+                $inputType = 'textarea';
+                break;
+            case 'button':
+            case 'submit':
+                $inputType = 'button';
+                break;
+            case 'boolean':
+                $inputType = 'boolean';
+                break;
+            case 'file':
+                $inputType = 'file';
+                break;
+            case 'nodes':
+                $inputType = 'title_content';
+                break;
+        }
+
+        if(!$inputType) {
             // TODO: Error handling
             return false;
         }
@@ -40,7 +56,7 @@ class Form {
             $options['type'] = $type;
         }
 
-        $this->fields[] = $this->view->load('form/fields/' . $types[$type], $options, true);
+        $this->fields[] = $this->view->load('form/fields/' . $inputType, $options, true);
 
         return $this;
     }

@@ -3,12 +3,12 @@
 namespace Lampion\Entity;
 
 use Lampion\Database\Query;
-use Doctrine\Common\Inflector\Inflector;
+
+use Lampion\Debug\Console;
 
 abstract class Entity
 {
     /**
-     * Entity constructor.
      * @param $id
      */
     abstract public function __construct($id = null);
@@ -25,7 +25,10 @@ abstract class Entity
 
     static $dbVarName = 'db';
 
+    // Public:
     public $id;
+
+    // Private:
     private $db;
 
     /**
@@ -75,7 +78,7 @@ abstract class Entity
         # If id is specified, insert table values into entity's variables
         if($this->id !== null) {
             $tableVals = Query::select($this->db['table'], ["*"], [
-                "id" => ["=", $this->id]
+                "id" => $this->id
             ]);
 
             if(empty($tableVals[0])) {
@@ -117,6 +120,15 @@ abstract class Entity
             }
         }
 
+        # Before entering row into DB, check if entity has a setter for each parameter, if it has, use it
+        foreach($columns as $key => $column) {
+            $methodName = 'set' . ucfirst($key);
+
+            if(method_exists($this, $methodName)) {
+                $this->$methodName($column);
+            }
+        }
+
         # If row exists in DB, update it
         if($this->id !== null) {
             Query::update($this->db['table'], $columns, [
@@ -141,5 +153,11 @@ abstract class Entity
         Query::delete($this->db['table'], ["id" => ["=", $this->id]]);
 
         return true;
+    }
+
+    public function test() {
+        $methodName = 'setPassword';
+
+        Console::log(method_exists($this, $methodName));
     }
 }

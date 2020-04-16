@@ -3,6 +3,7 @@
 namespace Lampion\Database;
 
 use Lampion\Core\Runtime;
+use Lampion\Debug\Console;
 use Lampion\Debug\Error;
 
 class Query extends Connection
@@ -99,17 +100,11 @@ class Query extends Connection
             }
 
             $conditionsString .= $key;
-            $conditionsString .= " $condition[0] ";
+            $conditionsString .= is_array($condition) ? " $condition[1] " : ' = ';
             $conditionsString .= ":$key";
 
             $i++;
         }
-
-        /*
-        foreach ($conditions as $key => $condition) {
-            $conditionsString .= " " . strtoupper($key) . " " . $condition;
-        }
-        */
 
         return $conditionsString;
     }

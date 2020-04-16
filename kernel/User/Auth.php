@@ -24,7 +24,7 @@ class Auth
         }
 
         $q = Query::select('user', ['id'], [
-            'username' => ['=', $username]
+            'username' => $username
         ])[0];
 
         # Wrong credentials (username)
@@ -35,7 +35,7 @@ class Auth
         $user = new User($q['id']);
 
         # Logged in
-        if(password_verify($pwd, $user->getPassword())) {
+        if(password_verify($pwd, $user->getPwd())) {
             # Pass user entity into session, so it can be easily accessed later
             $user->token = Session::create($user->id);
 
