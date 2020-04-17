@@ -5,6 +5,7 @@ namespace Lampion\User;
 use Lampion\Core\Cookie;
 use Lampion\Session\Lampion as LampionSession;
 use Lampion\Database\Query;
+use Lampion\Entity\EntityManager;
 use Lampion\User\Entity\User;
 
 class Auth
@@ -32,7 +33,9 @@ class Auth
             return 0;
         }
 
-        $user = new User($q['id']);
+        $em = new EntityManager();
+
+        $user = $em->find(User::class, $q['id']);
 
         # Logged in
         if(password_verify($pwd, $user->getPwd())) {

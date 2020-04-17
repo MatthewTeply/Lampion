@@ -18,6 +18,14 @@ class User
         return $this->pwd;
     }
 
+    public function getRole() {
+        if(empty($this->role)) {
+            $this->role = '["ROLE_USER"]';
+        }
+
+        return $this->role;
+    }
+
     public function __toString() {
         return $this->username;
     }
