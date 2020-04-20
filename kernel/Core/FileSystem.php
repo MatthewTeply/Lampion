@@ -90,9 +90,12 @@ class FileSystem {
     public function path(string $path): string {
         $path = $this->storagePath . $path;
 
+        // FIXME:
+        /*
         if(!is_file($path) || !is_dir($path)) {
             throw new Exception("'$path' does not exist!");
         }
+        */
 
         return $path;
     }
@@ -116,7 +119,13 @@ class FileSystem {
      * @return bool
      * @throws Exception
      */
-    public function rm(string $file): bool {
+    public function rm(string $file, bool $rmdir = false): bool {
+        if($rmdir) {
+            if(is_dir($this->storagePath . $file)) {
+                return $this->rmdir($file);
+            }
+        }
+
         if(!unlink($this->storagePath . $file)) {
             throw new Exception("File could not be deleted!");
         }
@@ -255,13 +264,13 @@ class FileSystem {
     function rmdir(string $dir) {
         $dir = $this->storagePath . $dir;
 
-        $i = new DirectoryIterator($dir);
+        $i = new \DirectoryIterator($dir);
 
         foreach($i as $f) {
             if($f->isFile()) {
                 unlink($f->getRealPath());
             } else if(!$f->isDot() && $f->isDir()) {
-                self::deleteDir($f->getRealPath());
+                self::rmdir($f->getRealPath());
             }
         }
 
@@ -293,4 +302,16 @@ class FileSystem {
         }
     }
 
+    function write(string $file, $data) {
+        if(!file_exists($this->storagePath . dirname($file))) {
+            $this->mkdir(dirname($file));
+        }
+
+        $fh = fopen($this->storagePath . $file, 'wb');
+        
+        fwrite($fh, $data);
+        fclose($fh);
+
+        return true;
+    }
 }

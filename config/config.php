@@ -31,7 +31,7 @@ define('IMG', ASSETS . "images/");
 define('SCRIPTS', ASSETS . "scripts/");
 
 define('APP_VAR', "/var/");
-define('LANGUAGE', APP_VAR . "language/");
+define('LANG', APP_VAR . "lang/");
 define('SQL', APP_VAR . "sql/");
 define('STORAGE', APP_VAR . "storage/");
 

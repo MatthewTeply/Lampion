@@ -23,13 +23,13 @@ class Form {
         $inputType = null;
 
         switch($type) {
-            case 'text':
             case 'number':
             case 'date':
             case 'varchar':
                 $inputType = 'input';
                 break;
             case 'longtext':
+            case 'text':
                 $inputType = 'textarea';
                 break;
             case 'button':

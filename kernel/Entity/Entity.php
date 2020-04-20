@@ -154,10 +154,4 @@ abstract class Entity
 
         return true;
     }
-
-    public function test() {
-        $methodName = 'setPassword';
-
-        Console::log(method_exists($this, $methodName));
-    }
 }

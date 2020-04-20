@@ -8,6 +8,7 @@ $_SESSION['Lampion']['app']              = $app;
 $_SESSION['Lampion']['DB']['queryCount'] = 0;
 $_SESSION['Lampion']['DB']['queries']    = [];
 $_SESSION['Lampion']['scripts']          = [];
+$_SESSION['Lampion']['lang']             = !isset($_SESSION['Lampion']['lang']) ? 'en' : $_SESSION['Lampion']['lang'];
 
 # Initializing global variables
 $_ERRORS = [];

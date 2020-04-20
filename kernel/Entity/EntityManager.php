@@ -85,6 +85,19 @@ class EntityManager {
         return $entity;
     }
 
+    public function all(string $entityName) {
+        $table = $this->getTableName($entityName);
+        $ids   = Query::select($table, ['id']);
+
+        $entities = [];
+
+        foreach($ids as $id) {
+            $entities[] = $this->find($entityName, $id);
+        }
+
+        return $entities;
+    }
+
     public function destroy(object $entity) {
         if(!$entity->id) {
             return false;

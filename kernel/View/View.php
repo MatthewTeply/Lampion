@@ -7,6 +7,7 @@ use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Twig\Markup;
 use Lampion\Http\Url;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class View {
@@ -24,13 +25,17 @@ class View {
     public function __construct(string $templateFolder, string $app, bool $isPlugin = false)
     {
         $loader = new FilesystemLoader(strtolower($templateFolder));
-        $this->twig = new Environment($loader);
+        $this->twig = new Environment($loader, [
+            'debug' => true
+        ]);
         
         $pathFunc = new TwigFunction('path', function($route) {
             return Url::link($route);
         });
 
         $this->twig->addFunction($pathFunc);
+
+        $this->twig->addExtension(new \Twig\Extension\DebugExtension());
 
         $this->app = strtolower($app);
         $this->isPlugin = $isPlugin;
@@ -62,6 +67,12 @@ class View {
         echo $this->twig->render("$path.twig", !empty($args) ? $args : get_object_vars($this));
 
         return $this;
+    }
+
+    public function setFilter(string $filterName, $func) {
+        $filter = new TwigFilter($filterName, $func);
+
+        $this->twig->addFilter($filter);
     }
 
     /**
