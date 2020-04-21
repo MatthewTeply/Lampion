@@ -90,7 +90,7 @@ class FileSystem {
     public function path(string $path): string {
         $path = $this->storagePath . $path;
 
-        // FIXME:
+        // FIXME: Better exception
         /*
         if(!is_file($path) || !is_dir($path)) {
             throw new Exception("'$path' does not exist!");

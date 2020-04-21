@@ -1,7 +1,9 @@
-<form action="{{ action }}" method="{{ method }}" enctype="multipart/form-data">
+<form action="{{ path('form') }}" method="{{ method }}" enctype="multipart/form-data">
+    <input type="hidden" name="action" value="{{ action }}">
 
     {% for field in fields %}
-        {{ field }}
+        {{ field.template }}
+        <input type="hidden" name="{{ field.name }}[type]" value="{{ field.type }}">
     {% endfor %}
 
 </form>

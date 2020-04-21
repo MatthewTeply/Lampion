@@ -3,6 +3,8 @@
 namespace Lampion\Entity;
 
 use Lampion\Database\Query;
+use ReflectionClass;
+use stdClass;
 
 class EntityManager {
 
@@ -106,6 +108,37 @@ class EntityManager {
         Query::delete($this->getTableName(get_class($entity)), ['id' => $entity->id]);
 
         return true;
+    }
+
+    public function metadata(string $entityName) {
+        if(!class_exists($entityName)) {
+            return;
+        }
+
+        $entity = new ReflectionClass($entityName);
+    
+        $properties = new stdClass();
+
+        foreach($entity->getProperties() as $property) {
+            $docComment = $property->getDocComment();
+
+            if($docComment == '') {
+                continue;
+            }
+            
+            preg_match('/@var\((.*?)\)/', $docComment, $varParams);
+            $varParams = explode(',', $varParams[1]);
+
+            foreach($varParams as $varParam) {
+                preg_match('/(.*?)="(.*?)"/', $varParam, $param);
+
+                // WARNING: Creating default object from empty value
+                // NOTE: Not sure what is causing this, works for now
+                @$properties->{$property->getName()}->{trim($param[1])} = $param[2];
+            }
+        }
+
+        return $properties;
     }
 
 }

@@ -2,13 +2,14 @@
 
 namespace Lampion\Form;
 
+use Lampion\Application\Application;
 use Lampion\View\View;
 
 class Form {
 
     public $action;
     public $method;
-    public $fields;
+    public $fields = [];
 
     protected $view;
 
@@ -19,32 +20,21 @@ class Form {
         $this->view = new View(KERNEL_TEMPLATES, '');
     }
 
-    public function field(string $type, array $options) {
-        $inputType = null;
+    public function field(string $type, array $options, $path = 'form/field/') {
+        // NOTE: @ is here because undefined constant in FormDefaultFields is handled by the ?? operator
+        $inputType = @constant('Lampion\Form\FormDefaultFields::' . strtoupper($type)) ?? constant('Lampion\Form\FormDefaultFields::STRING');
+        $fieldController = ucfirst(Application::name()) . '\\Form\\Field\\' . ucfirst($type) . 'FormField';
 
-        switch($type) {
-            case 'number':
-            case 'date':
-            case 'varchar':
-                $inputType = 'input';
-                break;
-            case 'longtext':
-            case 'text':
-                $inputType = 'textarea';
-                break;
-            case 'button':
-            case 'submit':
-                $inputType = 'button';
-                break;
-            case 'boolean':
-                $inputType = 'boolean';
-                break;
-            case 'file':
-                $inputType = 'file';
-                break;
-            case 'nodes':
-                $inputType = 'title_content';
-                break;
+        $template = $this->view->load($path . $inputType['field'], $options, true);
+
+        if(class_exists($fieldController)) {
+            $fieldController = new $fieldController();
+            
+            if(method_exists($fieldController, 'display')) {
+                if($fieldController->display($options)) {
+                    $template = $fieldController->display($options);
+                }
+            }
         }
 
         if(!$inputType) {
@@ -53,10 +43,12 @@ class Form {
         }
 
         if(!isset($options['type'])) {
-            $options['type'] = $type;
+            $options['type'] = $options['type'] ?? $type;
         }
 
-        $this->fields[] = $this->view->load('form/fields/' . $inputType, $options, true);
+        $this->fields[$options['name']]['template'] = $template;
+        $this->fields[$options['name']]['type']     = $options['type'];
+        $this->fields[$options['name']]['name']     = $options['name'];
 
         return $this;
     }

@@ -3,7 +3,7 @@
         {{ label }}
     </div>
     <div class="card-body">
-        <input type="hidden" name="{{ name }}" id="{{ name }}-output" {% if value is defined %}value="{{ value|json_encode() }}"{% endif %}>
+        <input type="hidden" name="{{ name }}[value]" id="{{ name }}-output" {% if value is defined %}value="{{ value|json_encode() }}"{% endif %}>
 
         <section id="{{ name }}-node-container">
             {% if value is defined %}

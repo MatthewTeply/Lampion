@@ -2,9 +2,12 @@
 
 namespace Lampion\Core;
 
+use Lampion\Debug\Console;
+use Lampion\Form\FormHandler;
 use Lampion\Http\Response;
 use Lampion\Http\Request;
 use Lampion\Http\Url;
+use Lampion\User\Auth;
 
 class Router
 {
@@ -71,8 +74,10 @@ class Router
                 $path_new = implode("/", $path_new); # Glue pieces together with slashes
 
                 if($path_new == $_GET['url']) { # If new path is equal to current URL, execute callback
-                    if(!is_string($route['callback'])) # If callback is not short method
+                    if(!is_string($route['callback'])) { # If callback is not short method
                         $route['callback'](new Request($args_new), new Response); # Execute callback with request and respone as params
+                    }
+
                     else {
 
                         $args_new['req'] = new Request($args_new);
@@ -86,9 +91,10 @@ class Router
             }
         }
 
-        if(!empty(HTTP_NOT_FOUND_REDIR))
+        if(!empty(HTTP_NOT_FOUND_REDIR)) {
             die(HTTP_NOT_FOUND_REDIR);
             //Url::redirect(HTTP_NOT_FOUND_REDIR);
+        }
 
         die(HTTP_NOT_FOUND);
     }
@@ -155,6 +161,24 @@ class Router
 
         $this->listening = true;
 
+        $this->post('form', function(Request $req, Response $res) {
+            $fh = new FormHandler();
+
+            // TODO: After session tokens are implemented, change to CURL
+            echo 'Loading...<br>';
+            echo '<form id="redir-form" action="' . $_POST['action'] . '" method="POST">';
+            foreach($_POST as $key => $data) {
+                if(isset($data['value']) && isset($data['type'])) {
+                    echo '<input type="hidden" name="' . $key . '" value=' . $fh->handle($data['type'], $data['value']) . '>';
+                }
+            }
+            echo '<noscript>';
+            echo 'This function requires JavaScript to be enabled, please enable JavaScript in your browser\'s settings.';
+            echo '</noscript>';
+            echo '</form>';
+            echo '<script>document.getElementById("redir-form").submit();</script>';
+        });
+
         switch($request_method) {
             case "get":
                 self::processURL(self::$get);
@@ -169,7 +193,7 @@ class Router
                 self::processURL(self::$delete, $_GET);
                 break;
             default:
-                die(ERR_NOT_FOUND);
+                die(HTTP_NOT_FOUND);
                 break;
         }
     }

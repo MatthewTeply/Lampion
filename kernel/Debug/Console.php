@@ -18,6 +18,9 @@ class Console {
             case 'int':
                 $var = (int)$var;
                 break;
+            case false:
+                $var = 'false';
+                break;
         }
 
         echo '<script> console.log(' . $var . '); </script>';
