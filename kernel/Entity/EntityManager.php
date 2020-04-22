@@ -43,8 +43,6 @@ class EntityManager {
             }
         }
 
-        Console::log($entity);
-
         $entity = (array)$entity;
 
         # Creating new row
@@ -75,9 +73,7 @@ class EntityManager {
 
         $entity = new $entityName();
 
-        foreach($fields as $key => $field) {
-            $entity->$key = $field;
-        }
+        $this->setFields($entity, $fields);
 
         return $entity;
     }
@@ -93,9 +89,7 @@ class EntityManager {
 
         $entity = new $entityName();
 
-        foreach($fields as $key => $field) {
-            $entity->$key = $field;
-        }
+        $this->setFields($entity, $fields);
 
         return $entity;
     }
@@ -154,4 +148,15 @@ class EntityManager {
         return $properties;
     }
 
+    private function setFields(object &$entity, $fields) {
+        foreach($fields as $key => $field) {
+            $getMethod = 'get' . ucfirst($key);
+
+            $entity->$key = $field;
+
+            if(method_exists($entity, $getMethod)) {
+                $entity->$key = $entity->$getMethod();
+            }
+        }
+    }
 }

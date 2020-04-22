@@ -4,14 +4,24 @@ namespace Lampion\User\Entity;
 
 class User
 {
-    # Public:
+    /** @var(type="int", length=11) */
     public $id;
+
+    /** @var(type="varchar", length=255) */
     public $username;
+
+    /** @var(type="json") */
     public $role;
+
+    /** @var(type="varchar", length=255) */
     public $pwd;
 
     public function setPwd(string $pwd) {
-        $this->pwd = password_hash($pwd, PASSWORD_DEFAULT);
+        if(!empty($pwd)) {
+            if(!password_verify($pwd, $this->pwd)) {
+                return password_hash($pwd, PASSWORD_DEFAULT);
+            }
+        }
     }
 
     public function getPwd() {
@@ -19,8 +29,14 @@ class User
     }
 
     public function getRole() {
-        if(empty($this->role)) {
-            $this->role = '["ROLE_USER"]';
+        $role = json_decode($this->role, true);
+
+        if(is_array($role)) {
+            if(!in_array('ROLE_USER', $role) || empty($role)) {
+                $role[] = 'ROLE_USER';
+            }
+
+            $this->role = json_encode($role);
         }
 
         return $this->role;
