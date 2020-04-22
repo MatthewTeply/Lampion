@@ -3,6 +3,7 @@
 namespace Lampion\Form;
 
 use Lampion\Application\Application;
+use Lampion\Debug\Console;
 use Lampion\View\View;
 
 class Form {
@@ -49,6 +50,7 @@ class Form {
         $this->fields[$options['name']]['template'] = $template;
         $this->fields[$options['name']]['type']     = $options['type'];
         $this->fields[$options['name']]['name']     = $options['name'];
+        $this->fields[$options['name']]['attr']     = $options['attr'] ?? null;
 
         return $this;
     }

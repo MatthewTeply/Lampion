@@ -19,7 +19,8 @@ class EntityManager {
     public function persist(object $entity) {
         //$vars  = get_object_vars($entity);
         $table = $this->getTableName(get_class($entity));
-        $entityFormer = $this->find(get_class($entity), $entity->id);
+
+        $entityFormer = $entity->id ? $this->find(get_class($entity), $entity->id) : null;
 
         if(!Query::tableExists($table)) {
             return false;
@@ -33,7 +34,7 @@ class EntityManager {
 
                 # If method doesn't return anything, it is presumed that value is not supposed to change
                 if(empty($entity->$methodName($var))) {
-                    $entity->{$key} = $entityFormer->{$key};
+                    $entity->{$key} = $entityFormer->{$key} ?? $entity->{$key};
                 }
 
                 # If method returns data, set it
