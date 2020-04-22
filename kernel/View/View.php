@@ -37,6 +37,9 @@ class View {
 
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
 
+        # Register custom filters
+        $this->customFilters();
+
         $this->app = strtolower($app);
         $this->isPlugin = $isPlugin;
     }
@@ -104,6 +107,7 @@ class View {
                 $initialPath = APP;
             }
 
+            # Pass system variables
             $args['__css__']     = WEB_ROOT . $initialPath . $this->app . CSS;
             $args['__scripts__'] = WEB_ROOT . $initialPath . $this->app . SCRIPTS;
             $args['__img__']     = WEB_ROOT . $initialPath . $this->app . IMG;
@@ -111,5 +115,11 @@ class View {
 
             return new Markup($this->twig->render("$path.twig", $args), 'UTF-8');
         }
+    }
+
+    private function customFilters() {
+        $this->setFilter('json_decode', function(string $json) {
+            return json_decode($json, true);
+        });
     }
 }

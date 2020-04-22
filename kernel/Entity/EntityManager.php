@@ -3,6 +3,7 @@
 namespace Lampion\Entity;
 
 use Lampion\Database\Query;
+use Lampion\Debug\Console;
 use ReflectionClass;
 use stdClass;
 
@@ -16,33 +17,45 @@ class EntityManager {
     }
 
     public function persist(object $entity) {
-        $vars  = get_object_vars($entity);
+        //$vars  = get_object_vars($entity);
         $table = $this->getTableName(get_class($entity));
+        $entityFormer = $this->find(get_class($entity), $entity->id);
 
         if(!Query::tableExists($table)) {
             return false;
         }
 
         # Check if var has a setter, if it does, use it and set it in the $vars array
-        foreach($vars as $key => $var) {
+        foreach($entity as $key => $var) {
             $methodName = 'set' . ucfirst($key);
 
             if(method_exists($entity, $methodName)) {
-                $entity->$methodName($var);
 
-                $vars[$key] = $entity->$key;
+                # If method doesn't return anything, it is presumed that value is not supposed to change
+                if(empty($entity->$methodName($var))) {
+                    $entity->{$key} = $entityFormer->{$key};
+                }
+
+                # If method returns data, set it
+                else {
+                    $entity->{$key} = $entity->$methodName($var);
+                }
             }
         }
 
+        Console::log($entity);
+
+        $entity = (array)$entity;
+
         # Creating new row
-        if(!$vars['id']) {
-            Query::insert($table, $vars);
+        if(!$entity['id']) {
+            Query::insert($table, $entity);
         }
 
         # Updating row
         else {
-            Query::update($table, $vars, [
-                'id' => $vars['id']
+            Query::update($table, $entity, [
+                'id' => $entity['id']
             ]);
         }
 

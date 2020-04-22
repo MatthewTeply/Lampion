@@ -61,6 +61,7 @@ class Auth
     }
 
     public static function isLoggedIn() {
+        // TODO: More complex auth system!
         if(LampionSession::get('user') === null) {
             return false;
         }

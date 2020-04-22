@@ -18,8 +18,8 @@ class Console {
             case 'int':
                 $var = (int)$var;
                 break;
-            case false:
-                $var = 'false';
+            case 'boolean':
+                $var = $var ? 'true' : 'false';
                 break;
         }
 

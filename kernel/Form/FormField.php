@@ -31,4 +31,10 @@ abstract class FormField {
      */
     abstract public function submit($data);
 
+    /**
+     * Returns field's template
+     * @return string
+     */
+    abstract public function display($options);
+
 }

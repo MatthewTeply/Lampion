@@ -6,4 +6,9 @@ function loadScripts() {
     }
 }
 
+function sessionWriteClose() {
+    session_write_close();
+}
+
 \Lampion\Core\Scheduler::registerShutdownFunction('loadScripts');
+\Lampion\Core\Scheduler::registerShutdownFunction('sessionWriteClose');

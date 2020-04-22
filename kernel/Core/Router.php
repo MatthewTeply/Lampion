@@ -169,7 +169,7 @@ class Router
             echo '<form id="redir-form" action="' . $_POST['action'] . '" method="POST">';
             foreach($_POST as $key => $data) {
                 if(isset($data['value']) && isset($data['type'])) {
-                    echo '<input type="hidden" name="' . $key . '" value=' . $fh->handle($data['type'], $data['value']) . '>';
+                    echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars($fh->handle($data['type'], $data['value'])) . '">';
                 }
             }
             echo '<noscript>';
