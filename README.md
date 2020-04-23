@@ -1,7 +1,7 @@
 # Lampion Framework
 
 ### 🎙 About
-Lampion framework is a small MVC PHP framework inspired by Symfony.
+Lampion framework is a small PHP framework inspired by Symfony.
 
 ### 📜 Documentation
 Docs are on their way!
