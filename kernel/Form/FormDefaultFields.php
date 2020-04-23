@@ -29,4 +29,7 @@ class FormDefaultFields {
     # Nodes
     const NODES  = ['field' => 'title_content'];
 
+    # Entity
+    const ENTITY = ['field' => 'entity'];
+
 }

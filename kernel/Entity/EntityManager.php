@@ -17,8 +17,8 @@ class EntityManager {
     }
 
     public function persist(object $entity) {
-        //$vars  = get_object_vars($entity);
-        $table = $this->getTableName(get_class($entity));
+        $table    = $this->getTableName(get_class($entity));
+        $metadata = $this->metadata(get_class($entity));
 
         $entityFormer = $entity->id ? $this->find(get_class($entity), $entity->id) : null;
 
@@ -26,8 +26,8 @@ class EntityManager {
             return false;
         }
 
-        # Check if var has a setter, if it does, use it and set it in the $vars array
         foreach($entity as $key => $var) {
+            # Check if var has a setter, if it does, use it and set it in the $vars array
             $methodName = 'set' . ucfirst($key);
 
             if(method_exists($entity, $methodName)) {
@@ -41,6 +41,12 @@ class EntityManager {
                 else {
                     $entity->{$key} = $entity->$methodName($var);
                 }
+            }
+
+            # Fill mapping column with their property's value, and unset the property
+            if(isset($metadata->{$key}->mappedBy)) {
+                $entity->{$metadata->{$key}->mappedBy} = $var;
+                unset($entity->{$key});
             }
         }
 
@@ -101,8 +107,12 @@ class EntityManager {
 
         $entities = [];
 
+        if(empty($ids[0])) {
+            return false;
+        }
+
         foreach($ids as $id) {
-            $entities[] = $this->find($entityName, $id);
+            $entities[] = $this->find($entityName, $id['id']);
         }
 
         return $entities;
@@ -150,13 +160,34 @@ class EntityManager {
     }
 
     private function setFields(object &$entity, $fields) {
-        foreach($fields as $key => $field) {
+        $metadata = $this->metadata(get_class($entity));
+
+        # Check if entity has a getter declared, if so, use it
+        foreach($fields as $key => $value) {
             $getMethod = 'get' . ucfirst($key);
 
-            $entity->$key = $field;
+            $entity->{$key} = $value;
 
             if(method_exists($entity, $getMethod)) {
-                $entity->$key = $entity->$getMethod();
+                $entity->{$key} = $entity->$getMethod();
+            }
+        }
+
+        # Get differenece between columns and metadata
+        $diff = array_diff(array_keys((array)$metadata), array_keys($fields));
+
+        # Populate property fields by their mapping column's value, and unset the colummn
+        foreach($diff as $field) {
+            if(isset($metadata->{$field}->mappedBy)) {
+                $entity->{$field} = $entity->{$metadata->{$field}->mappedBy};
+                unset($entity->{$metadata->{$field}->mappedBy});
+            }
+        }
+
+        # Check if entity property is a refference to another class, if it is, populate the property with the said class
+        foreach($entity as $key => $value) {
+            if(isset($metadata->{$key}->entity)) {
+                $entity->{$key} = $this->find($metadata->{$key}->entity, $value);
             }
         }
     }

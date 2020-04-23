@@ -26,8 +26,6 @@ class Form {
         $inputType = @constant('Lampion\Form\FormDefaultFields::' . strtoupper($type)) ?? constant('Lampion\Form\FormDefaultFields::STRING');
         $fieldController = ucfirst(Application::name()) . '\\Form\\Field\\' . ucfirst($type) . 'FormField';
 
-        $template = $this->view->load($path . $inputType['field'], $options, true);
-
         if(class_exists($fieldController)) {
             $fieldController = new $fieldController();
             
@@ -36,6 +34,10 @@ class Form {
                     $template = $fieldController->display($options);
                 }
             }
+        }
+
+        else {
+            $template = $this->view->load($path . $inputType['field'], $options, true);
         }
 
         if(!$inputType) {
