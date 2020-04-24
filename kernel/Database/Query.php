@@ -153,8 +153,10 @@ class Query extends Connection
      * @param Query  $instance
      * @return array|mixed
      */
-    public static function select(string $table, array $columns, array $conditions = []) {
-        $data = self::raw("SELECT " . implode(",", $columns) . " FROM " . $table . self::processConditions($conditions), self::processParams($conditions));
+    public static function select(string $table, array $columns, array $conditions = [], $sortBy = null, $sortOrder = null) {
+        $sortString = $sortBy ? ' ORDER BY ' . $sortBy . ' ' . $sortOrder : '';
+
+        $data = self::raw("SELECT " . implode(",", $columns) . " FROM " . $table . self::processConditions($conditions)  . $sortString, self::processParams($conditions));
 
         if(sizeof($data) == 0)
             return [];

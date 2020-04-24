@@ -67,12 +67,12 @@ class EntityManager {
         return true;
     }
 
-    public function find(string $entityName, int $id) {
+    public function find(string $entityName, int $id, $sortBy = null, $sortOrder = null) {
         $table = $this->getTableName($entityName);
 
         $fields = Query::select($table, ['*'], [
             'id' => $id
-        ])[0];
+        ], $sortBy, $sortOrder)[0];
 
         if(!isset($fields['id'])) {
             return false;
@@ -85,10 +85,10 @@ class EntityManager {
         return $entity;
     }
 
-    public function findBy(string $entityName, array $searchFields) {
+    public function findBy(string $entityName, array $searchFields, $sortBy = null, $sortOrder = null) {
         $table = $this->getTableName($entityName);
 
-        $fields = Query::select($table, ['*'], $searchFields)[0];
+        $fields = Query::select($table, ['*'], $searchFields, $sortBy, $sortOrder)[0];
 
         if(!isset($fields['id'])) {
             return false;
@@ -101,9 +101,9 @@ class EntityManager {
         return $entity;
     }
 
-    public function all(string $entityName) {
+    public function all(string $entityName, $sortBy = null, $sortOrder = null) {
         $table = $this->getTableName($entityName);
-        $ids   = Query::select($table, ['id']);
+        $ids   = Query::select($table, ['id'], [], $sortBy, $sortOrder);
 
         $entities = [];
 
