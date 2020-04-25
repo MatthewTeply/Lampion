@@ -73,7 +73,7 @@ class FileSystem {
         }
 
         if(move_uploaded_file($fileTmpName, $uploadPath)) {
-            return $fileName;
+            return $dir . basename($fileName);
         }
 
         else {

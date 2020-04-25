@@ -172,6 +172,10 @@ class Router
                     echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars($fh->handle($data['type'], $data['value'])) . '">';
                 }
             }
+
+            foreach($_FILES as $key => $data) {
+                echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars($fh->handle($key, $data)) . '">';
+            }
             echo '<noscript>';
             echo 'This function requires JavaScript to be enabled, please enable JavaScript in your browser\'s settings.';
             echo '</noscript>';

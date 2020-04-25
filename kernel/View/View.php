@@ -30,6 +30,10 @@ class View {
         ]);
         
         $pathFunc = new TwigFunction('path', function($route) {
+            if(!$route) {
+                return '';
+            }
+            
             return Url::link($route);
         });
 
@@ -65,6 +69,7 @@ class View {
         $args['__css__']     = WEB_ROOT . $initialPath . $this->app . CSS;
         $args['__scripts__'] = WEB_ROOT . $initialPath . $this->app . SCRIPTS;
         $args['__img__']     = WEB_ROOT . $initialPath . $this->app . IMG;
+        $args['__storage__'] = WEB_ROOT . $initialPath . $this->app . STORAGE;
         $args['__webRoot__'] = WEB_ROOT;
 
         echo $this->twig->render("$path.twig", !empty($args) ? $args : get_object_vars($this));

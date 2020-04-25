@@ -2,7 +2,9 @@
 
 namespace Lampion\Form;
 
+use Error;
 use Lampion\Application\Application;
+use Lampion\Core\FileSystem;
 
 class FormHandler {
 
@@ -23,6 +25,23 @@ class FormHandler {
         }
 
         else {
+            # Handling files
+            if(isset($data['tmp_name'])) {
+                foreach($data as $key => $value) {
+                    $data[$key] = $value['value'];
+                } 
+
+                $fs = new FileSystem();
+
+                try {
+                    return $fs->upload($data, '');
+                }
+
+                catch(Error $e) {
+                    return '';
+                }
+            }
+
             return $data;
         }
     }
