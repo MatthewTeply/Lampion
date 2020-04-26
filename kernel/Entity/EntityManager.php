@@ -88,6 +88,8 @@ class EntityManager {
     public function findBy(string $entityName, array $searchFields, $sortBy = null, $sortOrder = null) {
         $table = $this->getTableName($entityName);
 
+        $searchFields = $this->transformFieldsToColumns($entityName, $searchFields);
+
         $fields = Query::select($table, ['*'], $searchFields, $sortBy, $sortOrder)[0];
 
         if(!isset($fields['id'])) {
@@ -190,5 +192,43 @@ class EntityManager {
                 $entity->{$key} = $this->find($metadata->{$key}->entity, $value);
             }
         }
+    }
+
+    private function transformFieldsToColumns(string $entityName, array $fields) {
+        $metadata = $this->metadata($entityName);
+
+        foreach($fields as $key => $field) {
+            # Get field's metadata
+            $fieldMetadata = $metadata->{$key} ?? null;
+
+            # If metadata for current field don't exist, skip cycle
+            if(!$fieldMetadata) {
+                continue;
+            }
+
+            # Check if field is mapped to a specific DB column
+            $fieldName  = $fieldMetadata->mappedBy ?? $key;
+
+            $fieldValue = null;
+
+            # Transform field's value here
+            switch($fieldMetadata->type) {
+                case 'entity':
+                    $fieldValue = $field->id;
+                    break;
+                default:
+                    $fieldValue = $field;
+                    break;
+            }
+
+            # If field is mapped to a column, unset the original
+            if($fieldName != $key) {
+                unset($fields[$key]);
+            }
+
+            $fields[$fieldName] = $fieldValue;
+        }
+
+        return $fields;
     }
 }

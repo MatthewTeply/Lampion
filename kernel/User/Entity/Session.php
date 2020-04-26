@@ -2,39 +2,31 @@
 
 namespace Lampion\User\Entity;
 
-use Lampion\Entity\Entity;
-
-class Session extends Entity {
+class Session {
 
     # Public:
+
+    /** @var(type="int", length="11") */    
     public $id;
+
+    /** @var(type="varchar", length="255") */
+    public $session_id;
+
+    /** @var(type="entity", mappedBy="user_id") */ 
+    public $user;
+
+    /** @var(type="int", length="11") */
     public $created;
+
+    /** @var(type="int", length="11") */
     public $updated;
-    public $user_id;
+
+    /** @var(type="varchar", length="255") */
     public $ip;
+    
+    /** @var(type="varchar", length="255") */
     public $device;
+
+    /** @var(type="varchar", length="255") */
     public $os;
-
-    # Protected:
-    protected $token;
-
-    public function __construct($id = null) {
-        $this->init($id);
-    }
-
-    public function setToken() {
-        $this->token = bin2hex(random_bytes(64));
-    }
-
-    public function getToken() {
-        return $this->token;
-    }
-
-    public function persist() {
-        $this->save();
-    }
-
-    public function destroy() {
-        $this->delete();
-    }
 }

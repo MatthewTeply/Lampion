@@ -96,6 +96,7 @@ class Router
             //Url::redirect(HTTP_NOT_FOUND_REDIR);
         }
 
+        http_response_code(404);
         die(HTTP_NOT_FOUND);
     }
 
@@ -164,7 +165,48 @@ class Router
         $this->post('form', function(Request $req, Response $res) {
             $fh = new FormHandler();
 
-            // TODO: After session tokens are implemented, change to CURL
+            $post = null;
+
+            foreach($_POST as $key => $data) {
+                if(isset($data['value']) && isset($data['type'])) {
+                    $post[$key] = $fh->handle($data['type'], $data['value']);
+    
+                }
+            }
+
+            $post['authToken'] = Cookie::get('lampionToken') ?? null;
+
+            // TODO: $_FILES handling
+
+            $useragent = $_SERVER['HTTP_USER_AGENT'];
+            $ckfile = tempnam ("/tmp", "CURLCOOKIE");
+           
+            session_write_close();
+
+            $ch = curl_init($_POST['action']);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_COOKIESESSION, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+            curl_setopt($ch,CURLOPT_USERAGENT, $useragent);
+            curl_setopt ($ch, CURLOPT_COOKIEFILE, $ckfile);
+
+            $response = curl_exec($ch);
+            $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+            curl_close($ch);
+
+            // TODO: Response check
+            if($httpcode == 302)  {
+                // Success
+            }
+
+            else {
+                // Fail
+            }
+            
+            //Url::redirect();
+
+            /*
             echo 'Loading...<br>';
             echo '<form id="redir-form" action="' . $_POST['action'] . '" method="POST">';
             foreach($_POST as $key => $data) {
@@ -181,6 +223,7 @@ class Router
             echo '</noscript>';
             echo '</form>';
             echo '<script>document.getElementById("redir-form").submit();</script>';
+            */
         });
 
         switch($request_method) {
@@ -197,6 +240,7 @@ class Router
                 self::processURL(self::$delete, $_GET);
                 break;
             default:
+                http_response_code(404);
                 die(HTTP_NOT_FOUND);
                 break;
         }

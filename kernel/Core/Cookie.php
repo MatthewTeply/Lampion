@@ -26,9 +26,9 @@ class Cookie
         $timeAmount = 0;
 
         if(is_array($time)) {
-            foreach ($time as $unit => $value) {
+            foreach ($time as $unit => $timeValue) {
                 if(in_array($unit, array_keys($acceptedUnits))) {
-                    $timeAmount += $value * $acceptedUnits[$unit];
+                    $timeAmount += $timeValue * $acceptedUnits[$unit];
                 }
 
                 else {
@@ -41,7 +41,7 @@ class Cookie
             $timeAmount = $time;
         }
 
-        setcookie($name, $value, time() + ($timeAmount), "/");
+        setcookie($name, $value, time() + $timeAmount, "/");
     }
 
     /**

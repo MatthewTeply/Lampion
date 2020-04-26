@@ -2,11 +2,17 @@
 
 namespace Lampion\User;
 
+use Error;
+use Firebase\JWT\BeforeValidException;
+use Firebase\JWT\ExpiredException;
+use Firebase\JWT\JWT;
 use Lampion\Core\Cookie;
 use Lampion\Session\Lampion as LampionSession;
 use Lampion\Database\Query;
+use Lampion\Debug\Console;
 use Lampion\Entity\EntityManager;
 use Lampion\User\Entity\User;
+use Lampion\User\Session as UserSession;
 
 class Auth
 {
@@ -39,14 +45,16 @@ class Auth
 
         # Logged in
         if(password_verify($pwd, $user->getPwd())) {
+            unset($user->pwd);
+
             # Pass user entity into session, so it can be easily accessed later
-            $user->token = Session::create($user->id);
+            $token = UserSession::create(serialize($user));
 
-            LampionSession::set('user', $user);
+            Cookie::set('lampionToken', $token, [ 'w' => 1 ]);
+            //Cookie::set('_lampionToken', ' ', [ 'w' => 1 ]);
 
-            Cookie::set('lampToken', $user->token, [ 'w' => 1 ]);
-            Cookie::set('_lampToken', ' ', [ 'w' => 1 ]);
-            
+            UserSession::set($user);
+
             return true;
         }
 
@@ -57,21 +65,79 @@ class Auth
     }
     
     public static function logout() {
+        $em = new EntityManager();
+        $jwt = self::decodeJWT(Cookie::get('lampionToken'));
+
+        $userSession = $em->findBy(Session::class, [
+            'session_id' => $jwt->data->id
+        ]);
+
+        if($userSession) {
+            $em->destroy($userSession);
+        }
+        
+        Cookie::destroy('lampionToken');
+        
         LampionSession::unset('user');
     }
 
-    public static function isLoggedIn() {
-        // TODO: More complex auth system!
-        if(LampionSession::get('user') === null) {
+    public static function isLoggedIn($token = null) {
+        $token = $token ?? Cookie::get('lampionToken');
+        $jwt   = self::decodeJWT($token);
+
+        if(!$jwt) {
             return false;
         }
+
+        $em = new EntityManager();
         
-        @$user = new User(LampionSession::get('user')->id);
+        # Check if user exists
+        $user = $em->find(User::class, $jwt->data->user->id);
 
         if(!$user) {
+            self::logout();
+
+            return false;
+        }
+
+        # If user exists, but is not set in session, set it
+        UserSession::set($user);
+
+        # Check if session is valid
+        $userSession = $em->findBy(Session::class, [
+            'session_id' => $jwt->data->id
+        ]);
+
+        if(!$userSession) {
+            self::logout();
+
             return false;
         }
 
         return true;
+    }
+
+    public static function decodeJWT($token) {
+        if($token == null) {
+            return null;
+        }
+        
+        try {
+            $tks = explode('.', $token);       
+            list($headb64, $bodyb64, $cryptob64) = $tks;
+            $header = JWT::jsonDecode(JWT::urlsafeB64Decode($headb64));
+
+            try {
+                return JWT::decode($token, JWT_SECRET_KEY, [$header->alg]);
+            }
+
+            catch(BeforeValidException $e) {
+                return null;
+            }
+        }
+
+        catch(ExpiredException $e) {
+            return null;
+        }
     }
 }

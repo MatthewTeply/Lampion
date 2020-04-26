@@ -5,6 +5,7 @@ function kernelTables() {
       'app',
       'managed_file',
       'user',
-      'api_keys'
+      'api_keys',
+      'session'
     ];
 }

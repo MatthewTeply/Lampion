@@ -59,3 +59,6 @@ define('DB_HOST', 'localhost');
 define('DB_NAME', 'carnival');
 define('DB_USER', 'root');
 define('DB_PASS', '');
+
+# Authentication
+define('JWT_SECRET_KEY', 'BD72A6978E58B7F7F4785C65472354ACFE1FC40F546C5C96EA30F32706CD1241');
