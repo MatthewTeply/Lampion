@@ -7,3 +7,7 @@
     {% endfor %}
 
 </form>
+
+{% if ajax %}
+    <script src="{{ __scripts__ }}admin/ajaxForm.js"></script>
+{% endif %}

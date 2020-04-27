@@ -30,4 +30,8 @@ class Response
     public function redirect(string $route, array $params = []) {
         return Url::redirect($route, $params);
     }
+
+    public function json(array $arr) {
+        echo json_encode($arr);
+    }
 }

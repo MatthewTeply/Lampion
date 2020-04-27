@@ -2,6 +2,7 @@
 
 namespace Lampion\View;
 
+use Lampion\Application\Application;
 use Lampion\Controller\ControllerLoader;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
@@ -67,7 +68,7 @@ class View {
         }
 
         $args['__css__']     = WEB_ROOT . $initialPath . $this->app . CSS;
-        $args['__scripts__'] = WEB_ROOT . $initialPath . $this->app . SCRIPTS;
+        $args['__scripts__'] = WEB_ROOT . $initialPath . Application::name() . SCRIPTS;
         $args['__img__']     = WEB_ROOT . $initialPath . $this->app . IMG;
         $args['__storage__'] = WEB_ROOT . $initialPath . $this->app . STORAGE;
         $args['__webRoot__'] = WEB_ROOT;

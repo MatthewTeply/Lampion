@@ -45,7 +45,7 @@ class EntityManager {
 
             # Fill mapping column with their property's value, and unset the property
             if(isset($metadata->{$key}->mappedBy)) {
-                $entity->{$metadata->{$key}->mappedBy} = $var;
+                $entity->{$metadata->{$key}->mappedBy} = $metadata->{$key}->type == 'entity' ? (is_object($var) ? $var->id : $var) : $var;
                 unset($entity->{$key});
             }
         }

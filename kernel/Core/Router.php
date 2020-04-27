@@ -170,13 +170,14 @@ class Router
             foreach($_POST as $key => $data) {
                 if(isset($data['value']) && isset($data['type'])) {
                     $post[$key] = $fh->handle($data['type'], $data['value']);
-    
                 }
             }
 
-            $post['authToken'] = Cookie::get('lampionToken') ?? null;
+            foreach($_FILES as $key => $data) {
+                $post[$key] = $fh->handle($key, $data);
+            }
 
-            // TODO: $_FILES handling
+            $post['authToken'] = Cookie::get('lampionToken') ?? null;
 
             $useragent = $_SERVER['HTTP_USER_AGENT'];
             $ckfile = tempnam ("/tmp", "CURLCOOKIE");

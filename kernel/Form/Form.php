@@ -11,12 +11,14 @@ class Form {
     public $action;
     public $method;
     public $fields = [];
+    public $ajax;
 
     protected $view;
 
-    public function __construct(string $action, string $method) {
+    public function __construct(string $action, string $method, bool $ajax = false) {
         $this->action = $action;
         $this->method = $method;
+        $this->ajax   = $ajax;
 
         $this->view = new View(KERNEL_TEMPLATES, '');
     }
@@ -61,7 +63,8 @@ class Form {
         $this->view->render('form/base', [
             'action' => $this->action,
             'method' => $this->method,
-            'fields' => $this->fields
+            'fields' => $this->fields,
+            'ajax'   => $this->ajax
         ]);
     }
 
