@@ -124,7 +124,7 @@ class View {
     }
 
     private function customFilters() {
-        $this->setFilter('json_decode', function(string $json) {
+        $this->setFilter('json_decode', function($json) {
             return json_decode($json, true);
         });
     }

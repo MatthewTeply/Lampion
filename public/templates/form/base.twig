@@ -1,4 +1,4 @@
-<form action="{{ path('form') }}" method="{{ method }}" enctype="multipart/form-data">
+<form action="{{ path('form') }}" method="{{ method }}" enctype="multipart/form-data" class="{{ ajax == true ? 'lampion-ajax-form' : '' }}">
     <input type="hidden" name="action" value="{{ action }}">
 
     {% for field in fields %}
@@ -7,7 +7,3 @@
     {% endfor %}
 
 </form>
-
-{% if ajax %}
-    <script src="{{ __scripts__ }}admin/ajaxForm.js"></script>
-{% endif %}

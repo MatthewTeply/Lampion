@@ -103,12 +103,21 @@ class Router
     protected static function short_method($callback, $args = []) {
         if(is_string($callback)) {
             $callback = explode("::", $callback);
+            $response = new Response();
 
             $_GET['Request'] = $args['req'];
             $_GET['Response'] = $args['res'];
 
             $path   = $callback[0];
             $method = $callback[1];
+
+            if(!class_exists($path)) {
+                $response->json([
+                    'error' => 'Route does not exist!'
+                ]);
+
+                return;
+            }
 
             $class = new $path;
 
@@ -179,6 +188,10 @@ class Router
 
             $post['authToken'] = Cookie::get('lampionToken') ?? null;
 
+            if(Request::isAjax()) {
+                $post['lampionIsAjaxRequest'] = true;
+            }
+
             $useragent = $_SERVER['HTTP_USER_AGENT'];
             $ckfile = tempnam ("/tmp", "CURLCOOKIE");
            
@@ -194,6 +207,7 @@ class Router
             $response = curl_exec($ch);
             $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+            $res->send($response);
             curl_close($ch);
 
             // TODO: Response check
@@ -204,27 +218,6 @@ class Router
             else {
                 // Fail
             }
-            
-            //Url::redirect();
-
-            /*
-            echo 'Loading...<br>';
-            echo '<form id="redir-form" action="' . $_POST['action'] . '" method="POST">';
-            foreach($_POST as $key => $data) {
-                if(isset($data['value']) && isset($data['type'])) {
-                    echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars($fh->handle($data['type'], $data['value'])) . '">';
-                }
-            }
-
-            foreach($_FILES as $key => $data) {
-                echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars($fh->handle($key, $data)) . '">';
-            }
-            echo '<noscript>';
-            echo 'This function requires JavaScript to be enabled, please enable JavaScript in your browser\'s settings.';
-            echo '</noscript>';
-            echo '</form>';
-            echo '<script>document.getElementById("redir-form").submit();</script>';
-            */
         });
 
         switch($request_method) {
