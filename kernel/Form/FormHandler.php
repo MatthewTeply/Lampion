@@ -14,8 +14,8 @@ class FormHandler {
         $class     = null;
 
         // Check if field's controller is overwritten in current app, or if a custom one is specified
-        if(class_exists(ucfirst(Application::name()) . '\Form\Field\\' . $field . 'FormField')) {
-            $className = ucfirst(Application::name()) . '\Form\Field\\' . $field . 'FormField';
+        if(class_exists(ucfirst(Application::name()) . '\Form\Field\\' . ucfirst($field) . 'FormField')) {
+            $className = ucfirst(Application::name()) . '\Form\Field\\' . ucfirst($field) . 'FormField';
         }
 
         if(class_exists($className)) {

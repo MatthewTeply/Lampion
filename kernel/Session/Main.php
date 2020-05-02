@@ -16,7 +16,7 @@ class Main implements SessionInterface
         return $_SESSION[$name];
     }
 
-    public function destroy() {
+    public static function destroy() {
         session_destroy();
     }
 
