@@ -1,1 +1,13 @@
-<div class="col-lg-12 form-input-around"><button name="{{ name }}[value]" type="{{ type }}" class="{{ attr.class }}" id="{{ id }}">{{ label }}</button></div>
+<div class="col-lg-12 form-input-around">
+    <button 
+        name="{{ name }}[value]" 
+        type="{{ type }}" 
+        class="{{ attr.class }}" 
+        id="{{ id }}"
+        {% if attr.disabled %}
+            disabled="disabled"
+        {% endif %}
+    >
+            {{ label }}
+    </button>
+</div>

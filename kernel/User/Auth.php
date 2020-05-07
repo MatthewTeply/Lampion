@@ -2,14 +2,12 @@
 
 namespace Lampion\User;
 
-use Error;
 use Firebase\JWT\BeforeValidException;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Lampion\Core\Cookie;
 use Lampion\Session\Lampion as LampionSession;
 use Lampion\Database\Query;
-use Lampion\Debug\Console;
 use Lampion\Entity\EntityManager;
 use Lampion\User\Entity\User;
 use Lampion\User\Session as UserSession;
@@ -101,7 +99,7 @@ class Auth
         }
 
         # If user exists, but is not set in session, set it
-        UserSession::set($user);
+        @UserSession::set($user);
 
         # Check if session is valid
         $userSession = $em->findBy(Session::class, [

@@ -1,3 +1,15 @@
 <div class="{{ attr.class }} form-input-around">
-    <textarea name="{{ name }}[value]" cols="30" rows="10" class="form-control" id="{{ attr.id }}" placeholder="{{ attr.placeholder }}">{{ value }}</textarea>
+    <textarea
+        name="{{ name }}[value]" 
+        cols="30" 
+        rows="10" 
+        class="form-control" 
+        id="{{ attr.id }}" 
+        placeholder="{{ attr.placeholder }}"
+        {% if attr.disabled %}
+            disabled="disabled"
+        {% endif %}
+    >
+        {{ value }}
+    </textarea>
 </div>

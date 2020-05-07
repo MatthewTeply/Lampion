@@ -45,7 +45,7 @@ class View {
         # Register custom filters
         $this->customFilters();
 
-        $this->app = strtolower($app);
+        $this->app = empty($app) ? Application::name() : strtolower($app);
         $this->isPlugin = $isPlugin;
     }
 
@@ -68,9 +68,10 @@ class View {
         }
 
         $args['__css__']     = WEB_ROOT . $initialPath . $this->app . CSS;
-        $args['__scripts__'] = WEB_ROOT . $initialPath . Application::name() . SCRIPTS;
+        $args['__scripts__'] = WEB_ROOT . $initialPath . $this->app . SCRIPTS;
         $args['__img__']     = WEB_ROOT . $initialPath . $this->app . IMG;
         $args['__storage__'] = WEB_ROOT . $initialPath . $this->app . STORAGE;
+        $args['__webStorage__'] = WEB_ROOT . $initialPath . $this->app . STORAGE;
         $args['__webRoot__'] = WEB_ROOT;
 
         echo $this->twig->render("$path.twig", !empty($args) ? $args : get_object_vars($this));
@@ -114,10 +115,11 @@ class View {
             }
 
             # Pass system variables
-            $args['__css__']     = WEB_ROOT . $initialPath . $this->app . CSS;
-            $args['__scripts__'] = WEB_ROOT . $initialPath . $this->app . SCRIPTS;
-            $args['__img__']     = WEB_ROOT . $initialPath . $this->app . IMG;
-            $args['__webRoot__'] = WEB_ROOT;
+            $args['__css__']        = WEB_ROOT . $initialPath . $this->app . CSS;
+            $args['__scripts__']    = WEB_ROOT . $initialPath . $this->app . SCRIPTS;
+            $args['__img__']        = WEB_ROOT . $initialPath . $this->app . IMG;
+            $args['__webStorage__'] = WEB_ROOT . $initialPath . $this->app . STORAGE;
+            $args['__webRoot__']    = WEB_ROOT;
 
             return new Markup($this->twig->render("$path.twig", $args), 'UTF-8');
         }
@@ -126,6 +128,20 @@ class View {
     private function customFilters() {
         $this->setFilter('json_decode', function($json) {
             return json_decode($json, true);
+        });
+
+        $this->setFilter('isImg', function($src) {
+            $imgExts = [
+                'png',
+                'jpg',
+                'svg',
+                'gif',
+                'jpeg'
+            ];
+
+            $srcExplode = explode('.', $src);
+
+            return in_array(strtolower(end($srcExplode)), $imgExts);
         });
     }
 }

@@ -1,4 +1,22 @@
-<div class="{{ attr.class }} form-input-around"><div class="custom-file"> 
-    <input type="file" name="{{ name }}[value]" class="custom-file-input {{ attr.class }}" id="{{ attr.id }}"> 
-    <label class="custom-file-label" for="custom-file1">{{ label }}</label>     
-    </div></div>
+<div class="{{ attr.class }} form-input-around lampion-file-input">
+    <div class="custom-file"> 
+        <input type="file"
+            name="{{ name }}[value]"
+            class="custom-file-input {{ attr.class }}"
+            id="{{ attr.id }}"
+            {% if attr.disabled %}
+                disabled="disabled"
+            {% endif %}
+        > 
+        <label class="custom-file-label" for="custom-file1">
+            {% if value != '' %}
+                {% if value|isImg %}
+                    <img src="{{ __webStorage__ ~ value }}" alt="">
+                {% endif %}
+                {{ value }}
+            {% else %}
+                {{ label }}
+            {% endif %}
+        </label>     
+    </div>
+</div>

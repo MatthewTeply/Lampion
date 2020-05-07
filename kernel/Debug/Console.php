@@ -4,7 +4,7 @@ namespace Lampion\Debug;
 
 class Console {
 
-    public function log($var) {
+    public static function log($var) {
         $type = \gettype($var);
 
         switch($type) {
