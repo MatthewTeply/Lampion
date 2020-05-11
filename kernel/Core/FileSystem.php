@@ -12,6 +12,8 @@ namespace Lampion\Core;
 
 use Exception;
 use Lampion\Application\Application;
+use Lampion\Database\Query;
+use Lampion\Session\Lampion as LampionSession;
 
 class FileSystem {
 
@@ -73,6 +75,19 @@ class FileSystem {
         }
 
         if(move_uploaded_file($fileTmpName, $uploadPath)) {
+            if(Query::tableExists('managed_file')) {
+                Query::insert('managed_file', [
+                    'filename'     => basename($fileName),
+                    'fullPath'     => $uploadPath,
+                    'relativePath' => $dir . basename($fileName),
+                    'extension'    => $fileExtenstion,
+                    'note'         => '',
+                    'tags'         => '[]',
+                    'metadata'     => '[]',
+                    'user_id'      => unserialize(LampionSession::get('user'))->id ?? null
+                ]);
+            }
+
             return $dir . basename($fileName);
         }
 
