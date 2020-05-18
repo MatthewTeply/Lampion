@@ -4,7 +4,7 @@ namespace Lampion\Form;
 
 use Error;
 use Lampion\Application\Application;
-use Lampion\Core\FileSystem;
+use Lampion\FileSystem\FileSystem;
 
 class FormHandler {
 
@@ -38,7 +38,7 @@ class FormHandler {
                 }
 
                 catch(Error $e) {
-                    return '';
+                    return $e;
                 }
             }
 

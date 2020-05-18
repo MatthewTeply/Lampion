@@ -7,9 +7,7 @@ use Lampion\Form\FormField;
 class JsonFormField extends FormField {
 
     public function submit($data) {
-        var_dump($this->view);
-
-        return $data;
+        return json_encode($data);
     }
 
 }

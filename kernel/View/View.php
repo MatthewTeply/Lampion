@@ -143,5 +143,13 @@ class View {
 
             return in_array(strtolower(end($srcExplode)), $imgExts);
         });
+
+        $this->setFilter('toArray', function ($stdClassObject) {
+            $response = array();
+            foreach ($stdClassObject as $key => $value) {
+                $response[] = $value;
+            }
+            return $response;
+        });
     }
 }

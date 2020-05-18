@@ -28,6 +28,7 @@ class Form {
         $inputType = @constant('Lampion\Form\FormDefaultFields::' . strtoupper($type)) ?? constant('Lampion\Form\FormDefaultFields::STRING');
         $fieldController = ucfirst(Application::name()) . '\\Form\\Field\\' . ucfirst($type) . 'FormField';
 
+        # Check if custom field controller is created in the current app
         if(class_exists($fieldController)) {
             $fieldController = new $fieldController();
             
@@ -39,7 +40,25 @@ class Form {
         }
 
         else {
-            $template = $this->view->load($path . $inputType['field'], $options, true);
+
+            # If a custom controller is not found, look for default controller
+            $fieldController = 'Lampion\\Form\\Field\\' . ucfirst($type) . 'FormField';
+
+            if(class_exists($fieldController)) {
+                $fieldController = new $fieldController();
+
+                if(method_exists($fieldController, 'display')) {
+                    if($fieldController->display($options)) {
+                        $template = $fieldController->display($options);
+                    }
+                }
+            }
+
+            # If a default controller is not found, display a simple template
+            else {
+                $template = $this->view->load($path . $inputType['field'], $options, true);
+            }
+
         }
 
         if(!$inputType) {

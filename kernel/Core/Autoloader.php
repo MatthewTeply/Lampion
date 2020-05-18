@@ -41,12 +41,12 @@ class Autoloader
     }
 
     public static function registerPluginFunctions() {
-        $fs = new FileSystem(PLUGINS);
+        $fs = new \Lampion\FileSystem\FileSystem(PLUGINS);
 
         $plugins = $fs->ls("", ["-dirs"]);
 
         foreach ($plugins as $plugin) {
-            $moduleFile = $plugin['fullPath'] . "/" . strtolower($plugin['name']) . ".module";
+            $moduleFile = $plugin['fullPath'] . "/" . strtolower($plugin['filename']) . ".module";
 
             if(is_file($moduleFile)) {
                 include_once $moduleFile;

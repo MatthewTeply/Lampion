@@ -63,7 +63,8 @@ class Runtime
             'results'         => $results,
             'message'         => $message,
             'status'          => $status,
-            'code'            => $code
+            'code'            => $code,
+            'time'            => date('Y-m-d H:i:s')
         ];
     }
 

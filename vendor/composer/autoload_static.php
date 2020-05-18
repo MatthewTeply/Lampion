@@ -7,14 +7,22 @@ namespace Composer\Autoload;
 class ComposerStaticInitf642c91053bacb92950a448aab8bf08a
 {
     public static $files = array (
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'p' => 
         array (
+            'phpseclib\\' => 10,
             'phpDocumentor\\Reflection\\' => 25,
         ),
         'W' => 
@@ -27,13 +35,29 @@ class ComposerStaticInitf642c91053bacb92950a448aab8bf08a
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
+            'Psr\\Http\\Message\\' => 17,
+            'Psr\\Cache\\' => 10,
             'Prophecy\\' => 9,
             'PHPMailer\\PHPMailer\\' => 20,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
+            'GuzzleHttp\\Promise\\' => 19,
+            'GuzzleHttp\\' => 11,
+            'Google\\Auth\\' => 12,
         ),
         'F' => 
         array (
@@ -49,6 +73,10 @@ class ComposerStaticInitf642c91053bacb92950a448aab8bf08a
     );
 
     public static $prefixDirsPsr4 = array (
+        'phpseclib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
+        ),
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
@@ -63,13 +91,33 @@ class ComposerStaticInitf642c91053bacb92950a448aab8bf08a
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
         ),
+        'Symfony\\Polyfill\\Php72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
+        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
+        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
+        ),
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
         'Prophecy\\' => 
         array (
@@ -78,6 +126,26 @@ class ComposerStaticInitf642c91053bacb92950a448aab8bf08a
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+        ),
+        'GuzzleHttp\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
+        ),
+        'GuzzleHttp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'Google\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/google/auth/src',
         ),
         'Firebase\\JWT\\' => 
         array (
@@ -109,12 +177,42 @@ class ComposerStaticInitf642c91053bacb92950a448aab8bf08a
                 0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
             ),
         ),
+        'G' => 
+        array (
+            'Google_Service_' => 
+            array (
+                0 => __DIR__ . '/..' . '/google/apiclient-services/src',
+            ),
+            'Google_' => 
+            array (
+                0 => __DIR__ . '/..' . '/google/apiclient/src',
+            ),
+        ),
     );
 
     public static $classMap = array (
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
+        'Google_AccessToken_Revoke' => __DIR__ . '/..' . '/google/apiclient/src/Google/AccessToken/Revoke.php',
+        'Google_AccessToken_Verify' => __DIR__ . '/..' . '/google/apiclient/src/Google/AccessToken/Verify.php',
+        'Google_AuthHandler_AuthHandlerFactory' => __DIR__ . '/..' . '/google/apiclient/src/Google/AuthHandler/AuthHandlerFactory.php',
+        'Google_AuthHandler_Guzzle5AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/Google/AuthHandler/Guzzle5AuthHandler.php',
+        'Google_AuthHandler_Guzzle6AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/Google/AuthHandler/Guzzle6AuthHandler.php',
+        'Google_Client' => __DIR__ . '/..' . '/google/apiclient/src/Google/Client.php',
+        'Google_Collection' => __DIR__ . '/..' . '/google/apiclient/src/Google/Collection.php',
+        'Google_Exception' => __DIR__ . '/..' . '/google/apiclient/src/Google/Exception.php',
+        'Google_Http_Batch' => __DIR__ . '/..' . '/google/apiclient/src/Google/Http/Batch.php',
+        'Google_Http_MediaFileUpload' => __DIR__ . '/..' . '/google/apiclient/src/Google/Http/MediaFileUpload.php',
+        'Google_Http_REST' => __DIR__ . '/..' . '/google/apiclient/src/Google/Http/REST.php',
+        'Google_Model' => __DIR__ . '/..' . '/google/apiclient/src/Google/Model.php',
+        'Google_Service' => __DIR__ . '/..' . '/google/apiclient/src/Google/Service.php',
+        'Google_Service_Exception' => __DIR__ . '/..' . '/google/apiclient/src/Google/Service/Exception.php',
+        'Google_Service_Resource' => __DIR__ . '/..' . '/google/apiclient/src/Google/Service/Resource.php',
+        'Google_Task_Exception' => __DIR__ . '/..' . '/google/apiclient/src/Google/Task/Exception.php',
+        'Google_Task_Retryable' => __DIR__ . '/..' . '/google/apiclient/src/Google/Task/Retryable.php',
+        'Google_Task_Runner' => __DIR__ . '/..' . '/google/apiclient/src/Google/Task/Runner.php',
+        'Google_Utils_UriTemplate' => __DIR__ . '/..' . '/google/apiclient/src/Google/Utils/UriTemplate.php',
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert.php',
         'PHPUnit\\Framework\\AssertionFailedError' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/AssertionFailedError.php',

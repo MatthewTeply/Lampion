@@ -4,6 +4,11 @@ namespace Lampion\Form;
 
 class FormDefaultFields {
 
+    /**
+     * Types are grouped by their input type,
+     * this class is intended only for DEFAULT types
+     */
+
     # Input
     const NUMBER  = ['field' => 'input', 'type' => 'number'];
     const INT     = ['field' => 'input', 'type' => 'number'];
@@ -17,17 +22,17 @@ class FormDefaultFields {
     const TEXT       = ['field' => 'textarea'];
 
     # Button
-    const BUTTON  = ['field' => 'button', 'type' => 'button'];
-    const SUBMIT  = ['field' => 'button', 'type' => 'submit'];
+    const BUTTON = ['field' => 'button', 'type' => 'button'];
+    const SUBMIT = ['field' => 'button', 'type' => 'submit'];
 
     # Boolean
-    const BOOLEAN  = ['field' => 'boolean'];
+    const BOOLEAN = ['field' => 'boolean'];
 
     # File
-    const FILE  = ['field' => 'file'];
+    const FILE = ['field' => 'file'];
 
     # Nodes
-    const NODES  = ['field' => 'title_content'];
+    const NODES = ['field' => 'title_content'];
 
     # Entity
     const ENTITY = ['field' => 'entity'];

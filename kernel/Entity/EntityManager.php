@@ -90,17 +90,29 @@ class EntityManager {
 
         $searchFields = $this->transformFieldsToColumns($entityName, $searchFields);
 
-        $fields = Query::select($table, ['*'], $searchFields, $sortBy, $sortOrder)[0];
+        $results = Query::select($table, ['*'], $searchFields, $sortBy, $sortOrder);
 
-        if(!isset($fields['id'])) {
+        foreach($results as $key => $result) {
+            if(!isset($result['id'])) {
+                unset($results[$key]);
+            }
+        }
+
+        if(sizeof($results) == 0) {
             return false;
         }
 
-        $entity = new $entityName();
+        $entities = [];
 
-        $this->setFields($entity, $fields);
+        foreach($results as $fields) {
+            $entity = new $entityName();
+    
+            $this->setFields($entity, $fields);
 
-        return $entity;
+            $entities[] = $entity;
+        }
+
+        return $entities;
     }
 
     public function all(string $entityName, $sortBy = null, $sortOrder = null) {
@@ -190,6 +202,12 @@ class EntityManager {
         foreach($entity as $key => $value) {
             if(isset($metadata->{$key}->entity)) {
                 $entity->{$key} = $this->find($metadata->{$key}->entity, $value);
+            }
+
+            $getMethod = 'get' . ucfirst($key);
+
+            if(method_exists($entity, $getMethod)) {
+                $entity->{$key} = $entity->$getMethod();
             }
         }
     }

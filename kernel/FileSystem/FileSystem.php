@@ -1,29 +1,38 @@
 <?php
 /**
  * Lampion Framework File System by Matyáš Teplý - 2020
- *  Basic filesystem written from scratch
+ * Basic filesystem written from scratch
  * 
  * TODO:
  * Replace vanilla PHP Exceptions with Lampion Exceptions, so they can be caught by Monitor
  * Download method
  */
 
-namespace Lampion\Core;
+namespace Lampion\FileSystem;
 
 use Exception;
 use Lampion\Application\Application;
 use Lampion\Database\Query;
+use Lampion\Entity\EntityManager;
+use Lampion\FileSystem\Entity\Dir;
+use Lampion\FileSystem\Entity\File;
 use Lampion\Session\Lampion as LampionSession;
 
 class FileSystem {
 
     private $storagePath;
 
+    private $em;
+    private $user;
+
     /**
      * FileSystem constructor. If the storagePath param remains null, it defaults to current app's storage directory
      * @param null $storagePath
      */
     public function __construct($storagePath = null) {
+        $this->em   = new EntityManager();
+        $this->user = unserialize(LampionSession::get('user')) ?? null;
+
         if($storagePath === null) {
             $this->storagePath = ROOT . APP . Application::name() . STORAGE;
         }
@@ -75,17 +84,23 @@ class FileSystem {
         }
 
         if(move_uploaded_file($fileTmpName, $uploadPath)) {
-            if(Query::tableExists('managed_file')) {
-                Query::insert('managed_file', [
-                    'filename'     => basename($fileName),
-                    'fullPath'     => $uploadPath,
-                    'relativePath' => $dir . basename($fileName),
-                    'extension'    => $fileExtenstion,
-                    'note'         => '',
-                    'tags'         => '[]',
-                    'metadata'     => '[]',
-                    'user_id'      => unserialize(LampionSession::get('user'))->id ?? null
-                ]);
+            $fileCheck = $this->em->findBy(File::class, [
+                'fullPath' => $uploadPath
+            ]);
+
+            if(!$fileCheck) {
+                $fileEntity = new File();
+    
+                $fileEntity->filename     = basename($fileName);
+                $fileEntity->fullPath     = $uploadPath;
+                $fileEntity->relativePath = $dir . basename($fileName);
+                $fileEntity->extension    = $fileExtenstion;
+                $fileEntity->note         = '';
+                $fileEntity->tags         = '[]';
+                $fileEntity->metadata     = '[]';
+                $fileEntity->user         = $this->user;
+    
+                $this->em->persist($fileEntity);
             }
 
             return $dir . basename($fileName);
@@ -134,15 +149,52 @@ class FileSystem {
      * @return bool
      * @throws Exception
      */
-    public function rm(string $file, bool $rmdir = false): bool {
+    public function rm(string $file, bool $rmdir = false) {
         if($rmdir) {
             if(is_dir($this->storagePath . $file)) {
                 return $this->rmdir($file);
             }
         }
 
+        $fileEntity = $this->em->findBy(File::class, [
+            'fullPath' => $this->storagePath . $file
+        ]);
+
+        $isAdmin = in_array('ROLE_ADMIN', json_decode($this->user->role));
+
+        # If fileEntity returns an object, that means file is managed
+        if($fileEntity) {
+            # If file has an owner, check for permission
+            if($fileEntity->user) {
+                # Checking for permission, only user who is the owner of the file or an admin can delete a file
+                if($this->user != $fileEntity->user && !$isAdmin) {
+                    throw new Exception('Current user is not the owner of this file!');
+                }
+    
+                else {
+                    $this->em->destroy($fileEntity);
+                }
+            }
+        }
+
+        # If it doesn't, that means that the file was uploaded by some other means
+        # in that case, only ADMINS (configurable?) should be allowed to delete it
+        else {
+            if(!$isAdmin) {
+                throw new Exception('Only administrators are allowed to delete externally uploaded files!');
+            }
+        }
+
         if(!unlink($this->storagePath . $file)) {
             throw new Exception("File could not be deleted!");
+        }
+
+        $file = $this->em->findBy(File::class, [
+            'fullPath' => $this->storagePath . ltrim($file, '/')
+        ]);
+
+        if($file) {
+            $this->em->destroy($file);
         }
 
         return true;
@@ -159,7 +211,7 @@ class FileSystem {
      * @throws Exception
      */
     public function ls(string $path, array $flags = []) {
-        $fullPath = $this->storagePath . $path;
+        $fullPath = $this->storagePath . ltrim($path, '/');
 
         if(is_dir($fullPath)) {
             $files = [];
@@ -171,29 +223,58 @@ class FileSystem {
             unset($items[0]);
             unset($items[1]);
 
-            foreach ($items as $key => $item) {
-                if(!in_array("-dirs", $flags)) {
-                    if(is_file($fullPath . $item)) {
-                        $ext = explode(".", $item);
+            $fileIndex = 0;
+            $dirIndex  = 0;
 
-                        $files[] = [
-                            'name'         => $item,
-                            'relativePath' => $path . $item,
-                            'fullPath'     => $fullPath . $item,
-                            'extension'    => end($ext),
-                            'size'         => $this->fileSize($path . $item)
-                        ];
+            foreach ($items as $item) {
+                if(!in_array("--no-dirs", $flags)) {
+                    if(is_file($fullPath . $item)) {
+                        $fileEntity = $this->em->findBy(File::class, [
+                            'fullPath' => $fullPath . $item
+                        ]);
+
+                        if(!$fileEntity) {
+                            $ext = explode(".", $item);
+    
+                            $files[$fileIndex] = [
+                                'filename'     => $item,
+                                'relativePath' => $path . $item,
+                                'fullPath'     => $fullPath . $item,
+                                'extension'    => end($ext),
+                                'size'         => $this->fileSize($path . $item)
+                            ];
+                        }
+
+                        else {
+                            $files[$fileIndex]           = (array)$fileEntity;
+                            $files[$fileIndex]['synced'] = true;
+                        }
+
+                        $fileIndex++;
                     }
                 }
 
-                if(!in_array("-files", $flags)) {
+                if(!in_array("--no-files", $flags)) {
                     if(is_dir($fullPath . $item)) {
-                        $dirs[] = [
-                            'name'         => $item,
-                            'relativePath' => $path . $item,
-                            'fullPath'     => $fullPath . $item,
-                            'size'         => $this->dirSize($path . "$item/")
-                        ];
+                        $dirEntity = $this->em->findBy(Dir::class, [
+                            'fullPath' => $fullPath . $item
+                        ]);
+
+                        if(!$dirEntity) {
+                            $dirs[$dirIndex] = [
+                                'filename'     => $item,
+                                'relativePath' => $path . $item,
+                                'fullPath'     => $fullPath . $item,
+                                'size'         => $this->dirSize($path . "$item/")
+                            ];
+                        }
+
+                        else {
+                            $dirs[$dirIndex]           = (array)$dirEntity;
+                            $dirs[$dirIndex]['synced'] = true;
+                        }
+
+                        $dirIndex++;
                     }
                 }
             }
@@ -260,14 +341,28 @@ class FileSystem {
     }
 
     /**
-     * @param string $dirName
+     * @param string $path
      * @return bool
      * @throws Exception
      */
-    public function mkdir(string $dirName): bool {
-        if(!mkdir($this->storagePath . htmlspecialchars($dirName), 0777, true)) {
-            throw new Exception("Directory '$dirName' could not be created!");
+    public function mkdir(string $path): bool {
+        if(!mkdir($this->storagePath . htmlspecialchars($path), 0777, true)) {
+            throw new Exception("Directory '$path' could not be created!");
         }
+        
+        $dirEntity = new Dir();
+
+        $fileName = explode('/', $path);
+
+        $dirEntity->filename     = end($fileName);
+        $dirEntity->fullPath     = $this->storagePath . ltrim(htmlspecialchars($path), '/');
+        $dirEntity->relativePath = $path;
+        $dirEntity->note         = '';
+        $dirEntity->tags         = '[]';
+        $dirEntity->metadata     = '[]';
+        $dirEntity->user         = $this->user;
+
+        $this->em->persist($dirEntity);
 
         return true;
     }
@@ -283,13 +378,22 @@ class FileSystem {
 
         foreach($i as $f) {
             if($f->isFile()) {
-                unlink($f->getRealPath());
+                $this->rm($f->getRealPath());
             } else if(!$f->isDot() && $f->isDir()) {
                 self::rmdir($f->getRealPath());
             }
         }
 
         rmdir($dir);
+
+        $dirEntity = $this->em->findBy(Dir::class, [
+            'fullPath' => $dir
+        ]);
+
+        if($dirEntity) {
+            $this->em->destroy($dirEntity);
+        }
+
         return true;
     }
 

@@ -3,7 +3,9 @@
 function kernelTables() {
     return [
       'app',
-      'managed_file',
+      'entity_file',
+      'entity_dir',
+      'file_uses',
       'user',
       'api_keys',
       'session'

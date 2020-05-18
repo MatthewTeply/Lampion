@@ -81,7 +81,7 @@ class Query extends Connection
      * @param array   $conditions
      * @return string $conditionsString
      */
-    private static function processConditions(array $conditions) {
+    public static function processConditions(array $conditions) {
         $conditionsString = "";
 
         if(sizeof($conditions) == 0)
@@ -91,11 +91,11 @@ class Query extends Connection
 
         $i = 0;
         foreach ($conditions as $key => $condition) {
-            if($i != 0 && isset($condition[2])) {
+            if($i != 0 && isset($condition[2]) && is_array($condition)) {
                 $conditionsString .= " $condition[2] ";
             }
 
-            else if($i != 0 && !isset($condition[2])) {
+            else if($i != 0 && (!isset($condition[2]) || !is_array($condition))) {   
                 $conditionsString .= " AND ";
             }
 

@@ -2,10 +2,8 @@
 
 namespace Lampion\Language;
 
-use Error;
-use Lampion\Core\FileSystem;
+use Lampion\FileSystem\FileSystem;
 use Lampion\Application\Application;
-use Lampion\Debug\Console;
 use stdClass;
 
 class Translator {
