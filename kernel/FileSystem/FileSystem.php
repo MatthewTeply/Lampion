@@ -229,9 +229,9 @@ class FileSystem {
             foreach ($items as $item) {
                 if(!in_array("--no-dirs", $flags)) {
                     if(is_file($fullPath . $item)) {
-                        $fileEntity = $this->em->findBy(File::class, [
+                        @$fileEntity = $this->em->findBy(File::class, [
                             'fullPath' => $fullPath . $item
-                        ]);
+                        ])[0];
 
                         if(!$fileEntity) {
                             $ext = explode(".", $item);
@@ -256,9 +256,9 @@ class FileSystem {
 
                 if(!in_array("--no-files", $flags)) {
                     if(is_dir($fullPath . $item)) {
-                        $dirEntity = $this->em->findBy(Dir::class, [
+                        @$dirEntity = $this->em->findBy(Dir::class, [
                             'fullPath' => $fullPath . $item
-                        ]);
+                        ])[0];
 
                         if(!$dirEntity) {
                             $dirs[$dirIndex] = [

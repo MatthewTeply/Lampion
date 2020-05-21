@@ -127,7 +127,7 @@ class View {
 
     private function customFilters() {
         $this->setFilter('json_decode', function($json) {
-            return json_decode($json, true);
+            return json_decode($json);
         });
 
         $this->setFilter('isImg', function($src) {
@@ -147,7 +147,7 @@ class View {
         $this->setFilter('toArray', function ($stdClassObject) {
             $response = array();
             foreach ($stdClassObject as $key => $value) {
-                $response[] = $value;
+                $response[$key] = $value;
             }
             return $response;
         });

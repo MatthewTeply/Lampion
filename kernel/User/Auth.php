@@ -68,7 +68,7 @@ class Auth
 
         $userSession = $em->findBy(Session::class, [
             'session_id' => $jwt->data->id
-        ]);
+        ])[0];
 
         if($userSession) {
             $em->destroy($userSession);

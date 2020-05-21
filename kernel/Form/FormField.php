@@ -11,14 +11,6 @@ abstract class FormField {
 
     public function __construct() {
         $this->view = new View(ROOT . APP . Application::name() . TEMPLATES . 'form/field', Application::name());
-
-        $this->view->setFilter('toArray', function ($stdClassObject) {
-            $response = array();
-            foreach ($stdClassObject as $key => $value) {
-                $response[] = array('key' => $key, 'value' => $value);
-            }
-            return $response;
-        });
     }
 
     public function template(string $path, $options) {
@@ -27,12 +19,14 @@ abstract class FormField {
 
     /**
      * All the logic happens in this method
+     * @param array $data
      * @return mixed
      */
     abstract public function submit($data);
 
     /**
      * Returns field's template
+     * @param array $options
      * @return string
      */
     abstract public function display($options);

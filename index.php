@@ -1,7 +1,5 @@
 <?php
 
-use Lampion\Debug\Console;
-
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 
@@ -17,8 +15,6 @@ require_once 'config/config.defaults.php';
 # Loading all necessary classes
 require_once 'vendor/autoload.php';
 require_once 'kernel/Bootstrap.php';
-
-Console::log($_SESSION);
 
 $ru = getrusage();
 \Lampion\Core\Runtime::rutime($ru, $rustart, "utime");

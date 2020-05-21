@@ -3,7 +3,6 @@
 namespace Lampion\Form;
 
 use Lampion\Application\Application;
-use Lampion\Debug\Console;
 use Lampion\View\View;
 
 class Form {
@@ -23,6 +22,13 @@ class Form {
         $this->view = new View(KERNEL_TEMPLATES, '');
     }
 
+    /**
+     * Create a new form field
+     * @param string $type    = type (name) of template
+     * @param array  $options = custom options passed to the template
+     * @param array  $path    = path to field template's directory
+     * @return mixed
+     */
     public function field(string $type, array $options, $path = 'form/field/') {
         // NOTE: @ is here because undefined constant in FormDefaultFields is handled by the ?? operator
         $inputType = @constant('Lampion\Form\FormDefaultFields::' . strtoupper($type)) ?? constant('Lampion\Form\FormDefaultFields::STRING');
@@ -78,6 +84,9 @@ class Form {
         return $this;
     }
 
+    /**
+     * Render form with all it's fields
+     */
     public function render() {
         $this->view->render('form/base', [
             'action' => $this->action,
