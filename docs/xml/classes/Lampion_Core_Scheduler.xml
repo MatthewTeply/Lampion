@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Core\Scheduler" namespace="Lampion\Core" name="Scheduler" abstract="false" final="false" start="11" end="27">
+  <file path="/lamp/app/lampion/kernel/Core" file="Scheduler.php" realpath="/lamp/app/lampion/kernel/Core/Scheduler.php" size="704" time="2020-05-21T08:27:51+00:00" unixtime="1590049671" sha1="1e0569d7c84b63578726c4515b971a97e90887d8" relative="Core/Scheduler.php"/>
+  <docblock>
+    <description compact="Class used for registering functions at a specific time, right now only works for registering shutdown functions later will be used for managing CRON tasks aswell"/>
+    <todo value="CRON"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="registerShutdownFunction" start="18" end="26" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="This function is for registering functions to be run at the very end of execution"/>
+      <param type="string" variable="$funcName"/>
+      <param type="null" variable="$class"/>
+    </docblock>
+    <parameter name="funcName" byreference="false" type="string"/>
+    <parameter name="class" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+</class>

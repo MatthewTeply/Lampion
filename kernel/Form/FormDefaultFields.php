@@ -2,6 +2,10 @@
 
 namespace Lampion\Form;
 
+/**
+ * Class containing constants of all default classes provided by Lampion
+ * @author Matyáš Teplý
+ */
 class FormDefaultFields {
 
     /**

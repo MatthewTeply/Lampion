@@ -1,13 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 /*
- * This file is part of the php-code-coverage package.
+ * This file is part of phpunit/php-code-coverage.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace SebastianBergmann\CodeCoverage\Report\Html;
 
 use SebastianBergmann\CodeCoverage\Node\AbstractNode;
@@ -15,6 +14,7 @@ use SebastianBergmann\CodeCoverage\Node\Directory as DirectoryNode;
 use SebastianBergmann\CodeCoverage\Node\File as FileNode;
 use SebastianBergmann\CodeCoverage\Version;
 use SebastianBergmann\Environment\Runtime;
+use SebastianBergmann\Template\Template;
 
 /**
  * Base class for node renderers.
@@ -61,7 +61,7 @@ abstract class Renderer
         $this->version        = Version::id();
     }
 
-    protected function renderItemTemplate(\Text_Template $template, array $data): string
+    protected function renderItemTemplate(Template $template, array $data): string
     {
         $numSeparator  = '&nbsp;/&nbsp;';
 
@@ -129,14 +129,14 @@ abstract class Renderer
                 'classes_bar'            => $classesBar,
                 'classes_tested_percent' => $data['testedClassesPercentAsString'] ?? '',
                 'classes_level'          => $classesLevel,
-                'classes_number'         => $classesNumber
+                'classes_number'         => $classesNumber,
             ]
         );
 
         return $template->render();
     }
 
-    protected function setCommonTemplateVariables(\Text_Template $template, AbstractNode $node): void
+    protected function setCommonTemplateVariables(Template $template, AbstractNode $node): void
     {
         $template->setVar(
             [
@@ -149,7 +149,7 @@ abstract class Renderer
                 'runtime'          => $this->getRuntimeString(),
                 'generator'        => $this->generator,
                 'low_upper_bound'  => $this->lowUpperBound,
-                'high_lower_bound' => $this->highLowerBound
+                'high_lower_bound' => $this->highLowerBound,
             ]
         );
     }
@@ -186,12 +186,12 @@ abstract class Renderer
     protected function getActiveBreadcrumb(AbstractNode $node): string
     {
         $buffer = \sprintf(
-            '        <li class="active">%s</li>' . "\n",
+            '         <li class="breadcrumb-item active">%s</li>' . "\n",
             $node->getName()
         );
 
         if ($node instanceof DirectoryNode) {
-            $buffer .= '        <li>(<a href="dashboard.html">Dashboard</a>)</li>' . "\n";
+            $buffer .= '         <li class="breadcrumb-item">(<a href="dashboard.html">Dashboard</a>)</li>' . "\n";
         }
 
         return $buffer;
@@ -200,7 +200,7 @@ abstract class Renderer
     protected function getInactiveBreadcrumb(AbstractNode $node, string $pathToRoot): string
     {
         return \sprintf(
-            '        <li><a href="%sindex.html">%s</a></li>' . "\n",
+            '         <li class="breadcrumb-item"><a href="%sindex.html">%s</a></li>' . "\n",
             $pathToRoot,
             $node->getName()
         );
@@ -223,7 +223,7 @@ abstract class Renderer
     {
         $level = $this->getColorLevel($percent);
 
-        $template = new \Text_Template(
+        $template = new Template(
             $this->templatePath . 'coverage_bar.html',
             '{{',
             '}}'
@@ -259,7 +259,16 @@ abstract class Renderer
             $runtime->getVersion()
         );
 
-        if ($runtime->hasXdebug() && !$runtime->hasPHPDBGCodeCoverage()) {
+        if ($runtime->hasPHPDBGCodeCoverage()) {
+            return $buffer;
+        }
+
+        if ($runtime->hasPCOV()) {
+            $buffer .= \sprintf(
+                ' with <a href="https://github.com/krakjoe/pcov">PCOV %s</a>',
+                \phpversion('pcov')
+            );
+        } elseif ($runtime->hasXdebug()) {
             $buffer .= \sprintf(
                 ' with <a href="https://xdebug.org/">Xdebug %s</a>',
                 \phpversion('xdebug')

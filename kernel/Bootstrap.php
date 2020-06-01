@@ -1,4 +1,6 @@
 <?php
+require_once 'config/config.php';
+require_once 'config/config.defaults.php';
 require_once 'Core/Autoloader.php';
 require_once 'vendor/autoload.php';
 require_once 'Misc/decodeUrl.php';

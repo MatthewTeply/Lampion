@@ -6,6 +6,10 @@ use Lampion\FileSystem\FileSystem;
 use Lampion\Application\Application;
 use stdClass;
 
+/**
+ * Class for reading translation files
+ * @author Matyáš Teplý
+ */
 class Translator {
 
     // Public:

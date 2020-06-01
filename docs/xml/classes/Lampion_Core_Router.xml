@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Core\Router" namespace="Lampion\Core" name="Router" abstract="false" final="false" start="15" end="251">
+  <file path="/lamp/app/lampion/kernel/Core" file="Router.php" realpath="/lamp/app/lampion/kernel/Core/Router.php" size="7585" time="2020-05-21T08:26:35+00:00" unixtime="1590049595" sha1="1032c8c7f064d5b03178170a81052bd765aa8526" relative="Core/Router.php"/>
+  <docblock>
+    <description compact="Router class"/>
+    <todo value="Better FormHandler registration"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <member name="get" default="" type="array" visibility="public" static="true" line="17"/>
+  <member name="post" default="" type="array" visibility="public" static="true" line="18"/>
+  <member name="put" default="" type="array" visibility="public" static="true" line="19"/>
+  <member name="delete" default="" type="array" visibility="public" static="true" line="20"/>
+  <member name="listening" visibility="public" static="false" line="22"/>
+  <constructor name="__construct" start="24" end="26" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="processURL" start="28" end="104" abstract="false" final="false" static="true" visibility="protected">
+    <parameter name="request_method" byreference="false" type="{unknown}"/>
+    <parameter name="request_method_args" byreference="false" type="{unknown}" default="NULL"/>
+    <inline>
+      <comment value="if($request_method_args) { # If method arguments are already set, don't get arguments from URL" line="29"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="ldm($request_method_args);" line="30"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="if(!is_string($request_method[$_GET['url']]['callback'])) {" line="31"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="$request_method[$_GET['url']]['callback'](new Request($request_method_args), new Response);" line="32"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="}" line="33"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="else {" line="34"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="self::short_method($request_method[$_GET['url']]['callback'], [" line="35"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="'req' =&gt; new Request($request_method_args)," line="36"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="'res' =&gt; new Response" line="37"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="]);" line="38"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="}" line="39"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="return;" line="40"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="}" line="41"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="else {" line="42"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="}" line="43"/>
+      <comment value="Get url divided by slashes" line="52"/>
+    </inline>
+  </method>
+  <method name="short_method" start="106" end="129" abstract="false" final="false" static="true" visibility="protected">
+    <parameter name="callback" byreference="false" type="{unknown}"/>
+    <parameter name="args" byreference="false" type="array" default=""/>
+  </method>
+  <method name="get" start="131" end="138" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="callback" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="post" start="140" end="147" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="callback" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="put" start="149" end="156" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="callback" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="delete" start="158" end="165" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="callback" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="redirect" start="167" end="169" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="to" byreference="false" type="string"/>
+  </method>
+  <method name="listen" start="171" end="244" abstract="false" final="false" static="false" visibility="public">
+    <inline>
+      <comment value="Get request methdos, and convert it to lowercase" line="172"/>
+      <comment value="Trim trailing slashes" line="173"/>
+    </inline>
+  </method>
+  <destructor name="__destruct" start="246" end="250" abstract="false" final="false" static="false" visibility="public"/>
+</class>

@@ -2,6 +2,10 @@
 
 namespace Lampion\Session;
 
+/**
+ * Class for managing session
+ * @author Matyáš Teplý
+ */
 class Main implements SessionInterface
 {
     public static function set(string $name, $value) {

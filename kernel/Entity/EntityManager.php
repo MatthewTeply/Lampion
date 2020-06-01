@@ -3,10 +3,13 @@
 namespace Lampion\Entity;
 
 use Lampion\Database\Query;
-use Lampion\Debug\Console;
 use ReflectionClass;
 use stdClass;
 
+/**
+ * Class that takes care of entity persistance
+ * @author Matyáš Teplý
+ */
 class EntityManager {
 
     private function getTableName(string $entity) {
@@ -50,18 +53,48 @@ class EntityManager {
             }
         }
 
-        $entity = (array)$entity;
+        $entityArray = (array)$entity;
 
         # Creating new row
-        if(!$entity['id']) {
-            Query::insert($table, $entity);
+        if(!$entityArray['id']) {
+            Query::insert($table, $entityArray);
         }
 
         # Updating row
         else {
-            Query::update($table, $entity, [
-                'id' => $entity['id']
+            Query::update($table, $entityArray, [
+                'id' => $entityArray['id']
             ]);
+        }
+
+        # Create a new file use if a file property is defined
+        foreach($entity as $key => $field) {
+            if(isset($metadata->{$key})) {
+                if($metadata->{$key}->type == 'file') {
+                    $entityArray['id'] = Query::select($table, ['id'], [], 'id', 'DESC')[0]['id'];
+
+                    $uses = Query::select('file_uses', ['*'], [
+                        'entity_name' => get_class($entity),
+                        'entity_id'   => $entityArray['id']
+                    ]);
+
+                    if(empty($uses[0])) {
+                        Query::insert('file_uses', [
+                            'file_id'     => $entity->{$key},
+                            'entity_name' => get_class($entity),
+                            'entity_id'   => $entityArray['id']
+                        ]);
+                    }
+
+                    else {
+                        Query::update('file_uses', [
+                            'file_id' => $entity->{$key}
+                        ], [
+                            'id' => $uses[0]['id']
+                        ]);
+                    }
+                }
+            }
         }
 
         return true;
@@ -137,6 +170,20 @@ class EntityManager {
             return false;
         }
 
+        # Delete all file uses
+        $fileUses = Query::select('file_uses', ['id'], [
+            'entity_name' => get_class($entity),
+            'entity_id'   => $entity->id
+        ]);
+
+        if(!empty($fileUses[0])) {
+            foreach($fileUses as $fileUse) {
+                Query::delete('file_uses', [
+                    'id' => $fileUse['id']
+                ]);
+            }
+        }
+
         Query::delete($this->getTableName(get_class($entity)), ['id' => $entity->id]);
 
         return true;
@@ -200,6 +247,17 @@ class EntityManager {
 
         # Check if entity property is a refference to another class, if it is, populate the property with the said class
         foreach($entity as $key => $value) {
+        
+            # Check if entity property is a reference to a file
+            if(isset($metadata->{$key}) && $metadata->{$key}->type == 'file') {
+                $entity->{$key} = $this->find('Lampion\\FileSystem\\Entity\\File', $value);
+            }
+
+            # Check if entity property is a reference to a directory
+            if(isset($metadata->{$key}) && $metadata->{$key}->type == 'dir') {
+                $entity->{$key} = $this->find('Lampion\\FileSystem\\Entity\\Dir', $value);
+            }
+
             if(isset($metadata->{$key}->entity)) {
                 $entity->{$key} = $this->find($metadata->{$key}->entity, $value);
             }

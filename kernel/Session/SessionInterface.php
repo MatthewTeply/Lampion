@@ -2,6 +2,10 @@
 
 namespace Lampion\Session;
 
+/**
+ * Interface, defininf what a session class should look like
+ * @author Matyáš Teplý
+ */
 interface SessionInterface {
 
     /**

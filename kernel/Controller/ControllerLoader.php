@@ -6,6 +6,11 @@ use Lampion\Debug\Error;
 use Lampion\View\View;
 use Lampion\Session\Lampion as Session;
 
+/**
+ * (LEGACY CODE) Class used for loading files inside a controller
+ * @todo Refactoring, legacy code cleanup
+ * @author Matyáš Teplý
+ */
 class ControllerLoader
 {
     public $app;

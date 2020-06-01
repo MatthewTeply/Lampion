@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Application\Application" namespace="Lampion\Application" name="Application" abstract="false" final="false" start="13" end="24">
+  <file path="/lamp/app/lampion/kernel/Application" file="Application.php" realpath="/lamp/app/lampion/kernel/Application/Application.php" size="444" time="2020-05-21T08:21:54+00:00" unixtime="1590049314" sha1="79a02a5b471e391a8a0cd683b58c5bed1fefbdc4" relative="Application/Application.php"/>
+  <docblock>
+    <description compact="Class containing all info about the current application"/>
+    <todo value="More application information"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <member name="router" visibility="public" static="false" line="15"/>
+  <constructor name="__construct" start="17" end="19" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="name" start="21" end="23" abstract="false" final="false" static="true" visibility="public"/>
+</class>

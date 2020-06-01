@@ -2,6 +2,10 @@
 
 namespace Lampion\Controller;
 
+/**
+ * (LEGACY CODE) More of a abstraction for a controller
+ * @author Matyáš Teplý
+ */
 abstract class ControllerBase {
 
     protected $parentApp;

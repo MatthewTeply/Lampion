@@ -2,6 +2,10 @@
 
 namespace Lampion\User\Entity;
 
+/**
+ * Basic user entity
+ * @author Matyáš Teplý
+ */
 class User
 {
     /** @var(type="int", length=11) */

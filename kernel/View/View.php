@@ -11,6 +11,10 @@ use Lampion\Http\Url;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
+/**
+ * Class for managing views
+ * @author Matyáš Teplý
+ */
 class View {
 
     private $twig;
@@ -150,6 +154,16 @@ class View {
                 $response[$key] = $value;
             }
             return $response;
+        });
+
+        $this->setFilter('getClassName', function ($object) {
+            $className = explode('\\', get_class($object));
+
+            return end($className);
+        });
+
+        $this->setFilter('getClassNameFull', function ($object) {
+            return get_class($object);
         });
     }
 }

@@ -5,6 +5,11 @@ namespace Lampion\Application;
 use Dotenv\Dotenv;
 use Lampion\Session\Main as Session;
 
+/**
+ * Class that initiates and gives info about all applications
+ * @todo Refactoring
+ * @author Matyáš Teplý
+ */
 class ApplicationManager
 {
     public static function init() {

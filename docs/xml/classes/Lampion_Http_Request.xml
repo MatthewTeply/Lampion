@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Http\Request" namespace="Lampion\Http" name="Request" abstract="false" final="false" start="9" end="38">
+  <file path="/lamp/app/lampion/kernel/Http" file="Request.php" realpath="/lamp/app/lampion/kernel/Http/Request.php" size="756" time="2020-05-21T08:19:04+00:00" unixtime="1590049144" sha1="732093d1358c9358ba8a6e0b38e604c0b59bd7cb" relative="Http/Request.php"/>
+  <docblock>
+    <description compact="Class containing all info about HTTP/HTTPS request"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <member name="params" visibility="public" static="false" line="11"/>
+  <constructor name="__construct" start="13" end="15" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="params" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="isAjax" start="17" end="29" abstract="false" final="false" static="true" visibility="public"/>
+  <method name="get" start="31" end="33" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="post" start="35" end="37" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+</class>

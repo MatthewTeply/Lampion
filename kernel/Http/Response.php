@@ -4,6 +4,11 @@ namespace Lampion\Http;
 
 use Lampion\Controller\ControllerLoader;
 
+/**
+ * General response class, containing all methods for responding to requests
+ * @todo HTTP response codes
+ * @author Matyáš Teplý
+ */
 class Response
 {
     public $loader;

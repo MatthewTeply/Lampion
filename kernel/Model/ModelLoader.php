@@ -4,6 +4,10 @@ namespace Lampion\Model;
 
 use Lampion\Session\Main as Session;
 
+/**
+ * (LEGACY CODE, PLANNED FOR DEPRECATION)
+ * @author Matyáš Teplý
+ */
 class ModelLoader
 {
     /**

@@ -6,6 +6,10 @@ use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Twig\Markup;
 
+/**
+ * Class containing all info about current runtime
+ * @author Matyáš Teplý
+ */
 class Runtime
 {
     /**

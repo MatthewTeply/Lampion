@@ -2,13 +2,16 @@
 
 namespace Lampion\Core;
 
-use Lampion\Debug\Console;
 use Lampion\Form\FormHandler;
 use Lampion\Http\Response;
 use Lampion\Http\Request;
 use Lampion\Http\Url;
-use Lampion\User\Auth;
 
+/**
+ * Router class
+ * @todo Better FormHandler registration
+ * @author Matyáš Teplý
+ */
 class Router
 {
     public static $get    = array();

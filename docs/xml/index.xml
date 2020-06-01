@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index xmlns="http://xml.phpdox.net/src" basedir="/lamp/app/lampion/kernel">
+  <namespace name="Lampion\Model">
+    
+    
+  <class name="ModelBase" src="Model/ModelBase.php" description="(LEGACY CODE, PLANNED FOR DEPRECATION)" xml="classes/Lampion_Model_ModelBase.xml"/><class name="ModelLoader" src="Model/ModelLoader.php" description="(LEGACY CODE, PLANNED FOR DEPRECATION)" xml="classes/Lampion_Model_ModelLoader.xml"/></namespace>
+  <namespace name="Lampion\View">
+    
+  <class name="View" src="View/View.php" description="Class for managing views" xml="classes/Lampion_View_View.xml"/></namespace>
+  <namespace name="Lampion\Application">
+    
+    
+  <class name="ApplicationManager" src="Application/ApplicationManager.php" description="Class that initiates and gives info about all applications" xml="classes/Lampion_Application_ApplicationManager.xml"/><class name="Application" src="Application/Application.php" description="Class containing all info about the current application" xml="classes/Lampion_Application_Application.xml"/></namespace>
+  <namespace name="Lampion\Http">
+    
+    
+    
+    
+  <class name="Url" src="Http/Url.php" description="Class for easy URL generation/redirection" xml="classes/Lampion_Http_Url.xml"/><class name="Client" src="Http/Client.php" description="Class containing all info about the client" xml="classes/Lampion_Http_Client.xml"/><class name="Request" src="Http/Request.php" description="Class containing all info about HTTP/HTTPS request" xml="classes/Lampion_Http_Request.xml"/><class name="Response" src="Http/Response.php" description="General response class, containing all methods for responding to requests" xml="classes/Lampion_Http_Response.xml"/></namespace>
+  <namespace name="Lampion\Extend">
+    
+  <class name="Loader" src="Extend/Loader.php" description="Class for loading resources into plugins" xml="classes/Lampion_Extend_Loader.xml"/></namespace>
+  <namespace name="Lampion\Database">
+    
+    
+    
+  <class name="Query" src="Database/Query.php" description="Class containing all the query methods" xml="classes/Lampion_Database_Query.xml"/><class name="Connection" src="Database/Connection.php" description="Class that takes care of connecting to the database" xml="classes/Lampion_Database_Connection.xml"/><class name="Initializer" src="Database/Initializer.php" description="Class that initializes kernel tables" xml="classes/Lampion_Database_Initializer.xml"/></namespace>
+  <namespace name="Lampion\Core">
+    
+    
+    
+    
+    
+  <class name="Cookie" src="Core/Cookie.php" description="Class for managing cookies" xml="classes/Lampion_Core_Cookie.xml"/><class name="Scheduler" src="Core/Scheduler.php" description="Class used for registering functions at a specific time, right now only works for registering shutdown functions later will be used for managing CRON tasks aswell" xml="classes/Lampion_Core_Scheduler.xml"/><class name="Autoloader" src="Core/Autoloader.php" description="Class that automatically loads classes, registers shutdown and plugin functions" xml="classes/Lampion_Core_Autoloader.xml"/><class name="Router" src="Core/Router.php" description="Router class" xml="classes/Lampion_Core_Router.xml"/><class name="Runtime" src="Core/Runtime.php" description="Class containing all info about current runtime" xml="classes/Lampion_Core_Runtime.xml"/></namespace>
+  <namespace name="Lampion\Debug">
+    
+    
+    
+    
+    
+  <interface name="DebugInterface" src="Debug/DebugInterface.php" description="Interface, defining what a debug class should look like" xml="interfaces/Lampion_Debug_DebugInterface.xml"/><class name="Console" src="Debug/Console.php" description="A bit of a hack, this class is used for logging data out into the JS console" xml="classes/Lampion_Debug_Console.xml"/><class name="Notice" src="Debug/Notice.php" description="Notice debug class" xml="classes/Lampion_Debug_Notice.xml"/><class name="Error" src="Debug/Error.php" description="Error debug class" xml="classes/Lampion_Debug_Error.xml"/><class name="Info" src="Debug/Info.php" description="Info debug class" xml="classes/Lampion_Debug_Info.xml"/></namespace>
+  <namespace name="Lampion\FileSystem">
+    
+  <class name="FileSystem" src="FileSystem/FileSystem.php" description="Class for interacting with app's filesystem, though it can be used for the entire server by specifying storage path" xml="classes/Lampion_FileSystem_FileSystem.xml"/></namespace>
+  <namespace name="Lampion\FileSystem\Entity">
+    
+    
+  <class name="Dir" src="FileSystem/Entity/Dir.php" description="Direcotry entity" xml="classes/Lampion_FileSystem_Entity_Dir.xml"/><class name="File" src="FileSystem/Entity/File.php" description="File entity" xml="classes/Lampion_FileSystem_Entity_File.xml"/></namespace>
+  <namespace name="Lampion\Session">
+    
+    
+    
+  <class name="Lampion" src="Session/Lampion.php" description="Class for managing Lampion's session" xml="classes/Lampion_Session_Lampion.xml"/><interface name="SessionInterface" src="Session/SessionInterface.php" description="Interface, defininf what a session class should look like" xml="interfaces/Lampion_Session_SessionInterface.xml"/><class name="Main" src="Session/Main.php" description="Class for managing session" xml="classes/Lampion_Session_Main.xml"/></namespace>
+  <namespace name="Lampion\Entity">
+    
+    
+  <class name="Entity" src="Entity/Entity.php" description="(LEGACY CODE, PLANNED FOR DEPRECATION) Abstract class of entity, defining it's methods and properties" xml="classes/Lampion_Entity_Entity.xml"/><class name="EntityManager" src="Entity/EntityManager.php" description="Class that takes care of entity persistance" xml="classes/Lampion_Entity_EntityManager.xml"/></namespace>
+  <namespace name="Lampion\Controller">
+    
+    
+  <class name="ControllerLoader" src="Controller/ControllerLoader.php" description="(LEGACY CODE) Class used for loading files inside a controller" xml="classes/Lampion_Controller_ControllerLoader.xml"/><class name="ControllerBase" src="Controller/ControllerBase.php" description="(LEGACY CODE) More of a abstraction for a controller" xml="classes/Lampion_Controller_ControllerBase.xml"/></namespace>
+  <namespace name="Lampion\Form">
+    
+    
+    
+    
+  <class name="Form" src="Form/Form.php" description="Create a form, and specify it's fields" xml="classes/Lampion_Form_Form.xml"/><class name="FormDefaultFields" src="Form/FormDefaultFields.php" description="Class containing constants of all default classes provided by Lampion" xml="classes/Lampion_Form_FormDefaultFields.xml"/><class name="FormField" src="Form/FormField.php" description="Abstract class of a form field, used for creating custom form fields" xml="classes/Lampion_Form_FormField.xml"/><class name="FormHandler" src="Form/FormHandler.php" description="A middleman that handles output of forms generated by Form" xml="classes/Lampion_Form_FormHandler.xml"/></namespace>
+  <namespace name="Lampion\Form\Field">
+    
+    
+  <class name="JsonFormField" src="Form/Field/JsonFormField.php" description="JSON form field" xml="classes/Lampion_Form_Field_JsonFormField.xml"/><class name="EntityFormField" src="Form/Field/EntityFormField.php" description="Entity form field" xml="classes/Lampion_Form_Field_EntityFormField.xml"/></namespace>
+  <namespace name="Lampion\User">
+    
+    
+  <class name="Session" src="User/Session.php" description="Class for managing user sessions" xml="classes/Lampion_User_Session.xml"/><class name="Auth" src="User/Auth.php" description="Class that authenticates basic users, using JWT tokens" xml="classes/Lampion_User_Auth.xml"/></namespace>
+  <namespace name="Lampion\User\Entity">
+    
+    
+  <class name="Session" src="User/Entity/Session.php" description="User session entity" xml="classes/Lampion_User_Entity_Session.xml"/><class name="User" src="User/Entity/User.php" description="Basic user entity" xml="classes/Lampion_User_Entity_User.xml"/></namespace>
+  <namespace name="Lampion\Misc">
+    
+  <class name="Util" src="Misc/Util.php" description="Class containing useful code snippets, so that they can be reused" xml="classes/Lampion_Misc_Util.xml"/></namespace>
+</index>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Form\Form" namespace="Lampion\Form" name="Form" abstract="false" final="false" start="12" end="103">
+  <file path="/lamp/app/lampion/kernel/Form" file="Form.php" realpath="/lamp/app/lampion/kernel/Form/Form.php" size="3243" time="2020-05-21T08:14:51+00:00" unixtime="1590048891" sha1="2f5fb1a3c15fc632bc46cd0d891ce2578d34e0d3" relative="Form/Form.php"/>
+  <docblock>
+    <description compact="Create a form, and specify it's fields"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <member name="action" visibility="public" static="false" line="14"/>
+  <member name="method" visibility="public" static="false" line="15"/>
+  <member name="fields" default="" type="array" visibility="public" static="false" line="16"/>
+  <member name="ajax" visibility="public" static="false" line="17"/>
+  <member name="view" visibility="protected" static="false" line="19"/>
+  <constructor name="__construct" start="21" end="27" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="action" byreference="false" type="string"/>
+    <parameter name="method" byreference="false" type="string"/>
+    <parameter name="ajax" byreference="false" type="boolean" default="false"/>
+  </constructor>
+  <method name="field" start="36" end="89" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Create a new form field"/>
+      <param description="type (name) of template" type="string" variable="$type"/>
+      <param description="custom options passed to the template" type="array" variable="$options"/>
+      <param description="path to field template's directory" type="array" variable="$path"/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="type" byreference="false" type="string"/>
+    <parameter name="options" byreference="false" type="array"/>
+    <parameter name="path" byreference="false" type="string" default="'form/field/'"/>
+    <inline>
+      <comment value="NOTE: @ is here because undefined constant in FormDefaultFields is handled by the ?? operator" line="37"/>
+      <comment value="Check if custom field controller is created in the current app" line="41"/>
+    </inline>
+  </method>
+  <method name="render" start="94" end="101" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Render form with all it's fields"/>
+    </docblock>
+  </method>
+</class>

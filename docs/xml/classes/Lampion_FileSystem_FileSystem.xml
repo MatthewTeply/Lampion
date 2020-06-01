@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\FileSystem\FileSystem" namespace="Lampion\FileSystem" name="FileSystem" abstract="false" final="false" start="25" end="469">
+  <file path="/lamp/app/lampion/kernel/FileSystem" file="FileSystem.php" realpath="/lamp/app/lampion/kernel/FileSystem/FileSystem.php" size="13717" time="2020-05-26T11:45:21+00:00" unixtime="1590493521" sha1="3ec667751e631d86a2f712efc2060e458278bb13" relative="FileSystem/FileSystem.php"/>
+  <docblock>
+    <description compact="Class for interacting with app's filesystem, though it can be used for the entire server by specifying storage path"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <member name="storagePath" visibility="private" static="false" line="27"/>
+  <member name="em" visibility="private" static="false" line="29"/>
+  <member name="user" visibility="private" static="false" line="30"/>
+  <constructor name="__construct" start="36" end="47" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="FileSystem constructor. If the storagePath param remains null, it defaults to current app's storage directory"/>
+      <param type="null" variable="$storagePath"/>
+    </docblock>
+    <parameter name="storagePath" byreference="false" type="{unknown}" default="NULL"/>
+  </constructor>
+  <method name="upload" start="56" end="116" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param variable="$file"/>
+      <param type="string" variable="$dir"/>
+      <param type="array" variable="$allowedExts"/>
+      <return type="object">
+        <type full="Lampion\FileSystem\bool" namespace="Lampion\FileSystem" name="bool"/>
+      </return>
+      <throws type="object">
+        <type full="Exception" namespace="" name="Exception"/>
+      </throws>
+    </docblock>
+    <parameter name="file" byreference="false" type="{unknown}"/>
+    <parameter name="dir" byreference="false" type="string"/>
+    <parameter name="allowedExts" byreference="false" type="array" default=""/>
+    <inline>
+      <comment value="if(is_file($uploadPath)) {" line="76"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="throw new Exception('File '$uploadPath' already exists!');" line="77"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="}" line="78"/>
+    </inline>
+  </method>
+  <method name="path" start="124" end="135" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns a path of a file, if it is found in app's storage"/>
+      <param type="string" variable="$path"/>
+      <return type="string"/>
+      <throws type="object">
+        <type full="Exception" namespace="" name="Exception"/>
+      </throws>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+    <inline>
+      <fixme value="Better exception" line="127"/>
+      <comment value="if(!is_file($path) || !is_dir($path)) {" line="128"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="throw new Exception(&quot;'$path' does not exist!&quot;);" line="129"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="}" line="130"/>
+    </inline>
+  </method>
+  <method name="mv" start="143" end="149" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$file"/>
+      <param type="string" variable="$path"/>
+      <return type="object">
+        <type full="Lampion\FileSystem\bool" namespace="Lampion\FileSystem" name="bool"/>
+      </return>
+      <throws type="object">
+        <type full="Exception" namespace="" name="Exception"/>
+      </throws>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="file" byreference="false" type="string"/>
+    <parameter name="path" byreference="false" type="string"/>
+  </method>
+  <method name="rm" start="156" end="182" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$file"/>
+      <return type="object">
+        <type full="Lampion\FileSystem\bool" namespace="Lampion\FileSystem" name="bool"/>
+      </return>
+      <throws type="object">
+        <type full="Exception" namespace="" name="Exception"/>
+      </throws>
+    </docblock>
+    <parameter name="file" byreference="false" type="string"/>
+    <parameter name="rmdir" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Checking permission" line="167"/>
+    </inline>
+  </method>
+  <method name="ls" start="194" end="282" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Lists directory items"/>
+      <param type="string" variable="$path"/>
+      <param type="array" variable="$flags">-files = Lists only files
+    -dirs  = Lists only directories
+    &lt;empty&gt; = Lists both, combination of both -files and -dirs can also be used</param>
+      <return type="array"/>
+      <throws type="object">
+        <type full="Exception" namespace="" name="Exception"/>
+      </throws>
+    </docblock>
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="flags" byreference="false" type="array" default=""/>
+  </method>
+  <method name="rename" start="290" end="296" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$file"/>
+      <param type="string" variable="$name"/>
+      <return type="object">
+        <type full="Lampion\FileSystem\bool" namespace="Lampion\FileSystem" name="bool"/>
+      </return>
+      <throws type="object">
+        <type full="Exception" namespace="" name="Exception"/>
+      </throws>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="file" byreference="false" type="string"/>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="dirSize" start="304" end="313" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns size of a directory"/>
+      <param type="string" variable="$dir"/>
+      <return type="float"/>
+      <throws type="object">
+        <type full="Exception" namespace="" name="Exception"/>
+      </throws>
+    </docblock>
+    <return type="float" nullable="false"/>
+    <parameter name="dir" byreference="false" type="string"/>
+  </method>
+  <method name="fileSize" start="320" end="322" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns size of a file"/>
+      <param type="string" variable="$file"/>
+      <return type="object">
+        <type full="Lampion\FileSystem\false|float" namespace="Lampion\FileSystem" name="false|float"/>
+      </return>
+    </docblock>
+    <parameter name="file" byreference="false" type="string"/>
+  </method>
+  <method name="mkdir" start="329" end="349" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$path"/>
+      <return type="object">
+        <type full="Lampion\FileSystem\bool" namespace="Lampion\FileSystem" name="bool"/>
+      </return>
+      <throws type="object">
+        <type full="Exception" namespace="" name="Exception"/>
+      </throws>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+  </method>
+  <method name="rmdir" start="355" end="390" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$dir"/>
+      <return type="object">
+        <type full="Lampion\FileSystem\bool" namespace="Lampion\FileSystem" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="dir" byreference="false" type="string"/>
+  </method>
+  <method name="cp" start="399" end="415" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Copy file/directory to a new destination"/>
+      <param type="string" variable="$source"/>
+      <param type="string" variable="$destination"/>
+      <return type="object">
+        <type full="Lampion\FileSystem\bool" namespace="Lampion\FileSystem" name="bool"/>
+      </return>
+      <throws type="object">
+        <type full="Exception" namespace="" name="Exception"/>
+      </throws>
+    </docblock>
+    <parameter name="source" byreference="false" type="string"/>
+    <parameter name="destination" byreference="false" type="string"/>
+  </method>
+  <method name="write" start="423" end="434" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Overwrite file's data"/>
+      <param description="- Path to file" type="string" variable="$file"/>
+      <param description="- Data to write into file" type="mixed" variable="$data"/>
+      <return type="object">
+        <type full="Lampion\FileSystem\bool" namespace="Lampion\FileSystem" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="file" byreference="false" type="string"/>
+    <parameter name="data" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="hasPermission" start="441" end="468" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check if current user has permission to desired file/directory"/>
+      <param type="object" variable="$user">
+        <type full="Lampion\User\Entity\User" namespace="Lampion\User\Entity" name="User"/>
+      </param>
+      <param description="- Lampion file/directory object" type="object" variable="$file"/>
+    </docblock>
+    <parameter name="user" byreference="false" type="object">
+      <type full="Lampion\User\Entity\User" namespace="Lampion\User\Entity" name="User"/>
+    </parameter>
+    <parameter name="file" byreference="false" type="object"/>
+    <inline>
+      <comment value="NOTE: I know the varibale is called file, but this works for directories aswell" line="442"/>
+      <comment value="If file returns an object, that means file is managed" line="446"/>
+    </inline>
+  </method>
+</class>

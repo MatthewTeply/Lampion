@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -12,17 +12,17 @@ namespace PHPUnit\Util\TestDox;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Test;
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\TestListener;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Framework\Warning;
 use PHPUnit\Framework\WarningTestCase;
 use PHPUnit\Runner\BaseTestRunner;
+use PHPUnit\TextUI\ResultPrinter as ResultPrinterInterface;
 use PHPUnit\Util\Printer;
 
 /**
- * Base class for printers of TestDox documentation.
+ * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-abstract class ResultPrinter extends Printer implements TestListener
+abstract class ResultPrinter extends Printer implements ResultPrinterInterface
 {
     /**
      * @var NamePrettifier
@@ -96,8 +96,6 @@ abstract class ResultPrinter extends Printer implements TestListener
 
     /**
      * @param resource $out
-     * @param array    $groups
-     * @param array    $excludeGroups
      *
      * @throws \PHPUnit\Framework\Exception
      */
@@ -233,32 +231,15 @@ abstract class ResultPrinter extends Printer implements TestListener
                 $this->doEndClass();
             }
 
-            $classAnnotations = \PHPUnit\Util\Test::parseTestMethodAnnotations($class);
-
-            if (isset($classAnnotations['class']['testdox'][0])) {
-                $this->currentTestClassPrettified = $classAnnotations['class']['testdox'][0];
-            } else {
-                $this->currentTestClassPrettified = $this->prettifier->prettifyTestClass($class);
-            }
+            $this->currentTestClassPrettified = $this->prettifier->prettifyTestClass($class);
+            $this->testClass                  = $class;
+            $this->tests                      = [];
 
             $this->startClass($class);
-
-            $this->testClass = $class;
-            $this->tests     = [];
         }
 
         if ($test instanceof TestCase) {
-            $annotations = $test->getAnnotations();
-
-            if (isset($annotations['method']['testdox'][0])) {
-                $this->currentTestMethodPrettified = $annotations['method']['testdox'][0];
-            } else {
-                $this->currentTestMethodPrettified = $this->prettifier->prettifyTestMethod($test->getName(false));
-            }
-
-            if ($test->usesDataProvider()) {
-                $this->currentTestMethodPrettified .= ' ' . $test->dataDescription();
-            }
+            $this->currentTestMethodPrettified = $this->prettifier->prettifyTestCase($test);
         }
 
         $this->testStatus = BaseTestRunner::STATUS_PASSED;
@@ -305,7 +286,7 @@ abstract class ResultPrinter extends Printer implements TestListener
     /**
      * Handler for 'on test' event.
      */
-    protected function onTest($name, bool $success = true): void
+    protected function onTest(string $name, bool $success = true): void
     {
     }
 

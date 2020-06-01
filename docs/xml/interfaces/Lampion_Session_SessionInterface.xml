@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface xmlns="http://xml.phpdox.net/src" full="Lampion\Session\SessionInterface" namespace="Lampion\Session" name="SessionInterface" abstract="false" final="false" start="9" end="26">
+  <file path="/lamp/app/lampion/kernel/Session" file="SessionInterface.php" realpath="/lamp/app/lampion/kernel/Session/SessionInterface.php" size="473" time="2020-05-21T08:42:42+00:00" unixtime="1590050562" sha1="bfaca3a1ca32e0008032684a18912fe131c16607" relative="Session/SessionInterface.php"/>
+  <docblock>
+    <description compact="Interface, defininf what a session class should look like"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="set" start="15" end="15" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$name"/>
+      <param type="mixed" variable="$value"/>
+    </docblock>
+    <parameter name="namem" byreference="false" type="string"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="get" start="20" end="20" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$name"/>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="unset" start="25" end="25" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$name"/>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <implementors>
+    <class full="Lampion\Session\Lampion" namespace="Lampion\Session" name="Lampion"/>
+    <class full="Lampion\Session\Main" namespace="Lampion\Session" name="Main"/>
+  </implementors>
+</interface>

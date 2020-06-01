@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Extend\Loader" namespace="Lampion\Extend" name="Loader" abstract="false" final="false" start="12" end="27">
+  <file path="/lamp/app/lampion/kernel/Extend" file="Loader.php" realpath="/lamp/app/lampion/kernel/Extend/Loader.php" size="738" time="2020-05-21T08:34:00+00:00" unixtime="1590050040" sha1="058fd2f68c7bf3fb39463ba5170c54f7d49b546c" relative="Extend/Loader.php"/>
+  <docblock>
+    <description compact="Class for loading resources into plugins"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="getCaller" start="14" end="18" abstract="false" final="false" static="true" visibility="private">
+    <parameter name="backtrace" byreference="false" type="array"/>
+  </method>
+  <method name="view" start="20" end="22" abstract="false" final="false" static="true" visibility="public"/>
+  <method name="script" start="24" end="26" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="path" byreference="false" type="string"/>
+  </method>
+</class>

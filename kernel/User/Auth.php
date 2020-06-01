@@ -12,6 +12,10 @@ use Lampion\Entity\EntityManager;
 use Lampion\User\Entity\User;
 use Lampion\User\Session as UserSession;
 
+/**
+ * Class that authenticates basic users, using JWT tokens
+ * @author Matyáš Teplý
+ */
 class Auth
 {
     /**

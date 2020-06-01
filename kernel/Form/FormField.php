@@ -5,6 +5,10 @@ namespace Lampion\Form;
 use Lampion\Application\Application;
 use Lampion\View\View;
 
+/**
+ * Abstract class of a form field, used for creating custom form fields
+ * @author Matyáš Teplý
+ */
 abstract class FormField {
 
     public $view;

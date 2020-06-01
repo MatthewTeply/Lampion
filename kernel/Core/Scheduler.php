@@ -2,6 +2,12 @@
 
 namespace Lampion\Core;
 
+/**
+ * Class used for registering functions at a specific time, right now only works for registering shutdown functions
+ * later will be used for managing CRON tasks aswell
+ * @todo CRON
+ * @author Matyáš Teplý 
+ */
 class Scheduler
 {
     /**

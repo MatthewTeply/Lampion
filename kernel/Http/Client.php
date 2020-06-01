@@ -2,6 +2,10 @@
 
 namespace Lampion\Http;
 
+/**
+ * Class containing all info about the client
+ * @author Matyáš Teplý
+ */
 class Client
 {
     /**

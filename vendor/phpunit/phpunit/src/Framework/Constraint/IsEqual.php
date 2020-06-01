@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -10,7 +10,8 @@
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\ExpectationFailedException;
-use SebastianBergmann;
+use SebastianBergmann\Comparator\ComparisonFailure;
+use SebastianBergmann\Comparator\Factory as ComparatorFactory;
 
 /**
  * Constraint that checks if one value is equal to another.
@@ -21,7 +22,7 @@ use SebastianBergmann;
  *
  * The expected value is passed in the constructor.
  */
-class IsEqual extends Constraint
+final class IsEqual extends Constraint
 {
     /**
      * @var mixed
@@ -31,35 +32,22 @@ class IsEqual extends Constraint
     /**
      * @var float
      */
-    private $delta = 0.0;
-
-    /**
-     * @var int
-     */
-    private $maxDepth = 10;
+    private $delta;
 
     /**
      * @var bool
      */
-    private $canonicalize = false;
+    private $canonicalize;
 
     /**
      * @var bool
      */
-    private $ignoreCase = false;
+    private $ignoreCase;
 
-    /**
-     * @var SebastianBergmann\Comparator\ComparisonFailure
-     */
-    private $lastFailure;
-
-    public function __construct($value, float $delta = 0.0, int $maxDepth = 10, bool $canonicalize = false, bool $ignoreCase = false)
+    public function __construct($value, float $delta = 0.0, bool $canonicalize = false, bool $ignoreCase = false)
     {
-        parent::__construct();
-
         $this->value        = $value;
         $this->delta        = $delta;
-        $this->maxDepth     = $maxDepth;
         $this->canonicalize = $canonicalize;
         $this->ignoreCase   = $ignoreCase;
     }
@@ -74,15 +62,11 @@ class IsEqual extends Constraint
      * a boolean value instead: true in case of success, false in case of a
      * failure.
      *
-     * @param mixed  $other        value or object to evaluate
-     * @param string $description  Additional information about the test
-     * @param bool   $returnResult Whether to return a result or throw an exception
-     *
      * @throws ExpectationFailedException
      *
-     * @return mixed
+     * @return bool
      */
-    public function evaluate($other, $description = '', $returnResult = false)
+    public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
     {
         // If $this->value and $other are identical, they are also equal.
         // This is the most common path and will allow us to skip
@@ -91,7 +75,7 @@ class IsEqual extends Constraint
             return true;
         }
 
-        $comparatorFactory = SebastianBergmann\Comparator\Factory::getInstance();
+        $comparatorFactory = ComparatorFactory::getInstance();
 
         try {
             $comparator = $comparatorFactory->getComparatorFor(
@@ -106,7 +90,7 @@ class IsEqual extends Constraint
                 $this->canonicalize,
                 $this->ignoreCase
             );
-        } catch (SebastianBergmann\Comparator\ComparisonFailure $f) {
+        } catch (ComparisonFailure $f) {
             if ($returnResult) {
                 return false;
             }
@@ -123,7 +107,7 @@ class IsEqual extends Constraint
     /**
      * Returns a string representation of the constraint.
      *
-     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function toString(): string
     {
@@ -135,7 +119,7 @@ class IsEqual extends Constraint
             }
 
             return \sprintf(
-                'is equal to "%s"',
+                "is equal to '%s'",
                 $this->value
             );
         }
@@ -149,7 +133,7 @@ class IsEqual extends Constraint
 
         return \sprintf(
             'is equal to %s%s',
-            $this->exporter->export($this->value),
+            $this->exporter()->export($this->value),
             $delta
         );
     }

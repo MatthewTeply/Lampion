@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\User\Entity\User" namespace="Lampion\User\Entity" name="User" abstract="false" final="false" start="9" end="52">
+  <file path="/lamp/app/lampion/kernel/User/Entity" file="User.php" realpath="/lamp/app/lampion/kernel/User/Entity/User.php" size="1016" time="2020-05-21T08:43:03+00:00" unixtime="1590050583" sha1="96f551639ab7960349a1429dc65ae6a454f1496a" relative="User/Entity/User.php"/>
+  <docblock>
+    <description compact="Basic user entity"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <member name="id" visibility="public" static="false" line="12">
+    <docblock>
+      <var description="length=11)" type="object">
+        <type full="Lampion\User\Entity\(type=&quot;int&quot;" namespace="Lampion\User\Entity" name="(type=&quot;int&quot;"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="username" visibility="public" static="false" line="15">
+    <docblock>
+      <var description="length=255)" type="object">
+        <type full="Lampion\User\Entity\(type=&quot;varchar&quot;" namespace="Lampion\User\Entity" name="(type=&quot;varchar&quot;"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="role" visibility="public" static="false" line="18">
+    <docblock>
+      <var type="object">
+        <type full="Lampion\User\Entity\(type=&quot;json&quot;)" namespace="Lampion\User\Entity" name="(type=&quot;json&quot;)"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="pwd" visibility="public" static="false" line="21">
+    <docblock>
+      <var description="length=255)" type="object">
+        <type full="Lampion\User\Entity\(type=&quot;varchar&quot;" namespace="Lampion\User\Entity" name="(type=&quot;varchar&quot;"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="setPwd" start="23" end="29" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="pwd" byreference="false" type="string"/>
+  </method>
+  <method name="getPwd" start="31" end="33" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getRole" start="35" end="47" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="__toString" start="49" end="51" abstract="false" final="false" static="false" visibility="public"/>
+</class>

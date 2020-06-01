@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Lampion\Database\Query</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.xhtml">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.xhtml">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.xhtml">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.xhtml">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.xhtml">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.xhtml">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.xhtml">Classes</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.xhtml#Lampion_Database">Lampion\Database</a>
+          </li>
+          <li class="separator">Query</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#hierarchy">Hierarchy</a>
+          </li>
+          <li>
+            <a href="#members">Members</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="../source/Database/Query.php.xhtml#line12">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Lampion\Database\</small>Query</h1>
+        <h4>Class containing all the query methods</h4>
+        <p/>
+        <ul>
+          <li>Author: Matyáš Teplý</li>
+        </ul>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class Query
+                extends <a title="Lampion\Database\Connection" href="../classes/Lampion_Database_Connection.xhtml">Connection</a>
+            {<br/><ul class="none"><li>// Inherited members from <span title="Lampion\Database\Connection">Connection</span></li><li>protected static <a href="#members">$dbhost</a>;
+                        </li><li>protected static <a href="#members">$dbname</a>;
+                        </li><li>protected static <a href="#members">$dbuser</a>;
+                        </li><li>protected static <a href="#members">$dbpass</a>;
+                        </li></ul><ul class="none"><li>// methods</li><li>public static mixed <a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/raw.xhtml">raw</a>()
+                    </li><li>public static string <a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/processConditions.xhtml">processConditions</a>()
+                    </li><li>public static void <a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/processParams.xhtml">processParams</a>()
+                    </li><li>public static int <a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/insert.xhtml">insert</a>()
+                    </li><li>public static array|mixed <a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/select.xhtml">select</a>()
+                    </li><li>public static void <a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/delete.xhtml">delete</a>()
+                    </li><li>public static void <a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/update.xhtml">update</a>()
+                    </li><li>public static void <a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/isColumn.xhtml">isColumn</a>()
+                    </li><li>public static void <a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/tableExists.xhtml">tableExists</a>()
+                    </li><li>public static void <a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/getColumns.xhtml">getColumns</a>()
+                    </li></ul><ul class="none"><li>// Inherited methods from <span title="Lampion\Database\Connection">Connection</span></li><li>public static PDO <a title="Lampion\Database\Connection" href="../classes/Lampion_Database_Connection/connect.xhtml">connect</a>()
+                        </li></ul>
+
+            }<br/></div>
+        <h2 id="hierarchy">Hierarchy</h2>
+        <div class="styled">
+          <h4>Extends</h4>
+          <ul>
+            <li>
+              <a title="Lampion\Database\Connection" href="../classes/Lampion_Database_Connection.xhtml">Lampion\Database\Connection</a>
+            </li>
+          </ul>
+        </div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>protected</h4>
+          <ul class="members">
+            <li id="dbhost">
+              <strong>$dbhost</strong>
+            </li>
+            <li id="dbname">
+              <strong>$dbname</strong>
+            </li>
+            <li id="dbpass">
+              <strong>$dbpass</strong>
+            </li>
+            <li id="dbuser">
+              <strong>$dbuser</strong>
+            </li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>public</h4>
+          <ul>
+            <li id="delete"><a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/delete.xhtml">delete()</a>
+                — Performs a DELETE query</li>
+            <li id="getColumns">
+              <a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/getColumns.xhtml">getColumns()</a>
+            </li>
+            <li id="insert"><a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/insert.xhtml">insert()</a>
+                — Performs an INSERT query</li>
+            <li id="isColumn">
+              <a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/isColumn.xhtml">isColumn()</a>
+            </li>
+            <li id="processConditions"><a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/processConditions.xhtml">processConditions()</a>
+                — Processes conditions</li>
+            <li id="processParams"><a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/processParams.xhtml">processParams()</a>
+                — Processes array of conditions into a string, that is readable by SQL</li>
+            <li id="raw"><a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/raw.xhtml">raw()</a>
+                — Performs a raw PDO query</li>
+            <li id="select"><a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/select.xhtml">select()</a>
+                — Performs a SELECT query</li>
+            <li id="tableExists">
+              <a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/tableExists.xhtml">tableExists()</a>
+            </li>
+            <li id="update"><a title="Lampion\Database\Query" href="../classes/Lampion_Database_Query/update.xhtml">update()</a>
+                — Performs an UPDATE query</li>
+          </ul>
+          <h3>Inherited from <a title="Lampion\Database\Connection" href="../classes/Lampion_Database_Connection.xhtml">Lampion\Database\Connection</a></h3>
+          <h4>public</h4>
+          <ul>
+            <li id="connect"><a title="Lampion\Database\Connection" href="../classes/Lampion_Database_Connection/connect.xhtml">connect()</a>
+                — Connects to a database</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.12.0 - Copyright (C) 2010 - 2020 by Arne Blankerts and Contributors</span>
+    </footer>
+  </body>
+</html>

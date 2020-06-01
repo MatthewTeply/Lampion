@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Form\FormField" namespace="Lampion\Form" name="FormField" abstract="true" final="false" start="12" end="38">
+  <file path="/lamp/app/lampion/kernel/Form" file="FormField.php" realpath="/lamp/app/lampion/kernel/Form/FormField.php" size="824" time="2020-05-21T08:16:02+00:00" unixtime="1590048962" sha1="5ec2c4f79c7b4259c53d58efc7e32be1ee607c6b" relative="Form/FormField.php"/>
+  <docblock>
+    <description compact="Abstract class of a form field, used for creating custom form fields"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <member name="view" visibility="public" static="false" line="14"/>
+  <constructor name="__construct" start="16" end="18" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="template" start="20" end="22" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="options" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="submit" start="29" end="29" abstract="true" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="All the logic happens in this method"/>
+      <param type="array" variable="$data"/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="data" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="display" start="36" end="36" abstract="true" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns field's template"/>
+      <param type="array" variable="$options"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="options" byreference="false" type="{unknown}"/>
+  </method>
+<extenders><extender full="Lampion\Form\Field\EntityFormField" namespace="Lampion\Form\Field" name="EntityFormField"/></extenders></class>

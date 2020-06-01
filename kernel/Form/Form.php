@@ -5,6 +5,10 @@ namespace Lampion\Form;
 use Lampion\Application\Application;
 use Lampion\View\View;
 
+/**
+ * Create a form, and specify it's fields
+ * @author Matyáš Teplý
+ */
 class Form {
 
     public $action;
@@ -24,14 +28,14 @@ class Form {
 
     /**
      * Create a new form field
-     * @param string $type    = type (name) of template
-     * @param array  $options = custom options passed to the template
-     * @param array  $path    = path to field template's directory
+     * @param string $type    type (name) of template
+     * @param array  $options custom options passed to the template
+     * @param array  $path    path to field template's directory
      * @return mixed
      */
     public function field(string $type, array $options, $path = 'form/field/') {
         // NOTE: @ is here because undefined constant in FormDefaultFields is handled by the ?? operator
-        $inputType = @constant('Lampion\Form\FormDefaultFields::' . strtoupper($type)) ?? constant('Lampion\Form\FormDefaultFields::STRING');
+        $inputType       = @constant('Lampion\Form\FormDefaultFields::' . strtoupper($type)) ?? constant('Lampion\Form\FormDefaultFields::STRING');
         $fieldController = ucfirst(Application::name()) . '\\Form\\Field\\' . ucfirst($type) . 'FormField';
 
         # Check if custom field controller is created in the current app

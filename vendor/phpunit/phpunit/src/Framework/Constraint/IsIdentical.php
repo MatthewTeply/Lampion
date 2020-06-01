@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -10,7 +10,7 @@
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\ExpectationFailedException;
-use SebastianBergmann;
+use SebastianBergmann\Comparator\ComparisonFailure;
 
 /**
  * Constraint that asserts that one value is identical to another.
@@ -23,7 +23,7 @@ use SebastianBergmann;
  *
  * The expected value is passed in the constructor.
  */
-class IsIdentical extends Constraint
+final class IsIdentical extends Constraint
 {
     /**
      * @var float
@@ -35,13 +35,8 @@ class IsIdentical extends Constraint
      */
     private $value;
 
-    /**
-     * @param mixed $value
-     */
     public function __construct($value)
     {
-        parent::__construct();
-
         $this->value = $value;
     }
 
@@ -55,16 +50,10 @@ class IsIdentical extends Constraint
      * a boolean value instead: true in case of success, false in case of a
      * failure.
      *
-     * @param mixed  $other        value or object to evaluate
-     * @param string $description  Additional information about the test
-     * @param bool   $returnResult Whether to return a result or throw an exception
-     *
      * @throws ExpectationFailedException
-     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return mixed
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public function evaluate($other, $description = '', $returnResult = false)
+    public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
     {
         if (\is_float($this->value) && \is_float($other) &&
             !\is_infinite($this->value) && !\is_infinite($other) &&
@@ -83,7 +72,7 @@ class IsIdentical extends Constraint
 
             // if both values are strings, make sure a diff is generated
             if (\is_string($this->value) && \is_string($other)) {
-                $f = new SebastianBergmann\Comparator\ComparisonFailure(
+                $f = new ComparisonFailure(
                     $this->value,
                     $other,
                     \sprintf("'%s'", $this->value),
@@ -93,22 +82,24 @@ class IsIdentical extends Constraint
 
             // if both values are array, make sure a diff is generated
             if (\is_array($this->value) && \is_array($other)) {
-                $f = new SebastianBergmann\Comparator\ComparisonFailure(
+                $f = new ComparisonFailure(
                     $this->value,
                     $other,
-                    $this->exporter->export($this->value),
-                    $this->exporter->export($other)
+                    $this->exporter()->export($this->value),
+                    $this->exporter()->export($other)
                 );
             }
 
             $this->fail($other, $description, $f);
         }
+
+        return null;
     }
 
     /**
      * Returns a string representation of the constraint.
      *
-     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function toString(): string
     {
@@ -117,7 +108,7 @@ class IsIdentical extends Constraint
                 \get_class($this->value) . '"';
         }
 
-        return 'is identical to ' . $this->exporter->export($this->value);
+        return 'is identical to ' . $this->exporter()->export($this->value);
     }
 
     /**
@@ -128,7 +119,7 @@ class IsIdentical extends Constraint
      *
      * @param mixed $other evaluated value or object
      *
-     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     protected function failureDescription($other): string
     {

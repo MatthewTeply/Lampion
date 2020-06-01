@@ -4,6 +4,10 @@ namespace Lampion\Database;
 
 use Lampion\Database\Query;
 
+/**
+ * Class that initializes kernel tables
+ * @author Matyáš Teplý
+ */
 class Initializer
 {
     /**

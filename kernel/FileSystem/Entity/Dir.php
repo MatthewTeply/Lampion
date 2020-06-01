@@ -2,6 +2,10 @@
 
 namespace Lampion\FileSystem\Entity;
 
+/**
+ * Direcotry entity
+ * @author Matyáš Teplý
+ */
 class Dir {
 
     /** @var(type="int") */

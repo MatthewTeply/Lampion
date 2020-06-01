@@ -2,6 +2,10 @@
 
 namespace Lampion\Debug;
 
+/**
+ * Error debug class
+ * @author Matyáš Teplý
+ */
 class Error implements DebugInterface
 {
     private static $code = "Error";

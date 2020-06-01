@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Database\Connection" namespace="Lampion\Database" name="Connection" abstract="false" final="false" start="9" end="24">
+  <file path="/lamp/app/lampion/kernel/Database" file="Connection.php" realpath="/lamp/app/lampion/kernel/Database/Connection.php" size="566" time="2020-05-21T08:28:27+00:00" unixtime="1590049707" sha1="4b0525c160f682f3689c51cb27146dc272e7ac7a" relative="Database/Connection.php"/>
+  <docblock>
+    <description compact="Class that takes care of connecting to the database"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <member name="dbhost" default="" type="{unknown}" constant="DB_HOST" visibility="protected" static="true" line="11"/>
+  <member name="dbname" default="" type="{unknown}" constant="DB_NAME" visibility="protected" static="true" line="12"/>
+  <member name="dbuser" default="" type="{unknown}" constant="DB_USER" visibility="protected" static="true" line="13"/>
+  <member name="dbpass" default="" type="{unknown}" constant="DB_PASS" visibility="protected" static="true" line="14"/>
+  <method name="connect" start="20" end="23" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Connects to a database"/>
+      <return type="object">
+        <type full="Lampion\Database\PDO" namespace="Lampion\Database" name="PDO"/>
+      </return>
+    </docblock>
+  </method>
+  <extenders>
+    <extender full="Lampion\Database\Query" namespace="Lampion\Database" name="Query"/>
+  </extenders>
+</class>

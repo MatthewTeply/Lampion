@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Http\Response" namespace="Lampion\Http" name="Response" abstract="false" final="false" start="12" end="42">
+  <file path="/lamp/app/lampion/kernel/Http" file="Response.php" realpath="/lamp/app/lampion/kernel/Http/Response.php" size="850" time="2020-05-21T08:20:33+00:00" unixtime="1590049233" sha1="2f8f449ef7a195c56bfb13c4adae98a276a232ea" relative="Http/Response.php"/>
+  <docblock>
+    <description compact="General response class, containing all methods for responding to requests"/>
+    <todo value="HTTP response codes"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <member name="loader" visibility="public" static="false" line="14"/>
+  <constructor name="__construct" start="16" end="18" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="controller" start="20" end="22" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="path" byreference="false" type="string"/>
+  </method>
+  <method name="view" start="24" end="26" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="send" start="28" end="33" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="msg" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="redirect" start="35" end="37" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="route" byreference="false" type="string"/>
+    <parameter name="params" byreference="false" type="array" default=""/>
+  </method>
+  <method name="json" start="39" end="41" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="arr" byreference="false" type="array"/>
+  </method>
+</class>

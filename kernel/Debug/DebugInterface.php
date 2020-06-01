@@ -2,6 +2,10 @@
 
 namespace Lampion\Debug;
 
+/**
+ * Interface, defining what a debug class should look like
+ * @author Matyáš Teplý
+ */
 interface DebugInterface {
 
     /**

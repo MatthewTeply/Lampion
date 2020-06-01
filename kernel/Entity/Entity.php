@@ -4,8 +4,10 @@ namespace Lampion\Entity;
 
 use Lampion\Database\Query;
 
-use Lampion\Debug\Console;
-
+/**
+ * (LEGACY CODE, PLANNED FOR DEPRECATION) Abstract class of entity, defining it's methods and properties
+ * @author Matyáš Teplý
+ */
 abstract class Entity
 {
     /**

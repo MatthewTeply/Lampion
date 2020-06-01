@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Entity\EntityManager" namespace="Lampion\Entity" name="EntityManager" abstract="false" final="false" start="13" end="255">
+  <file path="/lamp/app/lampion/kernel/Entity" file="EntityManager.php" realpath="/lamp/app/lampion/kernel/Entity/EntityManager.php" size="7472" time="2020-05-21T08:32:57+00:00" unixtime="1590049977" sha1="26e546351e87d0e651c35bc212c5a634bfa0ec9e" relative="Entity/EntityManager.php"/>
+  <docblock>
+    <description compact="Class that takes care of entity persistance"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="getTableName" start="15" end="20" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="entity" byreference="false" type="string"/>
+  </method>
+  <method name="persist" start="22" end="71" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="entity" byreference="false" type="object"/>
+    <inline>
+      <comment value="Creating new row" line="58"/>
+    </inline>
+  </method>
+  <method name="find" start="73" end="89" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="entityName" byreference="false" type="string"/>
+    <parameter name="id" byreference="false" type="int"/>
+    <parameter name="sortBy" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="sortOrder" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="findBy" start="91" end="119" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="entityName" byreference="false" type="string"/>
+    <parameter name="searchFields" byreference="false" type="array"/>
+    <parameter name="sortBy" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="sortOrder" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="all" start="121" end="136" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="entityName" byreference="false" type="string"/>
+    <parameter name="sortBy" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="sortOrder" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="destroy" start="138" end="146" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="entity" byreference="false" type="object"/>
+  </method>
+  <method name="metadata" start="148" end="177" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="entityName" byreference="false" type="string"/>
+  </method>
+  <method name="setFields" start="179" end="216" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="entity" byreference="true" type="object"/>
+    <parameter name="fields" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Check if entity has a getter declared, if so, use it" line="182"/>
+      <comment value="Get differenece between columns and metadata" line="193"/>
+      <comment value="Populate property fields by their mapping column's value, and unset the colummn" line="196"/>
+      <comment value=" Check if entity property is a refference to another class, if it is, populate the property with the said class" line="204"/>
+    </inline>
+  </method>
+  <method name="transformFieldsToColumns" start="218" end="254" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="entityName" byreference="false" type="string"/>
+    <parameter name="fields" byreference="false" type="array"/>
+  </method>
+</class>

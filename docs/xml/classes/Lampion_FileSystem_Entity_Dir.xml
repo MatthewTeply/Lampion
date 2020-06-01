@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\FileSystem\Entity\Dir" namespace="Lampion\FileSystem\Entity" name="Dir" abstract="false" final="false" start="9" end="39">
+  <file path="/lamp/app/lampion/kernel/FileSystem/Entity" file="Dir.php" realpath="/lamp/app/lampion/kernel/FileSystem/Entity/Dir.php" size="654" time="2020-05-21T08:34:13+00:00" unixtime="1590050053" sha1="3126591ddc217d295060ad466170e702ca2132e9" relative="FileSystem/Entity/Dir.php"/>
+  <docblock>
+    <description compact="Direcotry entity"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <member name="id" visibility="public" static="false" line="12">
+    <docblock>
+      <var type="object">
+        <type full="Lampion\FileSystem\Entity\(type=&quot;int&quot;)" namespace="Lampion\FileSystem\Entity" name="(type=&quot;int&quot;)"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="filename" visibility="public" static="false" line="15">
+    <docblock>
+      <var type="object">
+        <type full="Lampion\FileSystem\Entity\(type=&quot;string&quot;)" namespace="Lampion\FileSystem\Entity" name="(type=&quot;string&quot;)"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="fullPath" visibility="public" static="false" line="18">
+    <docblock>
+      <var type="object">
+        <type full="Lampion\FileSystem\Entity\(type=&quot;string&quot;)" namespace="Lampion\FileSystem\Entity" name="(type=&quot;string&quot;)"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="relativePath" visibility="public" static="false" line="21">
+    <docblock>
+      <var type="object">
+        <type full="Lampion\FileSystem\Entity\(type=&quot;string&quot;)" namespace="Lampion\FileSystem\Entity" name="(type=&quot;string&quot;)"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="note" visibility="public" static="false" line="24">
+    <docblock>
+      <var type="object">
+        <type full="Lampion\FileSystem\Entity\(type=&quot;string&quot;)" namespace="Lampion\FileSystem\Entity" name="(type=&quot;string&quot;)"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="metadata" visibility="public" static="false" line="27">
+    <docblock>
+      <var type="object">
+        <type full="Lampion\FileSystem\Entity\(type=&quot;json&quot;)" namespace="Lampion\FileSystem\Entity" name="(type=&quot;json&quot;)"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="tags" visibility="public" static="false" line="30">
+    <docblock>
+      <var type="object">
+        <type full="Lampion\FileSystem\Entity\(type=&quot;json&quot;)" namespace="Lampion\FileSystem\Entity" name="(type=&quot;json&quot;)"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="user" visibility="public" static="false" line="33">
+    <docblock>
+      <var description="entity=&quot;Lampion\User\Entity\User&quot;, mappedBy=&quot;user_id&quot;)" type="object">
+        <type full="Lampion\FileSystem\Entity\(type=&quot;entity&quot;" namespace="Lampion\FileSystem\Entity" name="(type=&quot;entity&quot;"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="__toString" start="35" end="37" abstract="false" final="false" static="false" visibility="public"/>
+</class>

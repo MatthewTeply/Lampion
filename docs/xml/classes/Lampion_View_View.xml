@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\View\View" namespace="Lampion\View" name="View" abstract="false" final="false" start="18" end="159">
+  <file path="/lamp/app/lampion/kernel/View" file="View.php" realpath="/lamp/app/lampion/kernel/View/View.php" size="4644" time="2020-05-21T08:44:27+00:00" unixtime="1590050667" sha1="551ec8e172e81b5c083fd182d4ab2f334933cd6f" relative="View/View.php"/>
+  <docblock>
+    <description compact="Class for managing views"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <member name="twig" visibility="private" static="false" line="20"/>
+  <member name="app" visibility="private" static="false" line="21"/>
+  <member name="isPlugin" visibility="private" static="false" line="22"/>
+  <constructor name="__construct" start="30" end="54" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="View constructor."/>
+      <param type="string" variable="$templateFolder"/>
+      <param type="string" variable="$app"/>
+      <param type="object" variable="$isPlugin">
+        <type full="Lampion\View\bool" namespace="Lampion\View" name="bool"/>
+      </param>
+    </docblock>
+    <parameter name="templateFolder" byreference="false" type="string"/>
+    <parameter name="app" byreference="false" type="string"/>
+    <parameter name="isPlugin" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Register custom filters" line="49"/>
+    </inline>
+  </constructor>
+  <method name="render" start="65" end="84" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Renders a templates"/>
+      <param type="string" variable="$path"/>
+      <param type="array" variable="$args"/>
+      <return type="object">
+        <type full="Lampion\View\$this" namespace="Lampion\View" name="$this"/>
+      </return>
+      <throws type="object">
+        <type full="\Twig\Error\LoaderError" namespace="\Twig\Error" name="LoaderError"/>
+      </throws>
+      <throws type="object">
+        <type full="\Twig\Error\RuntimeError" namespace="\Twig\Error" name="RuntimeError"/>
+      </throws>
+      <throws type="object">
+        <type full="\Twig\Error\SyntaxError" namespace="\Twig\Error" name="SyntaxError"/>
+      </throws>
+    </docblock>
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="args" byreference="false" type="array" default=""/>
+  </method>
+  <method name="setFilter" start="86" end="90" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="filterName" byreference="false" type="string"/>
+    <parameter name="func" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="load" start="103" end="130" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Loads a templates, if a Controller with the same directory path is found, it is used to render the templates with variables inserted"/>
+      <param type="string" variable="$path"/>
+      <param type="array" variable="$args"/>
+      <param type="object" variable="$rawTemplate">
+        <type full="Lampion\View\bool" namespace="Lampion\View" name="bool"/>
+      </param>
+      <param type="string" variable="$app"/>
+      <return type="object">
+        <type full="Twig\Markup" namespace="Twig" name="Markup"/>
+      </return>
+      <throws type="object">
+        <type full="\Twig\Error\LoaderError" namespace="\Twig\Error" name="LoaderError"/>
+      </throws>
+      <throws type="object">
+        <type full="\Twig\Error\RuntimeError" namespace="\Twig\Error" name="RuntimeError"/>
+      </throws>
+      <throws type="object">
+        <type full="\Twig\Error\SyntaxError" namespace="\Twig\Error" name="SyntaxError"/>
+      </throws>
+    </docblock>
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="args" byreference="false" type="array" default=""/>
+    <parameter name="rawTemplate" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="customFilters" start="132" end="158" abstract="false" final="false" static="false" visibility="private"/>
+</class>

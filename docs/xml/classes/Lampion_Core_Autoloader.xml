@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Core\Autoloader" namespace="Lampion\Core" name="Autoloader" abstract="false" final="false" start="9" end="64">
+  <file path="/lamp/app/lampion/kernel/Core" file="Autoloader.php" realpath="/lamp/app/lampion/kernel/Core/Autoloader.php" size="1736" time="2020-05-21T08:26:01+00:00" unixtime="1590049561" sha1="82a9e979f629cad456a50048e0e639039ec6b9d5" relative="Core/Autoloader.php"/>
+  <docblock>
+    <description compact="Class that automatically loads classes, registers shutdown and plugin functions"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="register" start="14" end="45" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Registers all kernel functions, as well as current application's methods"/>
+    </docblock>
+  </method>
+  <method name="registerPluginFunctions" start="47" end="59" abstract="false" final="false" static="true" visibility="public"/>
+  <method name="registerShutdownFunctions" start="61" end="63" abstract="false" final="false" static="true" visibility="public"/>
+</class>

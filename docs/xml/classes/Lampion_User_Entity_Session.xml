@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\User\Entity\Session" namespace="Lampion\User\Entity" name="Session" abstract="false" final="false" start="9" end="36">
+  <file path="/lamp/app/lampion/kernel/User/Entity" file="Session.php" realpath="/lamp/app/lampion/kernel/User/Entity/Session.php" size="656" time="2020-05-21T08:42:53+00:00" unixtime="1590050573" sha1="146296af98e3455c0ccaa451706d94ad14d57f1d" relative="User/Entity/Session.php"/>
+  <docblock>
+    <description compact="User session entity"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <member name="id" visibility="public" static="false" line="14">
+    <docblock>
+      <var description="length=&quot;11&quot;)" type="object">
+        <type full="Lampion\User\Entity\(type=&quot;int&quot;" namespace="Lampion\User\Entity" name="(type=&quot;int&quot;"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="session_id" visibility="public" static="false" line="17">
+    <docblock>
+      <var description="length=&quot;255&quot;)" type="object">
+        <type full="Lampion\User\Entity\(type=&quot;varchar&quot;" namespace="Lampion\User\Entity" name="(type=&quot;varchar&quot;"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="user" visibility="public" static="false" line="20">
+    <docblock>
+      <var description="mappedBy=&quot;user_id&quot;)" type="object">
+        <type full="Lampion\User\Entity\(type=&quot;entity&quot;" namespace="Lampion\User\Entity" name="(type=&quot;entity&quot;"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="created" visibility="public" static="false" line="23">
+    <docblock>
+      <var description="length=&quot;11&quot;)" type="object">
+        <type full="Lampion\User\Entity\(type=&quot;int&quot;" namespace="Lampion\User\Entity" name="(type=&quot;int&quot;"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="updated" visibility="public" static="false" line="26">
+    <docblock>
+      <var description="length=&quot;11&quot;)" type="object">
+        <type full="Lampion\User\Entity\(type=&quot;int&quot;" namespace="Lampion\User\Entity" name="(type=&quot;int&quot;"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="ip" visibility="public" static="false" line="29">
+    <docblock>
+      <var description="length=&quot;255&quot;)" type="object">
+        <type full="Lampion\User\Entity\(type=&quot;varchar&quot;" namespace="Lampion\User\Entity" name="(type=&quot;varchar&quot;"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="device" visibility="public" static="false" line="32">
+    <docblock>
+      <var description="length=&quot;255&quot;)" type="object">
+        <type full="Lampion\User\Entity\(type=&quot;varchar&quot;" namespace="Lampion\User\Entity" name="(type=&quot;varchar&quot;"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="os" visibility="public" static="false" line="35">
+    <docblock>
+      <var description="length=&quot;255&quot;)" type="object">
+        <type full="Lampion\User\Entity\(type=&quot;varchar&quot;" namespace="Lampion\User\Entity" name="(type=&quot;varchar&quot;"/>
+      </var>
+    </docblock>
+  </member>
+</class>

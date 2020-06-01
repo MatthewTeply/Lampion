@@ -2,6 +2,10 @@
 
 namespace Lampion\Debug;
 
+/**
+ * A bit of a hack, this class is used for logging data out into the JS console
+ * @author Matyáš Teplý
+ */
 class Console {
 
     public static function log($var) {

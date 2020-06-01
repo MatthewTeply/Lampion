@@ -2,6 +2,10 @@
 
 namespace Lampion\Debug;
 
+/**
+ * Info debug class
+ * @author Matyáš Teplý
+ */
 class Info implements DebugInterface
 {
     private static $code = "Info";

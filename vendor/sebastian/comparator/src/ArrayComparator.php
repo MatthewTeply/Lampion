@@ -7,11 +7,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace SebastianBergmann\Comparator;
 
 /**
  * Compares arrays for equality.
+ *
+ * Arrays are equal if they contain the same key-value pairs.
+ * The order of the keys does not matter.
+ * The types of key-value pairs do not matter.
  */
 class ArrayComparator extends Comparator
 {
@@ -29,7 +32,7 @@ class ArrayComparator extends Comparator
     }
 
     /**
-     * Asserts that two values are equal.
+     * Asserts that two arrays are equal.
      *
      * @param mixed $expected     First value to compare
      * @param mixed $actual       Second value to compare

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\User\Auth" namespace="Lampion\User" name="Auth" abstract="false" final="false" start="19" end="145">
+  <file path="/lamp/app/lampion/kernel/User" file="Auth.php" realpath="/lamp/app/lampion/kernel/User/Auth.php" size="3495" time="2020-05-21T08:43:36+00:00" unixtime="1590050616" sha1="d66f0b7f4f715b2e38bb8ba8b58190b0ed9dc004" relative="User/Auth.php"/>
+  <docblock>
+    <description compact="Class that authenticates basic users, using JWT tokens"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="login" start="29" end="67" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$username"/>
+      <param type="string" variable="$pwd"/>
+      <return>- null = client is already logged in
+ - 0    = wrong credentials
+ - 1    = logged in</return>
+    </docblock>
+    <parameter name="username" byreference="false" type="string"/>
+    <parameter name="pwd" byreference="false" type="string"/>
+    <inline>
+      <comment value="If user is already set, return null" line="30"/>
+      <comment value="Wrong credentials (username)" line="39"/>
+      <comment value="Logged in" line="48"/>
+    </inline>
+  </method>
+  <method name="logout" start="69" end="84" abstract="false" final="false" static="true" visibility="public"/>
+  <method name="isLoggedIn" start="86" end="120" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="token" byreference="false" type="{unknown}" default="NULL"/>
+    <inline>
+      <comment value="Check if user exists" line="96"/>
+      <comment value="If user exists, but is not set in session, set it" line="105"/>
+      <comment value="Check if session is valid" line="108"/>
+    </inline>
+  </method>
+  <method name="decodeJWT" start="122" end="144" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="token" byreference="false" type="{unknown}"/>
+  </method>
+</class>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Database\Initializer" namespace="Lampion\Database" name="Initializer" abstract="false" final="false" start="11" end="27">
+  <file path="/lamp/app/lampion/kernel/Database" file="Initializer.php" realpath="/lamp/app/lampion/kernel/Database/Initializer.php" size="624" time="2020-05-21T08:28:49+00:00" unixtime="1590049729" sha1="1d514eb65d8830ebb4535502a9ac4a4dd16108bf" relative="Database/Initializer.php"/>
+  <docblock>
+    <description compact="Class that initializes kernel tables"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="checkKernelTables" start="16" end="26" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="This method checks if tables that are required by Kernel exist, if they don't, they will be created"/>
+    </docblock>
+  </method>
+</class>

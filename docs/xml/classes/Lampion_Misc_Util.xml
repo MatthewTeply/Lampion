@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Misc\Util" namespace="Lampion\Misc" name="Util" abstract="false" final="false" start="9" end="16">
+  <file path="/lamp/app/lampion/kernel/Misc" file="Util.php" realpath="/lamp/app/lampion/kernel/Misc/Util.php" size="309" time="2020-05-21T08:40:22+00:00" unixtime="1590050422" sha1="6625dc2b4f497731e2a0cd4522459b6d75e10dd8" relative="Misc/Util.php"/>
+  <docblock>
+    <description compact="Class containing useful code snippets, so that they can be reused"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="validateJson" start="11" end="14" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="jsonString" byreference="false" type="string"/>
+  </method>
+</class>

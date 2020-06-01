@@ -12,5 +12,8 @@
       "classmap": [
           "vendor/google/apiclient/src/Google"
       ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
     }
 }

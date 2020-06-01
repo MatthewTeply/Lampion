@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Form\FormDefaultFields" namespace="Lampion\Form" name="FormDefaultFields" abstract="false" final="false" start="9" end="44">
+  <file path="/lamp/app/lampion/kernel/Form" file="FormDefaultFields.php" realpath="/lamp/app/lampion/kernel/Form/FormDefaultFields.php" size="1125" time="2020-05-21T08:15:35+00:00" unixtime="1590048935" sha1="60a70c8f5a6ff057dcec22bad9e142e0cfe7501a" relative="Form/FormDefaultFields.php"/>
+  <docblock>
+    <description compact="Class containing constants of all default classes provided by Lampion"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <constant type="array" name="NUMBER" value=""/>
+  <constant type="array" name="INT" value=""/>
+  <constant type="array" name="DATE" value=""/>
+  <constant type="array" name="VARCHAR" value=""/>
+  <constant type="array" name="STRING" value=""/>
+  <constant type="array" name="LONGTEXT" value=""/>
+  <constant type="array" name="LONGSTRING" value=""/>
+  <constant type="array" name="TEXT" value=""/>
+  <constant type="array" name="BUTTON" value=""/>
+  <constant type="array" name="SUBMIT" value=""/>
+  <constant type="array" name="BOOLEAN" value=""/>
+  <constant type="array" name="FILE" value=""/>
+  <constant type="array" name="NODES" value=""/>
+  <constant type="array" name="ENTITY" value=""/>
+</class>

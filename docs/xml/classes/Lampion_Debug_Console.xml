@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Debug\Console" namespace="Lampion\Debug" name="Console" abstract="false" final="false" start="9" end="33">
+  <file path="/lamp/app/lampion/kernel/Debug" file="Console.php" realpath="/lamp/app/lampion/kernel/Debug/Console.php" size="734" time="2020-05-21T08:30:16+00:00" unixtime="1590049816" sha1="e59372d2cd54bb9e8633dc6b6b1845a26bbc4656" relative="Debug/Console.php"/>
+  <docblock>
+    <description compact="A bit of a hack, this class is used for logging data out into the JS console"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="log" start="11" end="31" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="var" byreference="false" type="{unknown}"/>
+  </method>
+</class>

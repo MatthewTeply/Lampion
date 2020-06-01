@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Database\Query" namespace="Lampion\Database" name="Query" abstract="false" final="false" start="12" end="219">
+  <file path="/lamp/app/lampion/kernel/Database" file="Query.php" realpath="/lamp/app/lampion/kernel/Database/Query.php" size="6440" time="2020-05-21T08:29:17+00:00" unixtime="1590049757" sha1="18eab6e4e5f7038bf315ff1087b87a153eb137d4" relative="Database/Query.php"/>
+  <docblock>
+    <description compact="Class containing all the query methods"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <extends full="Lampion\Database\Connection" namespace="Lampion\Database" name="Connection"/>
+  <method name="raw" start="22" end="80" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Performs a raw PDO query"/>
+      <param type="string" variable="$query"/>
+      <param type="array" variable="$params"/>
+      <param type="object" variable="$escape">
+        <type full="Lampion\Database\bool" namespace="Lampion\Database" name="bool"/>
+      </param>
+      <param type="object" variable="$report_err">
+        <type full="Lampion\Database\bool" namespace="Lampion\Database" name="bool"/>
+      </param>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="query" byreference="false" type="string"/>
+    <parameter name="params" byreference="false" type="array" default=""/>
+    <parameter name="escape" byreference="false" type="boolean" default="false"/>
+    <parameter name="report_err" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="processConditions" start="87" end="113" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Processes conditions"/>
+      <param type="array" variable="$conditions"/>
+      <return description="$conditionsString" type="string"/>
+    </docblock>
+    <parameter name="conditions" byreference="false" type="array"/>
+  </method>
+  <method name="processParams" start="119" end="127" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Processes array of conditions into a string, that is readable by SQL"/>
+      <param type="array" variable="$conditions"/>
+    </docblock>
+    <parameter name="conditions" byreference="false" type="array"/>
+  </method>
+  <method name="insert" start="135" end="149" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Performs an INSERT query"/>
+      <param type="string" variable="$table"/>
+      <param type="array" variable="$columns"/>
+      <return description="$last_insert_id" type="int"/>
+    </docblock>
+    <parameter name="table" byreference="false" type="string"/>
+    <parameter name="columns" byreference="false" type="array"/>
+  </method>
+  <method name="select" start="159" end="168" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Performs a SELECT query"/>
+      <param type="string" variable="$table"/>
+      <param type="array" variable="$columns"/>
+      <param type="array" variable="$conditions"/>
+      <param type="object" variable="$instance">
+        <type full="Lampion\Database\Query" namespace="Lampion\Database" name="Query"/>
+      </param>
+      <return type="object">
+        <type full="Lampion\Database\array|mixed" namespace="Lampion\Database" name="array|mixed"/>
+      </return>
+    </docblock>
+    <parameter name="table" byreference="false" type="string"/>
+    <parameter name="columns" byreference="false" type="array"/>
+    <parameter name="conditions" byreference="false" type="array" default=""/>
+    <parameter name="sortBy" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="sortOrder" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="delete" start="175" end="177" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Performs a DELETE query"/>
+      <param type="string" variable="$table"/>
+      <param type="array" variable="$conditions"/>
+    </docblock>
+    <parameter name="table" byreference="false" type="string"/>
+    <parameter name="conditions" byreference="false" type="array"/>
+  </method>
+  <method name="update" start="185" end="201" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Performs an UPDATE query"/>
+      <param type="string" variable="$table"/>
+      <param type="array" variable="$columns"/>
+      <param type="array" variable="$conditions"/>
+    </docblock>
+    <parameter name="table" byreference="false" type="string"/>
+    <parameter name="columns" byreference="false" type="array"/>
+    <parameter name="conditions" byreference="false" type="array"/>
+  </method>
+  <method name="isColumn" start="203" end="210" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="table" byreference="false" type="string"/>
+    <parameter name="column" byreference="false" type="string"/>
+  </method>
+  <method name="tableExists" start="212" end="214" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="tableName" byreference="false" type="string"/>
+  </method>
+  <method name="getColumns" start="216" end="218" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="table" byreference="false" type="string"/>
+  </method>
+  <parent full="Lampion\Database\Connection" namespace="Lampion\Database" name="Connection">
+    <member name="dbhost" default="" type="{unknown}" constant="DB_HOST" visibility="protected" static="true" line="11"/>
+    <member name="dbname" default="" type="{unknown}" constant="DB_NAME" visibility="protected" static="true" line="12"/>
+    <member name="dbuser" default="" type="{unknown}" constant="DB_USER" visibility="protected" static="true" line="13"/>
+    <member name="dbpass" default="" type="{unknown}" constant="DB_PASS" visibility="protected" static="true" line="14"/>
+    <method name="connect" start="20" end="23" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Connects to a database"/>
+        <return type="object">
+          <type full="Lampion\Database\PDO" namespace="Lampion\Database" name="PDO"/>
+        </return>
+      </docblock>
+    </method>
+  </parent>
+</class>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\User\Session" namespace="Lampion\User" name="Session" abstract="false" final="false" start="15" end="67">
+  <file path="/lamp/app/lampion/kernel/User" file="Session.php" realpath="/lamp/app/lampion/kernel/User/Session.php" size="1944" time="2020-05-21T08:44:02+00:00" unixtime="1590050642" sha1="2acbe7b1070609cd9ea1be3b897f0d440fca9b82" relative="User/Session.php"/>
+  <docblock>
+    <description compact="Class for managing user sessions"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="create" start="17" end="61" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="user" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="this can be the servername" line="31"/>
+      <comment value="issued at" line="33"/>
+      <comment value="not before in seconds" line="34"/>
+      <comment value="expire time in seconds" line="35"/>
+    </inline>
+  </method>
+  <method name="set" start="63" end="65" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="user" byreference="false" type="object"/>
+  </method>
+</class>

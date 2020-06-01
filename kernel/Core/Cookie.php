@@ -4,6 +4,10 @@ namespace Lampion\Core;
 
 use Lampion\Debug\Error;
 
+/**
+ * Class for managing cookies
+ * @author Matyáš Teplý
+ */
 class Cookie
 {
     /**

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Core\Cookie" namespace="Lampion\Core" name="Cookie" abstract="false" final="false" start="11" end="82">
+  <file path="/lamp/app/lampion/kernel/Core" file="Cookie.php" realpath="/lamp/app/lampion/kernel/Core/Cookie.php" size="2083" time="2020-05-21T08:25:59+00:00" unixtime="1590049559" sha1="c8abb6d74e93dfb4374bc73275cf10c626067cea" relative="Core/Cookie.php"/>
+  <docblock>
+    <description compact="Class for managing cookies"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="set" start="19" end="49" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Sets cookie, time can either be an int, which means time is set in seconds, or an array with specified time units and their values"/>
+      <param type="string" variable="$name"/>
+      <param variable="$value"/>
+      <param description="an int unix timestamp, or array eg. ['s' =&gt; 30, 'm' =&gt; 1, 'h' =&gt; 2] (02:01:30)" variable="$time" type="object">
+        <type full="Lampion\Core\Either" namespace="Lampion\Core" name="Either"/>
+      </param>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+    <parameter name="time" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="exists" start="55" end="57" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$name"/>
+      <return type="object">
+        <type full="Lampion\Core\bool" namespace="Lampion\Core" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="get" start="63" end="65" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$name"/>
+      <return type="object">
+        <type full="Lampion\Core\mixed|null" namespace="Lampion\Core" name="mixed|null"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="destroy" start="71" end="81" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$name"/>
+      <return type="object">
+        <type full="Lampion\Core\bool" namespace="Lampion\Core" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+</class>

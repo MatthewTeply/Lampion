@@ -1,16 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 /*
- * This file is part of the php-code-coverage package.
+ * This file is part of phpunit/php-code-coverage.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace SebastianBergmann\CodeCoverage\Report\Html;
 
 use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Directory as DirectoryUtil;
 use SebastianBergmann\CodeCoverage\Node\Directory as DirectoryNode;
 use SebastianBergmann\CodeCoverage\RuntimeException;
 
@@ -57,11 +57,7 @@ final class Facade
         $target = $this->getDirectory($target);
         $report = $coverage->getReport();
 
-        if (!isset($_SERVER['REQUEST_TIME'])) {
-            $_SERVER['REQUEST_TIME'] = \time();
-        }
-
-        $date = \date('D M j G:i:s T Y', $_SERVER['REQUEST_TIME']);
+        $date = (string) \date('D M j G:i:s T Y');
 
         $dashboard = new Dashboard(
             $this->templatePath,
@@ -94,18 +90,14 @@ final class Facade
             $id = $node->getId();
 
             if ($node instanceof DirectoryNode) {
-                if (!$this->createDirectory($target . $id)) {
-                    throw new \RuntimeException(\sprintf('Directory "%s" was not created', $target . $id));
-                }
+                DirectoryUtil::create($target . $id);
 
                 $directory->render($node, $target . $id . '/index.html');
                 $dashboard->render($node, $target . $id . '/dashboard.html');
             } else {
                 $dir = \dirname($target . $id);
 
-                if (!$this->createDirectory($dir)) {
-                    throw new \RuntimeException(\sprintf('Directory "%s" was not created', $dir));
-                }
+                DirectoryUtil::create($dir);
 
                 $file->render($node, $target . $id . '.html');
             }
@@ -119,37 +111,24 @@ final class Facade
      */
     private function copyFiles(string $target): void
     {
-        $dir = $this->getDirectory($target . '.css');
+        $dir = $this->getDirectory($target . '_css');
 
-        \file_put_contents(
-            $dir . 'bootstrap.min.css',
-            \str_replace(
-                'url(../fonts/',
-                'url(../.fonts/',
-                \file_get_contents($this->templatePath . 'css/bootstrap.min.css')
-            )
-
-        );
-
+        \copy($this->templatePath . 'css/bootstrap.min.css', $dir . 'bootstrap.min.css');
         \copy($this->templatePath . 'css/nv.d3.min.css', $dir . 'nv.d3.min.css');
         \copy($this->templatePath . 'css/style.css', $dir . 'style.css');
         \copy($this->templatePath . 'css/custom.css', $dir . 'custom.css');
+        \copy($this->templatePath . 'css/octicons.css', $dir . 'octicons.css');
 
-        $dir = $this->getDirectory($target . '.fonts');
-        \copy($this->templatePath . 'fonts/glyphicons-halflings-regular.eot', $dir . 'glyphicons-halflings-regular.eot');
-        \copy($this->templatePath . 'fonts/glyphicons-halflings-regular.svg', $dir . 'glyphicons-halflings-regular.svg');
-        \copy($this->templatePath . 'fonts/glyphicons-halflings-regular.ttf', $dir . 'glyphicons-halflings-regular.ttf');
-        \copy($this->templatePath . 'fonts/glyphicons-halflings-regular.woff', $dir . 'glyphicons-halflings-regular.woff');
-        \copy($this->templatePath . 'fonts/glyphicons-halflings-regular.woff2', $dir . 'glyphicons-halflings-regular.woff2');
+        $dir = $this->getDirectory($target . '_icons');
+        \copy($this->templatePath . 'icons/file-code.svg', $dir . 'file-code.svg');
+        \copy($this->templatePath . 'icons/file-directory.svg', $dir . 'file-directory.svg');
 
-        $dir = $this->getDirectory($target . '.js');
+        $dir = $this->getDirectory($target . '_js');
         \copy($this->templatePath . 'js/bootstrap.min.js', $dir . 'bootstrap.min.js');
+        \copy($this->templatePath . 'js/popper.min.js', $dir . 'popper.min.js');
         \copy($this->templatePath . 'js/d3.min.js', $dir . 'd3.min.js');
-        \copy($this->templatePath . 'js/holder.min.js', $dir . 'holder.min.js');
-        \copy($this->templatePath . 'js/html5shiv.min.js', $dir . 'html5shiv.min.js');
         \copy($this->templatePath . 'js/jquery.min.js', $dir . 'jquery.min.js');
         \copy($this->templatePath . 'js/nv.d3.min.js', $dir . 'nv.d3.min.js');
-        \copy($this->templatePath . 'js/respond.min.js', $dir . 'respond.min.js');
         \copy($this->templatePath . 'js/file.js', $dir . 'file.js');
     }
 
@@ -158,24 +137,12 @@ final class Facade
      */
     private function getDirectory(string $directory): string
     {
-        if (\substr($directory, -1, 1) != DIRECTORY_SEPARATOR) {
-            $directory .= DIRECTORY_SEPARATOR;
+        if (\substr($directory, -1, 1) != \DIRECTORY_SEPARATOR) {
+            $directory .= \DIRECTORY_SEPARATOR;
         }
 
-        if (!$this->createDirectory($directory)) {
-            throw new RuntimeException(
-                \sprintf(
-                    'Directory "%s" does not exist.',
-                    $directory
-                )
-            );
-        }
+        DirectoryUtil::create($directory);
 
         return $directory;
-    }
-
-    private function createDirectory(string $directory): bool
-    {
-        return !(!\is_dir($directory) && !@\mkdir($directory, 0777, true) && !\is_dir($directory));
     }
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -14,7 +14,7 @@ use PHPUnit\Framework\ExpectationFailedException;
 /**
  * Logical NOT.
  */
-class LogicalNot extends Constraint
+final class LogicalNot extends Constraint
 {
     /**
      * @var Constraint
@@ -33,7 +33,7 @@ class LogicalNot extends Constraint
             'starts with ',
             'ends with ',
             'reference ',
-            'not not '
+            'not not ',
         ];
 
         $negatives = [
@@ -46,7 +46,7 @@ class LogicalNot extends Constraint
             'starts not with ',
             'ends not with ',
             'don\'t reference ',
-            'not '
+            'not ',
         ];
 
         \preg_match('/(\'[\w\W]*\')([\w\W]*)("[\w\W]*")/i', $string, $matches);
@@ -79,8 +79,6 @@ class LogicalNot extends Constraint
      */
     public function __construct($constraint)
     {
-        parent::__construct();
-
         if (!($constraint instanceof Constraint)) {
             $constraint = new IsEqual($constraint);
         }
@@ -98,16 +96,10 @@ class LogicalNot extends Constraint
      * a boolean value instead: true in case of success, false in case of a
      * failure.
      *
-     * @param mixed  $other        value or object to evaluate
-     * @param string $description  Additional information about the test
-     * @param bool   $returnResult Whether to return a result or throw an exception
-     *
      * @throws ExpectationFailedException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return mixed
      */
-    public function evaluate($other, $description = '', $returnResult = false)
+    public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
     {
         $success = !$this->constraint->evaluate($other, $description, true);
 
@@ -118,6 +110,8 @@ class LogicalNot extends Constraint
         if (!$success) {
             $this->fail($other, $description);
         }
+
+        return null;
     }
 
     /**

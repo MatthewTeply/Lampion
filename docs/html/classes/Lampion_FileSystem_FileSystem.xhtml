@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Lampion\FileSystem\FileSystem</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.xhtml">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.xhtml">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.xhtml">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.xhtml">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.xhtml">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.xhtml">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.xhtml">Classes</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.xhtml#Lampion_FileSystem">Lampion\FileSystem</a>
+          </li>
+          <li class="separator">FileSystem</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#members">Members</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="../source/FileSystem/FileSystem.php.xhtml#line25">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Lampion\FileSystem\</small>FileSystem</h1>
+        <h4>Class for interacting with app's filesystem, though it can be used for the entire server by specifying storage path</h4>
+        <p/>
+        <ul>
+          <li>Author: Matyáš Teplý</li>
+        </ul>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class FileSystem
+            {<br/><ul class="none"><li>// members</li><li>private  <a href="#members">$storagePath</a>;
+                    </li><li>private  <a href="#members">$em</a>;
+                    </li><li>private  <a href="#members">$user</a>;
+                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/__construct.xhtml">__construct</a>()
+                    </li><li>public bool <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/upload.xhtml">upload</a>()
+                    </li><li>public string <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/path.xhtml">path</a>()
+                    </li><li>public bool <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/mv.xhtml">mv</a>()
+                    </li><li>public bool <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/rm.xhtml">rm</a>()
+                    </li><li>public array <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/ls.xhtml">ls</a>()
+                    </li><li>public bool <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/rename.xhtml">rename</a>()
+                    </li><li>public float <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/dirSize.xhtml">dirSize</a>()
+                    </li><li>public false|float <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/fileSize.xhtml">fileSize</a>()
+                    </li><li>public bool <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/mkdir.xhtml">mkdir</a>()
+                    </li><li>public bool <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/rmdir.xhtml">rmdir</a>()
+                    </li><li>public bool <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/cp.xhtml">cp</a>()
+                    </li><li>public bool <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/write.xhtml">write</a>()
+                    </li><li>public void <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/hasPermission.xhtml">hasPermission</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="em">
+              <strong>$em</strong>
+            </li>
+            <li id="storagePath">
+              <strong>$storagePath</strong>
+            </li>
+            <li id="user">
+              <strong>$user</strong>
+            </li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/__construct.xhtml">__construct()</a>
+                — FileSystem constructor. If the storagePath param remains null, it defaults to current app's storage directory</li>
+            <li id="cp"><a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/cp.xhtml">cp()</a>
+                — Copy file/directory to a new destination</li>
+            <li id="dirSize"><a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/dirSize.xhtml">dirSize()</a>
+                — Returns size of a directory</li>
+            <li id="fileSize"><a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/fileSize.xhtml">fileSize()</a>
+                — Returns size of a file</li>
+            <li id="hasPermission"><a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/hasPermission.xhtml">hasPermission()</a>
+                — Check if current user has permission to desired file/directory</li>
+            <li id="ls"><a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/ls.xhtml">ls()</a>
+                — Lists directory items</li>
+            <li id="mkdir">
+              <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/mkdir.xhtml">mkdir()</a>
+            </li>
+            <li id="mv">
+              <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/mv.xhtml">mv()</a>
+            </li>
+            <li id="path"><a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/path.xhtml">path()</a>
+                — Returns a path of a file, if it is found in app's storage</li>
+            <li id="rename">
+              <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/rename.xhtml">rename()</a>
+            </li>
+            <li id="rm">
+              <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/rm.xhtml">rm()</a>
+            </li>
+            <li id="rmdir">
+              <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/rmdir.xhtml">rmdir()</a>
+            </li>
+            <li id="upload">
+              <a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/upload.xhtml">upload()</a>
+            </li>
+            <li id="write"><a title="Lampion\FileSystem\FileSystem" href="../classes/Lampion_FileSystem_FileSystem/write.xhtml">write()</a>
+                — Overwrite file's data</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.12.0 - Copyright (C) 2010 - 2020 by Arne Blankerts and Contributors</span>
+    </footer>
+  </body>
+</html>

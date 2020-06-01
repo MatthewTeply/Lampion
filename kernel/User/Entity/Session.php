@@ -2,6 +2,10 @@
 
 namespace Lampion\User\Entity;
 
+/**
+ * User session entity
+ * @author Matyáš Teplý
+ */
 class Session {
 
     # Public:

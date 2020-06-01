@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Entity\Entity" namespace="Lampion\Entity" name="Entity" abstract="true" final="false" start="11" end="159">
+  <file path="/lamp/app/lampion/kernel/Entity" file="Entity.php" realpath="/lamp/app/lampion/kernel/Entity/Entity.php" size="4728" time="2020-05-21T08:32:30+00:00" unixtime="1590049950" sha1="01d71d20bdb3e2328854d944db4de0e37e85ca90" relative="Entity/Entity.php"/>
+  <docblock>
+    <description compact="(LEGACY CODE, PLANNED FOR DEPRECATION) Abstract class of entity, defining it's methods and properties"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <constructor name="__construct" start="16" end="16" abstract="true" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param variable="$id"/>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}" default="NULL"/>
+  </constructor>
+  <method name="persist" start="21" end="21" abstract="true" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Method for saving entity, persisting it"/>
+    </docblock>
+  </method>
+  <method name="destroy" start="26" end="26" abstract="true" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Method for destroying entity, deleting it"/>
+    </docblock>
+  </method>
+  <member name="dbVarName" default="'db'" type="string" visibility="public" static="true" line="28"/>
+  <member name="id" visibility="public" static="false" line="31"/>
+  <member name="db" visibility="private" static="false" line="34"/>
+  <method name="init" start="43" end="95" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Initializes ORM values for classes that inherit this class"/>
+      <param type="int" variable="$id"/>
+      <param type="string" variable="$table"/>
+      <param type="array" variable="$columns"/>
+      <return type="object">
+        <type full="Lampion\Entity\bool" namespace="Lampion\Entity" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+    <parameter name="table" byreference="false" type="string" default="NULL"/>
+    <parameter name="columns" byreference="false" type="array" default=""/>
+    <inline>
+      <comment value="If table remains empty, it is presumed that table name is the same as class name" line="46"/>
+      <comment value="Check if table with entity's name exists, if not try pluralizing it, if that doesn't exist, return false" line="60"/>
+      <comment value="If columns remain empty, it is presumed that var names and table column names are the same" line="69"/>
+      <comment value="If id is specified, insert table values into entity's variables" line="80"/>
+    </inline>
+  </method>
+  <method name="save" start="102" end="149" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="'Saves' ORM values, either inserts them if ID is no set, or updates if it is"/>
+      <param type="array" variable="$columns"/>
+      <return type="object">
+        <type full="Lampion\Entity\bool" namespace="Lampion\Entity" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="columns" byreference="false" type="array" default=""/>
+    <inline>
+      <comment value="If columns remain empty, it is presumed that var names and table column names are the same" line="103"/>
+      <comment value="If the columns are empty and the id is null, that means we want to create a new entry with table column names same as variable names" line="104"/>
+      <comment value="If ID is null, that means the record does not yet exist, so it has to be created" line="117"/>
+      <comment value="This is used for when id is null and the table columns are specified" line="118"/>
+      <comment value="Before entering row into DB, check if entity has a setter for each parameter, if it has, use it" line="125"/>
+      <comment value="If row exists in DB, update it" line="134"/>
+    </inline>
+  </method>
+  <method name="delete" start="151" end="158" abstract="false" final="false" static="false" visibility="protected"/>
+</class>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Application\ApplicationManager" namespace="Lampion\Application" name="ApplicationManager" abstract="false" final="false" start="13" end="56">
+  <file path="/lamp/app/lampion/kernel/Application" file="ApplicationManager.php" realpath="/lamp/app/lampion/kernel/Application/ApplicationManager.php" size="1539" time="2020-05-21T08:22:48+00:00" unixtime="1590049368" sha1="40806fa32275b6b886dfd47730ff9fd0a411803b" relative="Application/ApplicationManager.php"/>
+  <docblock>
+    <description compact="Class that initiates and gives info about all applications"/>
+    <todo value="Refactoring"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="init" start="15" end="40" abstract="false" final="false" static="true" visibility="public">
+    <inline>
+      <comment value="Require app.php, where app gets configured and all the routes get registered" line="38"/>
+    </inline>
+  </method>
+  <method name="apps" start="42" end="55" abstract="false" final="false" static="true" visibility="public"/>
+</class>

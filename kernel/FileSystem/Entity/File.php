@@ -2,6 +2,10 @@
 
 namespace Lampion\FileSystem\Entity;
 
+/**
+ * File entity
+ * @author Matyáš Teplý
+ */
 class File {
 
     /** @var(type="int") */
@@ -32,7 +36,7 @@ class File {
     public $user;
 
     public function __toString() {
-        return $this->filename;
+        return $this->relativePath;
     }
     
 }

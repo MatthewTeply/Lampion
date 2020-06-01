@@ -5,6 +5,10 @@ namespace Lampion\Extend;
 use Lampion\Controller\ControllerLoader;
 use Lampion\View\View;
 
+/**
+ * Class for loading resources into plugins
+ * @author Matyáš Teplý
+ */
 class Loader
 {
     private static function getCaller(array $backtrace) {

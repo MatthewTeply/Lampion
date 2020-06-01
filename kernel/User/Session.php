@@ -8,6 +8,10 @@ use Lampion\User\Entity\Session as EntitySession;
 use Lampion\Session\Lampion as LampionSession;
 use Firebase\JWT\JWT;
 
+/**
+ * Class for managing user sessions
+ * @author Matyáš Teplý
+ */
 class Session {
 
     public static function create($user) {

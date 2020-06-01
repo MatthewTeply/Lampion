@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Core\Runtime" namespace="Lampion\Core" name="Runtime" abstract="false" final="false" start="13" end="88">
+  <file path="/lamp/app/lampion/kernel/Core" file="Runtime.php" realpath="/lamp/app/lampion/kernel/Core/Runtime.php" size="2593" time="2020-05-21T08:26:52+00:00" unixtime="1590049612" sha1="02c00cb7ed6be24c4bb64892921c487ff17ff9bb" relative="Core/Runtime.php"/>
+  <docblock>
+    <description compact="Class containing all info about current runtime"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="rutime" start="20" end="22" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param variable="$ru"/>
+      <param variable="$rus"/>
+      <param variable="$index"/>
+    </docblock>
+    <parameter name="ru" byreference="false" type="{unknown}"/>
+    <parameter name="rus" byreference="false" type="{unknown}"/>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="execTime" start="30" end="32" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns execution time in ms  utime = computations  stime = system calls"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="dbInfo" start="37" end="39" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="errors" start="41" end="45" abstract="false" final="false" static="true" visibility="public">
+    <inline>
+      <todo value="Add error handling" line="42"/>
+    </inline>
+  </method>
+  <method name="setDbInfo" start="47" end="73" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="queryInfo" byreference="false" type="array"/>
+    <parameter name="params" byreference="false" type="array"/>
+    <parameter name="results" byreference="false" type="{unknown}"/>
+    <parameter name="message" byreference="false" type="{unknown}"/>
+    <parameter name="status" byreference="false" type="{unknown}"/>
+    <parameter name="code" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Add one to query count" line="59"/>
+      <comment value="Add query to the DB array" line="61"/>
+    </inline>
+  </method>
+  <method name="error" start="75" end="87" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="errCode" byreference="false" type="int"/>
+  </method>
+</class>

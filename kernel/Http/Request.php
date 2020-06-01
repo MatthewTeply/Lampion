@@ -2,6 +2,10 @@
 
 namespace Lampion\Http;
 
+/**
+ * Class containing all info about HTTP/HTTPS request
+ * @author Matyáš Teplý
+ */
 class Request
 {
     public $params;

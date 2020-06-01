@@ -3,9 +3,12 @@
 namespace Lampion\Database;
 
 use Lampion\Core\Runtime;
-use Lampion\Debug\Console;
 use Lampion\Debug\Error;
 
+/**
+ * Class containing all the query methods
+ * @author Matyáš Teplý
+ */
 class Query extends Connection
 {
     /**
@@ -18,6 +21,8 @@ class Query extends Connection
      */
     public static function raw(string $query, array $params = [], $escape = false, $report_err = true) {
         $pdo = self::connect();
+
+        $pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
 
         $stmnt = $pdo->prepare($query);
 
@@ -45,8 +50,8 @@ class Query extends Connection
         $warningsStmnt = $pdo->query('SHOW WARNINGS');
         $warnings = $warningsStmnt->fetchAll();
 
-        $queryInfo['query'] = $query;
-        $queryInfo['execTime'] = $queryEndTime - $queryStartTime;
+        $queryInfo['query']     = $query;
+        $queryInfo['execTime']  = $queryEndTime - $queryStartTime;
         $queryInfo['timestamp'] = date('H:i:s');
 
         $result = $stmnt->fetchAll(\PDO::FETCH_ASSOC);
@@ -63,8 +68,9 @@ class Query extends Connection
         $queryType = strtolower(explode(" ", $query)[0]);
 
         if($queryType == "select") {
-            if($result == null)
+            if($result == null) {
                 return [$result]; # Return var in array, only containing null in the position 0
+            }
 
             return $result;
         }

@@ -2,7 +2,7 @@
 
 # Kernel paths
 define('ROOT', getcwd() . "/");
-define('WEB_ROOT', $_SERVER['HTTP_HOST'] == "localhost" ? "http://" . $_SERVER['HTTP_HOST'] . "/" . explode("htdocs" . DIRECTORY_SEPARATOR, dirname(__DIR__))[1] . "/" : $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/lampion/');
+@define('WEB_ROOT', $_SERVER['HTTP_HOST'] == "localhost" ? "http://" . $_SERVER['HTTP_HOST'] . "/" . explode("htdocs" . DIRECTORY_SEPARATOR, dirname(__DIR__))[1] . "/" : $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/lampion/');
 
 define('KERNEL', "kernel/");
 define('APP', "app/");
@@ -55,10 +55,11 @@ define('HTTP_NOT_FOUND_REDIR', '404');
 define('HTTP_FORBIDDEN_REDIR', '403');
 
 # Database
-define('DB_HOST', 'localhost');
+define('DB_HOST', '127.0.0.1');
 define('DB_NAME', 'carnival');
-define('DB_USER', 'root');
-define('DB_PASS', 'z3$s1qO!@5XF');
+define('DB_USER', 'admin');
+define('DB_PASS', '3Q7rf$%v@J58');
+define('DB_PORT', 3306);
 
 # Authentication
 define('JWT_SECRET_KEY', 'BD72A6978E58B7F7F4785C65472354ACFE1FC40F546C5C96EA30F32706CD1241');

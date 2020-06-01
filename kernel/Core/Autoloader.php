@@ -2,6 +2,10 @@
 
 namespace Lampion\Core;
 
+/**
+ * Class that automatically loads classes, registers shutdown and plugin functions
+ * @author Matyáš Teplý
+ */
 class Autoloader
 {
     /**

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Http\Url" namespace="Lampion\Http" name="Url" abstract="false" final="false" start="11" end="77">
+  <file path="/lamp/app/lampion/kernel/Http" file="Url.php" realpath="/lamp/app/lampion/kernel/Http/Url.php" size="1888" time="2020-05-21T08:20:06+00:00" unixtime="1590049206" sha1="1c4987b016892c367c50cbe7f1f960db420efa5f" relative="Http/Url.php"/>
+  <docblock>
+    <description compact="Class for easy URL generation/redirection"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="processParams" start="17" end="33" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param type="array" variable="$params"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="params" byreference="false" type="array"/>
+  </method>
+  <method name="reload" start="38" end="42" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param type="array" variable="$params"/>
+    </docblock>
+    <parameter name="params" byreference="false" type="array" default=""/>
+  </method>
+  <method name="link" start="50" end="57" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns a link to a route, that can be used in links"/>
+      <param type="string" variable="$route"/>
+      <param type="array" variable="$params"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="route" byreference="false" type="string"/>
+    <parameter name="params" byreference="false" type="array" default=""/>
+  </method>
+  <method name="redirect" start="63" end="65" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param variable="$route"/>
+      <param type="array" variable="$params"/>
+    </docblock>
+    <parameter name="route" byreference="false" type="{unknown}"/>
+    <parameter name="params" byreference="false" type="array" default=""/>
+  </method>
+  <method name="get" start="67" end="76" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="url" byreference="false" type="string"/>
+  </method>
+</class>

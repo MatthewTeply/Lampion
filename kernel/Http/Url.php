@@ -4,6 +4,10 @@ namespace Lampion\Http;
 
 use Lampion\Application\Application;
 
+/**
+ * Class for easy URL generation/redirection
+ * @author Matyáš Teplý
+ */
 class Url
 {
     /**

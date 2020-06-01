@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Debug\Error" namespace="Lampion\Debug" name="Error" abstract="false" final="false" start="9" end="33">
+  <file path="/lamp/app/lampion/kernel/Debug" file="Error.php" realpath="/lamp/app/lampion/kernel/Debug/Error.php" size="766" time="2020-05-21T08:36:34+00:00" unixtime="1590050194" sha1="9a355ee8db0827cfa0d858ca179ea5770d3f0dc9" relative="Debug/Error.php"/>
+  <docblock>
+    <description compact="Error debug class"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <implements full="Lampion\Debug\DebugInterface" namespace="Lampion\Debug" name="DebugInterface"/>
+  <member name="code" default="&quot;Error&quot;" type="string" visibility="private" static="true" line="11"/>
+  <method name="set" start="13" end="17" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="message" byreference="false" type="string"/>
+    <inline>
+      <todo value="Store errors to later be used in a debug display" line="14"/>
+    </inline>
+  </method>
+  <method name="emit" start="19" end="21" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="message" byreference="false" type="string"/>
+  </method>
+  <method name="errorHandler" start="23" end="26" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="errno" byreference="false" type="{unknown}"/>
+    <parameter name="errstr" byreference="false" type="{unknown}"/>
+    <parameter name="errfile" byreference="false" type="{unknown}"/>
+    <parameter name="errline" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="shutdownHandler" start="28" end="32" abstract="false" final="false" static="true" visibility="public"/>
+  <interface full="Lampion\Debug\DebugInterface" namespace="Lampion\Debug" name="DebugInterface">
+    <method name="set" start="15" end="15" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$message"/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="message" byreference="false" type="string"/>
+  </method>
+    <method name="emit" start="21" end="21" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$message"/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="message" byreference="false" type="string"/>
+  </method>
+  </interface>
+</class>

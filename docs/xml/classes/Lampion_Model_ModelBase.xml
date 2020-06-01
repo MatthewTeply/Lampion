@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Model\ModelBase" namespace="Lampion\Model" name="ModelBase" abstract="false" final="false" start="9" end="14">
+  <file path="/lamp/app/lampion/kernel/Model" file="ModelBase.php" realpath="/lamp/app/lampion/kernel/Model/ModelBase.php" size="198" time="2020-05-21T08:40:49+00:00" unixtime="1590050449" sha1="c3bb08a82a1f724a0ff4a55fdd829d847813c6f7" relative="Model/ModelBase.php"/>
+  <docblock>
+    <description compact="(LEGACY CODE, PLANNED FOR DEPRECATION)"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <method name="load" start="11" end="13" abstract="false" final="false" static="false" visibility="public"/>
+</class>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Lampion\Controller\ControllerLoader" namespace="Lampion\Controller" name="ControllerLoader" abstract="false" final="false" start="14" end="99">
+  <file path="/lamp/app/lampion/kernel/Controller" file="ControllerLoader.php" realpath="/lamp/app/lampion/kernel/Controller/ControllerLoader.php" size="2310" time="2020-05-21T08:24:50+00:00" unixtime="1590049490" sha1="8c1424fd52689d2a8a35f2ac983d240a0013786e" relative="Controller/ControllerLoader.php"/>
+  <docblock>
+    <description compact="(LEGACY CODE) Class used for loading files inside a controller"/>
+    <todo value="Refactoring, legacy code cleanup"/>
+    <author value="Matyáš Teplý"/>
+  </docblock>
+  <member name="app" visibility="public" static="false" line="16"/>
+  <constructor name="__construct" start="18" end="20" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="app" byreference="false" type="string" default="NULL"/>
+  </constructor>
+  <method name="loadFile" start="28" end="43" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$longPath"/>
+      <param type="string" variable="$shortPath"/>
+      <param type="string" variable="$type"/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="longPath" byreference="false" type="string"/>
+    <parameter name="shortPath" byreference="false" type="string"/>
+    <parameter name="type" byreference="false" type="string"/>
+  </method>
+  <method name="model" start="49" end="55" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$path"/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="string"/>
+  </method>
+  <method name="controller" start="61" end="67" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$path"/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="string"/>
+  </method>
+  <method name="language" start="73" end="79" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$path"/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="string"/>
+  </method>
+  <method name="script" start="85" end="91" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Loads js"/>
+      <param type="string" variable="$path"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="string"/>
+  </method>
+  <method name="view" start="96" end="98" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Lampion\View\View" namespace="Lampion\View" name="View"/>
+      </return>
+    </docblock>
+  </method>
+</class>
