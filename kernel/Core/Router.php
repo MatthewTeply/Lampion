@@ -169,7 +169,7 @@ class Router
     }
 
     public function listen() {
-        $request_method = strtolower($_SERVER['REQUEST_METHOD']); # Get request methdos, and convert it to lowercase
+        $request_method = strtolower($_SERVER['REQUEST_METHOD'] ?? 'get'); # Get request methdos, and convert it to lowercase
         $_GET['url'] = rtrim($_GET['url'], '/'); # Trim trailing slashes
 
         $this->listening = true;

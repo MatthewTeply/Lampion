@@ -21,6 +21,12 @@ class EntityFormField extends FormField {
 
         if(isset($options['metadata'])) {
             $options['entities'] = $em->all($options['metadata']->entity);
+
+            foreach($options['entities'] as $key => $entity) {
+                if(in_array($entity, (array)$options['value'])) {
+                    $options['entities'][$key]->selected = true;
+                }
+            }
         }
 
         else {
@@ -33,7 +39,7 @@ class EntityFormField extends FormField {
     }
 
     public function submit($data) {
-        return $data;
+        return json_encode(!is_array($data) ? [$data] : $data);
     }
 
 }

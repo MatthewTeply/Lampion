@@ -1,4 +1,6 @@
 <div class="{{ attr.class }} form-input-around">
+    <label class="field-label">{{ label }}</label>
+
     <textarea
         name="{{ name }}[value]" 
         cols="30" 
@@ -9,7 +11,5 @@
         {% if attr.disabled %}
             disabled="disabled"
         {% endif %}
-    >
-        {{ value }}
-    </textarea>
+    >{{ value }}</textarea>
 </div>

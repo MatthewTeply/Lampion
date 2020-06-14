@@ -9,5 +9,5 @@ CREATE TABLE entity_file (
     updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     metadata JSON not null,
     tags JSON not null,
-    user_id int(11) null
+    user_id JSON null
 ) CHAR SET 'utf8mb4';

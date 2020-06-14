@@ -2,6 +2,8 @@
 
 namespace Lampion\Debug;
 
+use Lampion\Http\Request;
+
 /**
  * A bit of a hack, this class is used for logging data out into the JS console
  * @author Matyáš Teplý
@@ -9,6 +11,10 @@ namespace Lampion\Debug;
 class Console {
 
     public static function log($var) {
+        if(Request::isAjax()) {
+            return;
+        }
+
         $type = \gettype($var);
 
         switch($type) {

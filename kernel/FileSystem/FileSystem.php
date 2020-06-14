@@ -17,6 +17,7 @@ use Lampion\Database\Query;
 use Lampion\Entity\EntityManager;
 use Lampion\FileSystem\Entity\Dir;
 use Lampion\FileSystem\Entity\File;
+use Lampion\Language\Translator;
 use Lampion\Misc\Util;
 use Lampion\Session\Lampion as LampionSession;
 use Lampion\User\Entity\User;
@@ -220,6 +221,26 @@ class FileSystem {
             if($fileEntity) {
                 $this->em->destroy((object)$fileEntity);
             }
+
+            # Searching for all uses of this file
+            $uses = Query::select('file_uses', ['*'], [
+                'file_id' => $fileEntity->id
+            ]);
+
+            # Setting all references to deleted file to empty array
+            foreach($uses as $use) {
+                $useEntity = $this->em->find($use['entity_name'], $use['entity_id']);
+
+                $useEntity->{$use['property']} = '[]';
+
+                $this->em->persist($useEntity);
+            }
+
+            # Remove file uses referring to the deleted file
+            Query::delete('file_uses', [
+                'file_id' => $fileEntity->id
+            ]);
+
         }
 
         return true;
@@ -276,10 +297,17 @@ class FileSystem {
                             ], 'entity_name', 'ASC') ?? [];
 
                             if(!empty($fileUses[0])) {
+                                $translator = new Translator(LampionSession::get('lang'));
+
                                 foreach($fileUses as $key => $fileUse) {
+                                    $entityNameEnd = explode('\\', $fileUse['entity_name']);
+
+                                    $propertyName = $translator->read('entity/' . end($entityNameEnd))->get($fileUse['property']);
+
                                     $fileUse = $this->em->find($fileUse['entity_name'], $fileUse['entity_id']);
-    
-                                    $fileUses[$key] = $fileUse;
+
+                                    $fileUses[$key]           = $fileUse;
+                                    $fileUses[$key]->property = $propertyName;
                                 } 
                             }
 
@@ -428,7 +456,7 @@ class FileSystem {
             } 
             
             else if(!$f->isDot() && $f->isDir()) {
-                self::rmdir($f->getRealPath());
+                $this->rmdir($f->getRealPath());
             }
         }
 
@@ -489,7 +517,7 @@ class FileSystem {
      * @param mixed  $data - Data to write into file
      * @return bool
      */
-    public function write(string $file, $data) {
+    public function write(string $file, $data, $chmod = 0755) {
         if(!file_exists($this->storagePath . dirname($file))) {
             $this->mkdir(dirname($file));
         }
@@ -498,6 +526,8 @@ class FileSystem {
         
         fwrite($fh, $data);
         fclose($fh);
+
+        chmod($this->storagePath . $file, $chmod);
 
         return true;
     }

@@ -13,11 +13,11 @@ use Lampion\FileSystem\FileSystem;
 class FormHandler {
 
     public function handle(string $field, $data) {
-        // Default field's controller
-        $className = 'Lampion\\Form\\Field\\' . $field . 'FormField';
+        # Default field's controller
+        $className = 'Lampion\\Form\\Field\\' . ucfirst($field) . 'FormField';
         $class     = null;
 
-        // Check if field's controller is overwritten in current app, or if a custom one is specified
+        # Check if field's controller is overwritten in current app, or if a custom one is specified
         if(class_exists(ucfirst(Application::name()) . '\Form\Field\\' . ucfirst($field) . 'FormField')) {
             $className = ucfirst(Application::name()) . '\Form\Field\\' . ucfirst($field) . 'FormField';
         }

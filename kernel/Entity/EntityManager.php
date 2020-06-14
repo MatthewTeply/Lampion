@@ -3,6 +3,8 @@
 namespace Lampion\Entity;
 
 use Lampion\Database\Query;
+use Lampion\Debug\Console;
+use Lampion\Misc\Util;
 use ReflectionClass;
 use stdClass;
 
@@ -25,6 +27,8 @@ class EntityManager {
 
         $entityFormer = $entity->id ? $this->find(get_class($entity), $entity->id) : null;
 
+        $files = [];
+
         if(!Query::tableExists($table)) {
             return false;
         }
@@ -46,10 +50,38 @@ class EntityManager {
                 }
             }
 
-            # Fill mapping column with their property's value, and unset the property
-            if(isset($metadata->{$key}->mappedBy)) {
-                $entity->{$metadata->{$key}->mappedBy} = $metadata->{$key}->type == 'entity' ? (is_object($var) ? $var->id : $var) : $var;
-                unset($entity->{$key});
+            # Entity/File handling
+            if(isset($metadata->{$key})) {
+                if($metadata->{$key}->type == 'entity' || $metadata->{$key}->type == 'file') {
+                    $json = [];
+
+                    if(Util::validateJson($var)) {
+                        $var = json_decode($var);
+                    }
+
+                    if(!is_array($var)) {
+                        $var = [$var];
+                    }
+
+                    # Creating JSON of entity references
+                    foreach($var as $entityReferenceKey => $entityReference) {
+                        $json[$entityReferenceKey] = is_object($entityReference) ? $entityReference->id : $entityReference;
+
+                        if($metadata->{$key}->type == 'file') {
+                            $files[$entityReferenceKey]['entity_name'] = get_class($entity);
+                            $files[$entityReferenceKey]['file_id']     = $json[$entityReferenceKey];
+                            $files[$entityReferenceKey]['property']    = $key;
+                        }
+                    }
+    
+                    $entity->{$key} = json_encode($json);
+                }
+    
+                # Change property name to table column named that the property is mapped to
+                if(isset($metadata->{$key}->mappedBy) && $metadata->{$key}->mappedBy != $key) {
+                    $entity->{$metadata->{$key}->mappedBy} = $entity->{$key};
+                    unset($entity->{$key});
+                }
             }
         }
 
@@ -67,32 +99,33 @@ class EntityManager {
             ]);
         }
 
-        # Create a new file use if a file property is defined
-        foreach($entity as $key => $field) {
-            if(isset($metadata->{$key})) {
-                if($metadata->{$key}->type == 'file') {
-                    $entityArray['id'] = Query::select($table, ['id'], [], 'id', 'DESC')[0]['id'];
+        # If entity's ID is not set, it has to be the last ID inserted
+        if(!isset($entityArray['id'])) {
+            $entityArray['id'] = Query::select($table, ['id'], [], 'id', 'DESC')[0]['id'];
+        }
 
-                    $uses = Query::select('file_uses', ['*'], [
-                        'entity_name' => get_class($entity),
-                        'entity_id'   => $entityArray['id']
+        # Handling file uses
+        foreach($files as $file) {
+            $file['entity_id'] = $entityArray['id'];
+
+            $uses = Query::select('file_uses', ['*'], [
+                'entity_name' => $file['entity_name'],
+                'entity_id'   => $file['entity_id'],
+                'property'    => $file['property']
+            ]);
+
+            # If ID is 0, that means it is being cleared
+            if($file['file_id'] != 0) {
+                if(empty($uses[0])) {
+                    Query::insert('file_uses', $file);
+                }
+
+                else {
+                    Query::update('file_uses', [
+                        'file_id' => $file['file_id']
+                    ], [
+                        'id' => $uses[0]['id']
                     ]);
-
-                    if(empty($uses[0])) {
-                        Query::insert('file_uses', [
-                            'file_id'     => $entity->{$key},
-                            'entity_name' => get_class($entity),
-                            'entity_id'   => $entityArray['id']
-                        ]);
-                    }
-
-                    else {
-                        Query::update('file_uses', [
-                            'file_id' => $entity->{$key}
-                        ], [
-                            'id' => $uses[0]['id']
-                        ]);
-                    }
                 }
             }
         }
@@ -100,22 +133,61 @@ class EntityManager {
         return true;
     }
 
-    public function find(string $entityName, int $id, $sortBy = null, $sortOrder = null) {
-        $table = $this->getTableName($entityName);
+    public function find(string $entityName, $id, $sortBy = null, $sortOrder = null) {
+        $ids = [];
+        
+        if(Util::validateJson($id)) {
+            $jsonIds = json_decode($id);
 
-        $fields = Query::select($table, ['*'], [
-            'id' => $id
-        ], $sortBy, $sortOrder)[0];
-
-        if(!isset($fields['id'])) {
-            return false;
+            if(is_iterable($jsonIds)) {
+                foreach($jsonIds as $value) {
+                    $ids[] = $value;
+                }
+            }
         }
 
-        $entity = new $entityName();
+        $table = $this->getTableName($entityName);
 
-        $this->setFields($entity, $fields);
+        if(empty($ids)) {
+            $fields = Query::select($table, ['*'], [
+                'id' => $id
+            ], $sortBy, $sortOrder)[0];
+    
+            if(!isset($fields['id'])) {
+                return false;
+            }
 
-        return $entity;
+            $entity = new $entityName();
+
+            $this->setFields($entity, $fields);
+        }
+
+        else {
+            $entities = [];
+            
+            foreach($ids as $id) {
+                $fields = Query::select($table, ['*'], [
+                    'id' => $id
+                ], $sortBy, $sortOrder)[0];
+        
+                if(!isset($fields['id'])) {
+                    continue;
+                }
+
+                $entity = new $entityName();
+                $entities[] = $this->setFields($entity, $fields);
+            }
+
+            if(empty($entities)) {
+                return false;
+            }
+        }
+
+        if(isset($entities) && sizeof($entities) == 1) {
+            $entities = $entities[0];
+        }
+
+        return !empty($entities) ? $entities : $entity;
     }
 
     public function findBy(string $entityName, array $searchFields, $sortBy = null, $sortOrder = null) {
@@ -209,11 +281,17 @@ class EntityManager {
             $varParams = explode(',', $varParams[1]);
 
             foreach($varParams as $varParam) {
-                preg_match('/(.*?)="(.*?)"/', $varParam, $param);
-
-                // WARNING: Creating default object from empty value
-                // NOTE: Not sure what is causing this, works for now
-                @$properties->{$property->getName()}->{trim($param[1])} = $param[2];
+                foreach(explode(' ', $varParam) as $varParamExplode) {
+                    preg_match('/(.*?)="(.*?)"/', $varParamExplode, $param);
+    
+                    if(!isset($param[1])) {
+                        continue;
+                    }
+    
+                    // WARNING: Creating default object from empty value
+                    // NOTE: Not sure what is causing this, works for now
+                    @$properties->{$property->getName()}->{trim($param[1])} = $param[2];
+                }
             }
         }
 
@@ -250,7 +328,15 @@ class EntityManager {
         
             # Check if entity property is a reference to a file
             if(isset($metadata->{$key}) && $metadata->{$key}->type == 'file') {
-                $entity->{$key} = $this->find('Lampion\\FileSystem\\Entity\\File', $value);
+                $entity->{$key} = [];
+                
+                foreach(json_decode($value) as $fileId) {
+                    $entity->{$key}[] = $this->find('Lampion\\FileSystem\\Entity\\File', $fileId);
+                }
+
+                if(sizeof($entity->{$key}) == 1) {
+                    $entity->{$key} = $entity->{$key}[0];
+                }
             }
 
             # Check if entity property is a reference to a directory
@@ -259,7 +345,19 @@ class EntityManager {
             }
 
             if(isset($metadata->{$key}->entity)) {
-                $entity->{$key} = $this->find($metadata->{$key}->entity, $value);
+                $entity->{$key} = [];
+
+                $entityIds = json_decode($value);
+
+                if(is_iterable($entityIds)) {
+                    foreach($entityIds as $entityId) {
+                        $entity->{$key}[] = $this->find($metadata->{$key}->entity, $entityId);
+                    }
+    
+                    if(sizeof($entity->{$key}) == 1) {
+                        $entity->{$key} = $entity->{$key}[0];
+                    }
+                }
             }
 
             $getMethod = 'get' . ucfirst($key);

@@ -1,15 +1,18 @@
 <div class="form-input-around col-lg-12">
     {% if entities %}
         <select
-            name="{{ name }}[value]" 
+            name="{{ name }}[value]{{ metadata.multiple ? '[]' : '' }}" 
             class="form-control {{ attr.class }}" 
             id="{{ attr.id }}"
             {% if attr.disabled %}
                 disabled="disabled"
             {% endif %}
+            {% if metadata.multiple %}
+                multiple="multiple"
+            {% endif %}
         >
             {% for entity in entities %}
-                <option {{ value.id == entity.id ? 'selected' : '' }} value="{{ entity.id }}">{{ entity }}</option>
+                <option {{ entity.selected ? 'selected' : '' }} value="{{ entity.id }}">{{ entity }}</option>
             {% endfor %}
         </select>
     {% else %}

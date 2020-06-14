@@ -3,6 +3,7 @@
 namespace Lampion\Form;
 
 use Lampion\Application\Application;
+use Lampion\Debug\Console;
 use Lampion\View\View;
 
 /**
@@ -34,6 +35,10 @@ class Form {
      * @return mixed
      */
     public function field(string $type, array $options, $path = 'form/field/') {
+        if(!isset($options['name'])) {
+            $options['name'] = 'field_' . (sizeof($this->fields) - 1);
+        }
+
         // NOTE: @ is here because undefined constant in FormDefaultFields is handled by the ?? operator
         $inputType       = @constant('Lampion\Form\FormDefaultFields::' . strtoupper($type)) ?? constant('Lampion\Form\FormDefaultFields::STRING');
         $fieldController = ucfirst(Application::name()) . '\\Form\\Field\\' . ucfirst($type) . 'FormField';
@@ -41,7 +46,7 @@ class Form {
         # Check if custom field controller is created in the current app
         if(class_exists($fieldController)) {
             $fieldController = new $fieldController();
-            
+
             if(method_exists($fieldController, 'display')) {
                 if($fieldController->display($options)) {
                     $template = $fieldController->display($options);

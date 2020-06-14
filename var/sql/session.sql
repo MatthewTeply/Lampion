@@ -1,7 +1,7 @@
 CREATE TABLE session (
     id int(11) not null PRIMARY KEY AUTO_INCREMENT,
     session_id varchar(255) not null,
-    user_id int(11) not null,
+    user_id JSON not null,
     created int(11) not null,
     updated int(11) not null,
     ip varchar(255) not null,

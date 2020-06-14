@@ -41,4 +41,7 @@ class FormDefaultFields {
     # Entity
     const ENTITY = ['field' => 'entity'];
 
+    # Elements
+    const HEADLINE = ['field' => 'headline'];
+
 }

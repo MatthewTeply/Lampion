@@ -2,6 +2,7 @@
 
 namespace Lampion\Database;
 
+use Exception;
 use Lampion\Core\Runtime;
 use Lampion\Debug\Error;
 
@@ -29,7 +30,8 @@ class Query extends Connection
         if(!$stmnt && $report_err) {
             Error::set('DB error: ' . $pdo->errorInfo());
             //Runtime::setDbInfo($query, $params, $pdo->errorInfo(), "Error");
-            exit();
+            throw new Exception($pdo->errorInfo());
+            exit;
         }
 
         if($escape) {
@@ -148,7 +150,13 @@ class Query extends Connection
 
         $values .= ")";
 
-        return (int)self::raw($insert . $values, $columns);
+        try {
+            return (int)self::raw($insert . $values, $columns);
+        }
+
+        catch(Exception $e) {
+            return $e;
+        }
     }
 
     /**
