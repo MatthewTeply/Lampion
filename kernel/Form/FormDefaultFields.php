@@ -14,11 +14,12 @@ class FormDefaultFields {
      */
 
     # Input
-    const NUMBER  = ['field' => 'input', 'type' => 'number'];
-    const INT     = ['field' => 'input', 'type' => 'number'];
-    const DATE    = ['field' => 'input', 'type' => 'date'];
-    const VARCHAR = ['field' => 'input', 'type' => 'text'];
-    const STRING  = ['field' => 'input', 'type' => 'text'];
+    const NUMBER     = ['field' => 'input', 'type' => 'number'];
+    const INT        = ['field' => 'input', 'type' => 'number'];
+    const DATE       = ['field' => 'input', 'type' => 'date'];
+    const VARCHAR    = ['field' => 'input', 'type' => 'text'];
+    const STRING     = ['field' => 'input', 'type' => 'text'];
+    const TIMESTAMP  = ['field' => 'input', 'type' => 'date'];
 
     # Textarea
     const LONGTEXT   = ['field' => 'textarea'];

@@ -223,23 +223,29 @@ class FileSystem {
             }
 
             # Searching for all uses of this file
-            $uses = Query::select('file_uses', ['*'], [
-                'file_id' => $fileEntity->id
-            ]);
+            if(isset($fileEntity->id)) {
+                $uses = Query::select('file_uses', ['*'], [
+                    'file_id' => $fileEntity->id
+                ]);
+            }
 
             # Setting all references to deleted file to empty array
-            foreach($uses as $use) {
-                $useEntity = $this->em->find($use['entity_name'], $use['entity_id']);
-
-                $useEntity->{$use['property']} = '[]';
-
-                $this->em->persist($useEntity);
+            if(!empty($uses[0])) {
+                foreach($uses as $use) {
+                    $useEntity = $this->em->find($use['entity_name'], $use['entity_id']);
+    
+                    $useEntity->{$use['property']} = '[]';
+    
+                    $this->em->persist($useEntity);
+                }
             }
 
             # Remove file uses referring to the deleted file
-            Query::delete('file_uses', [
-                'file_id' => $fileEntity->id
-            ]);
+            if(isset($fileEntity->id)) {
+                Query::delete('file_uses', [
+                    'file_id' => $fileEntity->id
+                ]);
+            }
 
         }
 
@@ -312,7 +318,15 @@ class FileSystem {
                             }
 
                             $files[$fileIndex]              = (array)$fileEntity;
-                            $files[$fileIndex]['user']->img = (array)$this->em->find(File::class, $fileEntity->user->img);
+
+                            if(is_object($files[$fileIndex]['user'])) {
+                                $files[$fileIndex]['user']->img =  (array)$this->em->find(File::class, $fileEntity->user->img);
+                            }
+
+                            else {
+                                $files[$fileIndex]['user'] = null;   
+                            }
+                            
                             $files[$fileIndex]['synced']    = true;
                             $files[$fileIndex]['uses']      = $fileUses;
                         }

@@ -184,7 +184,15 @@ class Query extends Connection
      * @param array  $conditions
      */
     public static function delete(string $table, array $conditions) {
-        self::raw("DELETE FROM " . $table . self::processConditions($conditions), self::processParams($conditions));
+        return self::raw("DELETE FROM " . $table . self::processConditions($conditions), self::processParams($conditions));
+    }
+
+    /**
+     * Drops table
+     * @param string $table
+     */
+    public static function dropTable(string $table) {
+        return self::raw('DROP TABLE ' . $table);
     }
 
     /**

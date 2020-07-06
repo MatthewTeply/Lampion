@@ -85,7 +85,7 @@ class Form {
             $options['type'] = $options['type'] ?? $type;
         }
 
-        $this->fields[$options['name']]['template'] = $template;
+        $this->fields[$options['name']]['template'] = $template ?? $this->view->load($path . 'input', $options, true);
         $this->fields[$options['name']]['type']     = $options['type'];
         $this->fields[$options['name']]['name']     = $options['name'];
         $this->fields[$options['name']]['attr']     = $options['attr'] ?? null;

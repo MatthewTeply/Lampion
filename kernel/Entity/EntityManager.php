@@ -88,7 +88,7 @@ class EntityManager {
         $entityArray = (array)$entity;
 
         # Creating new row
-        if(!$entityArray['id']) {
+        if(!$entityArray['id'] || $entityArray['id'] === null) {
             Query::insert($table, $entityArray);
         }
 

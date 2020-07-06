@@ -9,6 +9,11 @@ use Lampion\FileSystem\FileSystem;
 
 class EntityCreator {
 
+    /**
+     * Puts together all the components
+     * 
+     * @param array $config
+     */
     public function create(array $config) {
         $entityName = array_key_first($config);
         $fields     = $config[$entityName]['fields'];
@@ -20,7 +25,7 @@ class EntityCreator {
         return true;
     }
 
-    private function createEntity($entityName, $fields) {
+    public function createEntity($entityName, $fields) {
         $appName = ucfirst(Application::name());
 
         # Initializing entity
@@ -35,7 +40,7 @@ class $entityName {
     public \$id;
 CODE;
 
-        $code .= PHP_EOL . PHP_EOL;
+        $code .= \PHP_EOL . \PHP_EOL;
         
         # Declaring variables
         $fieldsCode = [];
@@ -61,21 +66,27 @@ CODE;
             $metadataCode .= ')';
 
             # Putting the variable together
-            $fieldCode .= "\t" . $metadataCode . ' */' . PHP_EOL;
-            $fieldCode .= "\t" . 'public $' . $key . ';' . PHP_EOL;
+            $fieldCode .= "\t" . $metadataCode . ' */' . \PHP_EOL;
+            $fieldCode .= "\t" . 'public $' . $key . ';' . \PHP_EOL;
 
             $fieldsCode[] = $fieldCode;
         }
 
-        $code .= implode(PHP_EOL, $fieldsCode);
-        $code .= PHP_EOL . '}';
+        $code .= implode(\PHP_EOL, $fieldsCode);
+        $code .= \PHP_EOL . '}';
 
         $fs = new FileSystem(ROOT . APP . Application::name() . ENTITY);
 
         $fs->write($entityName . '.php', $code, 0777);
     }
 
-    private function createTable($entityName, $fields) {
+    /**
+     * Creates table component
+     * 
+     * @param string $entityName
+     * @param array  $fields
+     */
+    public function createTable(string $entityName, array $fields) {
         $tableName = 'entity_' . strtolower($entityName);
         $cols      = [];
 
@@ -113,6 +124,11 @@ CODE;
         }
     }
 
+    /**
+     * Creates config component
+     * 
+     * @param array $config
+     */
     public function createConfig(array $config) {
         $entityName = array_key_first($config);
         $data       = $config[$entityName]['general'];
@@ -128,6 +144,40 @@ CODE;
         $fs = new FileSystem(ROOT . APP . Application::name() . '/' . CONFIG . 'carnival/admin/entity/');
 
         $fs->write($entityName . '.json', json_encode($json), 0777);
+    }
+
+    /**
+     * Quickly delete all entity components
+     * 
+     * @param string $entityName
+     */
+    public function deleteAll($entityName) {
+        $configPath = CONFIG . 'carnival/admin/entity/' . $entityName . '.json';
+        $entityPath = ENTITY . $entityName . '.php';
+        $tableName  = 'entity_' . strtolower($entityName);
+
+        $fs = new FileSystem(ROOT . APP . Application::name() . '/');
+        
+        # Deleting config
+        $fs->rm($configPath);
+
+        # Deleting entity
+        $fs->rm($entityPath);
+
+        # Dropping table
+        Query::dropTable($tableName);
+
+        return true;
+    }
+
+    /**
+     * This method is a bit more complex, table gets deleted and created again,
+     * but I want to preserve config and the entity itself, namely setters and getters
+     * while still applying changes
+     * 
+     * @param string $entityName
+     */
+    public function edit($entityName) {
     }
 
 }
