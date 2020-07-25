@@ -32,7 +32,7 @@ class Auth
             return null;
         }
 
-        $q = Query::select('user', ['id'], [
+        $q = Query::select('entity_user', ['id'], [
             'username' => $username
         ])[0];
 

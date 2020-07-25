@@ -1,11 +1,15 @@
 <?php
 
-namespace Lampion\Core;
+namespace Lampion\Http;
 
 use Lampion\Form\FormHandler;
 use Lampion\Http\Response;
 use Lampion\Http\Request;
 use Lampion\Http\Url;
+use Lampion\Core\Runtime;
+use Lampion\Core\Cookie;
+
+use stdClass;
 
 /**
  * Router class
@@ -26,29 +30,6 @@ class Router
     }
 
     protected static function processURL($request_method, $request_method_args = null) {
-        /*
-        if($request_method_args) { # If method arguments are already set, don't get arguments from URL
-            ldm($request_method_args);
-
-            if(!is_string($request_method[$_GET['url']]['callback'])) {
-                $request_method[$_GET['url']]['callback'](new Request($request_method_args), new Response);
-            }
-
-            else {
-                self::short_method($request_method[$_GET['url']]['callback'], [
-                    'req' => new Request($request_method_args),
-                    'res' => new Response
-                ]);
-            }
-            
-            return;
-        }
-
-        else {
-            
-        }
-        */
-
         $url_explode = explode("/", $_GET['url']); # Get url divided by slashes
 
         foreach($request_method as $route) {
@@ -67,11 +48,12 @@ class Router
                 }
 
                 $path_new = explode("/", $path); # Initialize new path, containing path exploded by slashes
-                $args_new = array(); # Initialize array, that is going to contain arguments with values under an index that is argument's name in request method's array
+                $args_new = new stdClass(); # Initialize object, that is going to contain params with values under an index that is argument's name in request method's array
 
                 foreach($args as $arg) {
                     $path_new[$arg['pos']]  = $url_explode[$arg['pos']]; # Composing new path
-                    $args_new[$arg['name']] = $url_explode[$arg['pos']]; # Adding arguments
+
+                    $args_new->{$arg['name']} = $url_explode[$arg['pos']]; # Adding params
                 }
 
                 $path_new = implode("/", $path_new); # Glue pieces together with slashes
@@ -82,9 +64,8 @@ class Router
                     }
 
                     else {
-
-                        $args_new['req'] = new Request($args_new);
-                        $args_new['res'] = new Response;
+                        $args_new->req = new Request($args_new);
+                        $args_new->res = new Response;
 
                         self::short_method($route['callback'], $args_new); # Else call short method
                     }
@@ -103,13 +84,13 @@ class Router
         die(HTTP_NOT_FOUND);
     }
 
-    protected static function short_method($callback, $args = []) {
+    protected static function short_method($callback, $args = null) {
         if(is_string($callback)) {
             $callback = explode("::", $callback);
             $response = new Response();
 
-            $_GET['Request'] = $args['req'];
-            $_GET['Response'] = $args['res'];
+            $_GET['Request']  = $args->req;
+            $_GET['Response'] = $args->res;
 
             $path   = $callback[0];
             $method = $callback[1];
@@ -191,7 +172,7 @@ class Router
 
             $post['authToken'] = Cookie::get('lampionToken') ?? null;
 
-            if(Request::isAjax()) {
+            if($req->isAjax()) {
                 $post['lampionIsAjaxRequest'] = true;
             }
 

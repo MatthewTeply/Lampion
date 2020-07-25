@@ -21,6 +21,7 @@ use Lampion\Language\Translator;
 use Lampion\Misc\Util;
 use Lampion\Session\Lampion as LampionSession;
 use Lampion\User\Entity\User;
+use stdClass;
 
 /**
  * Class for interacting with app's filesystem, though it can be used for the entire server by specifying storage path
@@ -546,6 +547,18 @@ class FileSystem {
         return true;
     }
 
+    public function read(string $file) {
+        $contents = file_get_contents($this->storagePath . $file);
+
+        $readClass = new stdClass;
+        $readClass->contents = $contents;
+
+        $readClass->__toString = function() { return $this->contents; };
+        $readClass->object     = json_decode($contents);
+    
+        return $readClass;
+    }
+
     /**
      * Check if current user has permission to desired file/directory
      * @param User   $user
@@ -578,5 +591,9 @@ class FileSystem {
                 return false;
             }
         }
+    }
+
+    public function exists($file) {
+        return file_exists($this->storagePath . $file);
     }
 }

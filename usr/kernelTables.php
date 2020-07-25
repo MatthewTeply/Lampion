@@ -5,9 +5,9 @@ function kernelTables() {
       'app',
       'entity_file',
       'entity_dir',
+      'entity_user',
+      'entity_session',
       'file_uses',
-      'user',
-      'api_keys',
-      'session'
+      'api_keys'
     ];
 }

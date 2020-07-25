@@ -11,7 +11,9 @@ use Lampion\Http\Request;
 class Console {
 
     public static function log($var) {
-        if(Request::isAjax()) {
+        $request = new Request();
+
+        if($request->isAjax()) {
             return;
         }
 

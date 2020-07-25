@@ -33,18 +33,11 @@ class View {
         $this->twig = new Environment($loader, [
             'debug' => true
         ]);
-        
-        $pathFunc = new TwigFunction('path', function($route) {
-            if(!$route) {
-                return '';
-            }
-            
-            return Url::link($route);
-        });
-
-        $this->twig->addFunction($pathFunc);
 
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
+
+        # Register custom functions
+        $this->customFunctions();
 
         # Register custom filters
         $this->customFilters();
@@ -127,6 +120,20 @@ class View {
 
             return new Markup($this->twig->render("$path.twig", $args), 'UTF-8');
         }
+    }
+
+    private function customFunctions() {
+        $this->twig->addFunction(new TwigFunction('icon', function($icon) {
+            return file_get_contents(ROOT . APP . Application::name() . ASSETS . 'images/icons/' . $icon . '.svg');
+        }));
+
+        $this->twig->addFunction(new TwigFunction('path', function($route) {
+            if(!$route) {
+                return '';
+            }
+            
+            return Url::link($route);
+        }));
     }
 
     private function customFilters() {
