@@ -8,6 +8,7 @@ use Firebase\JWT\JWT;
 use Lampion\Core\Cookie;
 use Lampion\Session\Lampion as LampionSession;
 use Lampion\Database\Query;
+use Lampion\Debug\Console;
 use Lampion\Entity\EntityManager;
 use Lampion\User\Entity\User;
 use Lampion\User\Session as UserSession;

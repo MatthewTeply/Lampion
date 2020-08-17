@@ -2,6 +2,7 @@
 
 namespace Lampion\Entity;
 
+use Carnival\Entity\Language;
 use Exception;
 use Lampion\Application\Application;
 use Lampion\Database\Query;
@@ -73,6 +74,14 @@ CODE;
         }
 
         $code .= implode(\PHP_EOL, $fieldsCode);
+
+        $code .= <<<CODE
+        public function __toString() {
+            return \$this->id;
+        }
+        
+CODE;
+
         $code .= \PHP_EOL . '}';
 
         $fs = new FileSystem(ROOT . APP . Application::name() . ENTITY);

@@ -2,8 +2,7 @@
 
 namespace Lampion\Application;
 
-use Lampion\Core\Router;
-use Lampion\Session\Main as Session;
+use Lampion\Http\Router;
 
 /**
  * Class containing all info about the current application

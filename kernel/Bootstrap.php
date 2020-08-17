@@ -1,4 +1,5 @@
 <?php
+
 require_once 'config/config.php';
 require_once 'config/config.defaults.php';
 require_once 'Core/Autoloader.php';
@@ -16,7 +17,6 @@ $_SESSION['Lampion']['lang']             = !isset($_SESSION['Lampion']['lang']) 
 $_ERRORS = [];
 
 \Lampion\Core\Autoloader::register();
-\Lampion\Core\Autoloader::registerPluginFunctions();
 \Lampion\Core\Autoloader::registerShutdownFunctions();
 
 \Lampion\Application\ApplicationManager::init();

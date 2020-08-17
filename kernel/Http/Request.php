@@ -64,6 +64,10 @@ class Request
         return $_GET['url'];
     }
 
+    public function urlBase() {
+        return explode('/', $_GET['url'])[0];
+    }
+
     public function method() {
         return strtolower($_SERVER['REQUEST_METHOD']);
     }

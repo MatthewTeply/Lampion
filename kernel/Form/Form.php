@@ -4,6 +4,7 @@ namespace Lampion\Form;
 
 use Lampion\Application\Application;
 use Lampion\Debug\Console;
+use Lampion\FileSystem\Path;
 use Lampion\View\View;
 
 /**
@@ -71,7 +72,7 @@ class Form {
 
             # If a default controller is not found, display a simple template
             else {
-                $template = $this->view->load($path . $inputType['field'], $options, true);
+                $template = $this->loadTemplate($path . $inputType['field'], $options, true);
             }
 
         }
@@ -85,7 +86,7 @@ class Form {
             $options['type'] = $options['type'] ?? $type;
         }
 
-        $this->fields[$options['name']]['template'] = $template ?? $this->view->load($path . 'input', $options, true);
+        $this->fields[$options['name']]['template'] = $template ?? $this->loadTemplate($path . 'input', $options, true);
         $this->fields[$options['name']]['type']     = $options['type'];
         $this->fields[$options['name']]['name']     = $options['name'];
         $this->fields[$options['name']]['attr']     = $options['attr'] ?? null;
@@ -103,6 +104,18 @@ class Form {
             'fields' => $this->fields,
             'ajax'   => $this->ajax
         ]);
+    }
+
+    private function loadTemplate(string $template, $options) {
+        if(file_exists(Path::get(Application::name() . ':public/templates/' . $template . '.twig'))) {
+            $appView = new View(Path::get(Application::name() . ':public/templates/'), Application::name());
+
+            return $appView->load($template, $options, true);
+        }
+
+        else {
+            return $this->view->load($template, $options, true);
+        }
     }
 
 }

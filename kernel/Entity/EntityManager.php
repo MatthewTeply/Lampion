@@ -18,7 +18,7 @@ class EntityManager {
         $table = explode('\\', $entity);
         $table = strtolower(end($table));
 
-        return Query::tableExists($table) ? $table : 'entity_' . $table;
+        return 'entity_' . $table;
     }
 
     public function persist(object $entity) {
@@ -54,6 +54,10 @@ class EntityManager {
             if(isset($metadata->{$key})) {
                 if($metadata->{$key}->type == 'entity' || $metadata->{$key}->type == 'file') {
                     $json = [];
+                    
+                    if($var === null) {
+                        $var = '[]';
+                    }
 
                     if(Util::validateJson($var)) {
                         $var = json_decode($var);
@@ -83,6 +87,12 @@ class EntityManager {
                     unset($entity->{$key});
                 }
             }
+        }
+
+        // TODO: Better default language implementation
+        # Insert default language if language is not specified
+        if(Query::isColumn($table, 'meta_lang')) {
+            $entity->meta_lang = $entity->meta_lang ?? '["1"]'; 
         }
 
         $entityArray = (array)$entity;
@@ -298,6 +308,16 @@ class EntityManager {
         return $properties;
     }
 
+    public function isMetaField(string $fieldName) {
+        $metaKeyword = 'meta_';
+
+        return substr($fieldName, 0, strlen($metaKeyword)) == $metaKeyword;
+    }
+
+    public function lastId(string $entityName) {
+        return Query::select($this->getTableName($entityName), ['id'], [], 'id', 'DESC')[0]['id'];
+    }
+
     private function setFields(object &$entity, $fields) {
         $metadata = $this->metadata(get_class($entity));
 
@@ -323,7 +343,8 @@ class EntityManager {
             }
         }
 
-        # Check if entity property is a refference to another class, if it is, populate the property with the said class
+        # Check if entity property is a refference to another class, if it is, 
+        # populate the property with the said class, also set metadata object
         foreach($entity as $key => $value) {
         
             # Check if entity property is a reference to a file
@@ -357,6 +378,17 @@ class EntityManager {
                     if(sizeof($entity->{$key}) == 1) {
                         $entity->{$key} = $entity->{$key}[0];
                     }
+                }
+
+                // TODO: Think of something better!
+                # Assign key to metadata object, if column starts with $metaKeyword
+                if($this->isMetaField($metadata->{$key}->mapped_by ?? $key)) {
+                    if(!isset($entity->_metafields)) {
+                        $entity->_metafields = new stdClass();
+                    }
+                    
+                    $entity->_metafields->{$key} = $entity->{$key};
+                    unset($entity->{$key});
                 }
             }
 

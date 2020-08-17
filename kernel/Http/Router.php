@@ -30,24 +30,24 @@ class Router
     }
 
     protected static function processURL($request_method, $request_method_args = null) {
-        $url_explode = explode("/", $_GET['url']); # Get url divided by slashes
+        $url_explode = explode('/', $_GET['url']); # Get url divided by slashes
 
         foreach($request_method as $route) {
             $path = $route['path']; # Route's path (string)
 
-            if(sizeof(explode("/", $path)) == sizeof($url_explode)) { # Find a route that matches the length of URL
+            if(sizeof(explode('/', $path)) == sizeof($url_explode)) { # Find a route that matches the length of URL
                 $args = array(); # Initialize array containing arguments for given page
 
-                foreach(explode("/", $path) as $key => $field) {
-                    if(strpos($field, "{") !== false && strpos($field, "}") !== false) { # If field contains { and }, it is an argument
+                foreach(explode('/', $path) as $key => $field) {
+                    if(strpos($field, '{') !== false && strpos($field, '}') !== false) { # If field contains { and }, it is an argument
                         array_push($args, [
-                            "pos"  => $key, # Save argument's position
-                            "name" => substr($field, 1, -1) # Save argument's name
+                            'pos'  => $key, # Save argument's position
+                            'name' => substr($field, 1, -1) # Save argument's name
                         ]);
                     }
                 }
 
-                $path_new = explode("/", $path); # Initialize new path, containing path exploded by slashes
+                $path_new = explode('/', $path); # Initialize new path, containing path exploded by slashes
                 $args_new = new stdClass(); # Initialize object, that is going to contain params with values under an index that is argument's name in request method's array
 
                 foreach($args as $arg) {
@@ -56,7 +56,7 @@ class Router
                     $args_new->{$arg['name']} = $url_explode[$arg['pos']]; # Adding params
                 }
 
-                $path_new = implode("/", $path_new); # Glue pieces together with slashes
+                $path_new = implode('/', $path_new); # Glue pieces together with slashes
 
                 if($path_new == $_GET['url']) { # If new path is equal to current URL, execute callback
                     if(!is_string($route['callback'])) { # If callback is not short method
@@ -67,7 +67,7 @@ class Router
                         $args_new->req = new Request($args_new);
                         $args_new->res = new Response;
 
-                        self::short_method($route['callback'], $args_new); # Else call short method
+                        self::shortMethod($route['callback'], $args_new); # Else call short method
                     }
 
                     return;
@@ -84,13 +84,12 @@ class Router
         die(HTTP_NOT_FOUND);
     }
 
-    protected static function short_method($callback, $args = null) {
+    protected static function shortMethod($callback, $args = null) {
         if(is_string($callback)) {
-            $callback = explode("::", $callback);
-            $response = new Response();
+            $callback = explode('::', $callback);
 
-            $_GET['Request']  = $args->req;
-            $_GET['Response'] = $args->res;
+            $response = new Response();
+            $request  = new Request();
 
             $path   = $callback[0];
             $method = $callback[1];
@@ -105,14 +104,14 @@ class Router
 
             $class = new $path;
 
-            $class->$method();
+            $class->$method($request, $response);
         }
     }
 
     public function get(string $path, $callback) {
         self::$get[$path] = [
-            "path"     => $path,
-            "callback" => $callback
+            'path'     => $path,
+            'callback' => $callback
         ];
 
         return $this;
@@ -120,8 +119,8 @@ class Router
 
     public function post(string $path, $callback) {
         self::$post[$path] = [
-            "path"     => $path,
-            "callback" => $callback
+            'path'     => $path,
+            'callback' => $callback
         ];
 
         return $this;
@@ -129,8 +128,8 @@ class Router
 
     public function put(string $path, $callback) {
         self::$put[$path] = [
-            "path"     => $path,
-            "callback" => $callback
+            'path'     => $path,
+            'callback' => $callback
         ];
 
         return $this;
@@ -138,8 +137,8 @@ class Router
 
     public function delete(string $path, $callback) {
         self::$delete[$path] = [
-            "path"     => $path,
-            "callback" => $callback
+            'path'     => $path,
+            'callback' => $callback
         ];
 
         return $this;
@@ -155,66 +154,20 @@ class Router
 
         $this->listening = true;
 
-        $this->post('form', function(Request $req, Response $res) {
-            $fh = new FormHandler();
-
-            $post = null;
-
-            foreach($_POST as $key => $data) {
-                if(isset($data['value']) && isset($data['type'])) {
-                    $post[$key] = $fh->handle($data['type'], $data['value']);
-                }
-            }
-
-            foreach($_FILES as $key => $data) {
-                $post[$key] = $fh->handle($key, $data);
-            }
-
-            $post['authToken'] = Cookie::get('lampionToken') ?? null;
-
-            if($req->isAjax()) {
-                $post['lampionIsAjaxRequest'] = true;
-            }
-
-            $useragent = $_SERVER['HTTP_USER_AGENT'];
-            $ckfile = tempnam ("/tmp", "CURLCOOKIE");
-           
-            session_write_close();
-
-            $ch = curl_init($_POST['action']);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_COOKIESESSION, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-            curl_setopt($ch,CURLOPT_USERAGENT, $useragent);
-            curl_setopt ($ch, CURLOPT_COOKIEFILE, $ckfile);
-
-            $response = curl_exec($ch);
-            $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-            $res->send($response);
-            curl_close($ch);
-
-            // TODO: Response check
-            if($httpcode == 302)  {
-                // Success
-            }
-
-            else {
-                // Fail
-            }
-        });
+        $fh = new FormHandler;
+        $fh->registerRoutes($this);
 
         switch($request_method) {
-            case "get":
+            case 'get':
                 self::processURL(self::$get);
                 break;
-            case "post":
+            case 'post':
                 self::processURL(self::$post, $_POST);
                 break;
-            case "put":
+            case 'put':
                 self::processURL(self::$put, $_GET);
                 break;
-            case "delete":
+            case 'delete':
                 self::processURL(self::$delete, $_GET);
                 break;
             default:

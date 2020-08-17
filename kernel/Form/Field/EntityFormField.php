@@ -24,8 +24,10 @@ class EntityFormField extends FormField {
 
             if(!empty($options['entities'])) {
                 foreach($options['entities'] as $key => $entity) {
-                    if(in_array($entity, (array)$options['value'])) {
-                        $options['entities'][$key]->selected = true;
+                    if(isset($options['value'])) {
+                        if(in_array($entity, (array)$options['value'])) {
+                            $options['entities'][$key]->selected = true;
+                        }
                     }
                 }
             }

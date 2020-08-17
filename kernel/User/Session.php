@@ -60,7 +60,7 @@ class Session {
         return $token;
     }
 
-    public function set(object $user) {
+    public static function set(object $user) {
         LampionSession::set('user', serialize($user));
     }
 
