@@ -20,7 +20,7 @@ class EntityManager {
 
     private function getTableName(string $entity) {
         $table = explode('\\', $entity);
-        $table = strtolower(end($table));
+        $table = strtolower(preg_replace(['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'], '$1_$2', end($table)));
 
         return 'entity_' . $table;
     }
@@ -333,7 +333,7 @@ class EntityManager {
     private function setFields(object &$entity, $fields) {
         $metadata = $this->metadata(get_class($entity));
 
-        # Check if entity has a getter declared, if so, use it
+        # Check if entity has a getter declared, if so, use it (LEGACY)
         foreach($fields as $key => $value) {
             //$getMethod = 'get' . ucfirst($key);
 
