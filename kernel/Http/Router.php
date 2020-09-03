@@ -7,7 +7,6 @@ use Lampion\Http\Response;
 use Lampion\Http\Request;
 use Lampion\Http\Url;
 use Lampion\Core\Runtime;
-use Lampion\Core\Cookie;
 
 use stdClass;
 

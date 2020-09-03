@@ -8,7 +8,11 @@ namespace Lampion\Misc;
  */
 class Util {
 
-    public static function validateJson(string $jsonString) {
+    public static function validateJson($jsonString) {
+        if(gettype($jsonString) != 'string') {
+            return false;
+        }
+
         json_decode($jsonString);
         return (json_last_error() == JSON_ERROR_NONE);
     }

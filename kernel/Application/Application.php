@@ -2,19 +2,21 @@
 
 namespace Lampion\Application;
 
-use Lampion\Http\Router;
-
 /**
- * Class containing all info about the current application
+ * Class for configuring the current application
  * @todo More application information
  * @author Matyáš Teplý
  */
 class Application
 {
-    public $router;
+    private $router;
 
-    public function __construct() {
-        $this->router = new Router();
+    public function router(&$router) {
+        $this->router = $router;
+    }
+
+    public function listen() {
+        $this->router->listen();
     }
 
     public static function name() {

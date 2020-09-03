@@ -4,6 +4,7 @@ namespace Lampion\Database;
 
 use Exception;
 use Lampion\Core\Runtime;
+use Lampion\Debug\Console;
 use Lampion\Debug\Error;
 
 /**
@@ -20,7 +21,7 @@ class Query extends Connection
      * @param bool   $report_err
      * @return mixed
      */
-    public static function raw(string $query, array $params = [], $escape = false, $report_err = true) {
+    public static function raw(string $query, array $params = [], $escape = false, $report_err = true, $log = true) {
         $pdo = self::connect();
 
         $pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
@@ -58,13 +59,14 @@ class Query extends Connection
 
         $result = $stmnt->fetchAll(\PDO::FETCH_ASSOC);
 
-        if(empty($warnings)) {
-            Runtime::setDbInfo($queryInfo, $params, $result,"Query was successful", "Success", 0);
+        if(empty($warnings) && $log) {
+            Runtime::setDbInfo($queryInfo, $params, $result, "Query was successful", "Success", 0);
         }
         else {
-            $warnings = $warnings[0];
-
-            Runtime::setDbInfo($queryInfo, $params, null, $warnings['Message'], $warnings['Level'], $warnings['Code']);
+            if($log) {
+                $warnings = $warnings[0];
+                Runtime::setDbInfo($queryInfo, $params, null, $warnings['Message'], $warnings['Level'], $warnings['Code']);
+            }
         }
 
         $queryType = strtolower(explode(" ", $query)[0]);
@@ -137,7 +139,7 @@ class Query extends Connection
      * @param array  $columns
      * @return int   $last_insert_id
      */
-    public static function insert(string $table, array $columns) {
+    public static function insert(string $table, array $columns, $log = true) {
         $insert = "INSERT INTO " . $table . " (" . implode(",", array_keys($columns)) . ") ";
         $values = "VALUES (";
 
@@ -151,7 +153,7 @@ class Query extends Connection
         $values .= ")";
 
         try {
-            return (int)self::raw($insert . $values, $columns);
+            return (int)self::raw($insert . $values, $columns, false, true, $log);
         }
 
         catch(Exception $e) {
@@ -167,10 +169,10 @@ class Query extends Connection
      * @param Query  $instance
      * @return array|mixed
      */
-    public static function select(string $table, array $columns, array $conditions = [], $sortBy = null, $sortOrder = null) {
+    public static function select(string $table, array $columns, array $conditions = [], $sortBy = null, $sortOrder = null, $log = true) {
         $sortString = $sortBy ? ' ORDER BY ' . $sortBy . ' ' . $sortOrder : '';
 
-        $data = self::raw("SELECT " . implode(",", $columns) . " FROM " . $table . self::processConditions($conditions)  . $sortString, self::processParams($conditions));
+        $data = self::raw("SELECT " . implode(",", $columns) . " FROM " . $table . self::processConditions($conditions)  . $sortString, self::processParams($conditions), false, true, $log);
 
         if(sizeof($data) == 0)
             return [];
@@ -183,8 +185,8 @@ class Query extends Connection
      * @param string $table
      * @param array  $conditions
      */
-    public static function delete(string $table, array $conditions) {
-        return self::raw("DELETE FROM " . $table . self::processConditions($conditions), self::processParams($conditions));
+    public static function delete(string $table, array $conditions, $log = true) {
+        return self::raw("DELETE FROM " . $table . self::processConditions($conditions), self::processParams($conditions), false, true, $log);
     }
 
     /**
@@ -192,7 +194,7 @@ class Query extends Connection
      * @param string $table
      */
     public static function dropTable(string $table) {
-        return self::raw('DROP TABLE ' . $table);
+        return self::raw('DROP TABLE ' . $table, []);
     }
 
     /**
@@ -201,7 +203,7 @@ class Query extends Connection
      * @param array  $columns
      * @param array  $conditions
      */
-    public static function update(string $table, array $columns, array $conditions) {
+    public static function update(string $table, array $columns, array $conditions, $log = true) {
         $columnsString = "";
 
         foreach (array_keys($columns) as $key) {
@@ -216,11 +218,11 @@ class Query extends Connection
         $conditionsArray = array_merge($conditionsArray, self::processParams($columns));
         $conditionsArray = array_merge($conditionsArray, self::processParams($conditions));
 
-        self::raw("UPDATE " . $table . $columnsString . self::processConditions($conditions), $conditionsArray);
+        self::raw("UPDATE " . $table . $columnsString . self::processConditions($conditions), $conditionsArray, false, true, $log);
     }
 
     public static function isColumn(string $table, string $column) {
-        $result = self::raw("SHOW COLUMNS FROM `$table` LIKE '$column'");
+        $result = self::raw("SHOW COLUMNS FROM `$table` LIKE '$column'", []);
 
         if(is_array($result))
             return sizeof($result) != 0 ? true : false;

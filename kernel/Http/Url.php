@@ -48,10 +48,16 @@ class Url
      * @return string
      */
     public static function link(string $route, array $params = []) {
-        $webRoot = WEB_ROOT;
-        $appName = Application::name() != DEFAULT_APP ? Application::name() . '/' : '';
+        if($route[0] != '/') {
+            $appName = Application::name() != DEFAULT_APP ? Application::name() . '/' : '';
+        }
 
-        $link = rtrim($webRoot . $appName . $route . self::processParams($params));
+        else {
+            $appName = '';
+            $route   = ltrim('/', $route);
+        }
+
+        $link = rtrim(WEB_ROOT . $appName . $route . self::processParams($params));
 
         return $link;
     }
@@ -62,6 +68,13 @@ class Url
      */
     public static function redirect($route, array $params = []) {
         header("Location: " . self::link($route, $params));
+    }
+
+    public static function redirectOnce($route, array $params = []) {
+        if($route != $_GET['url']) {
+            header("Location: " . self::link($route, $params));
+    
+        }
     }
 
     public static function get(string $url) {

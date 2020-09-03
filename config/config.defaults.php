@@ -1,4 +1,4 @@
 <?php
 
 # Defaults
-define('DEFAULT_APP', 'carnival');
+define('DEFAULT_APP', 'adcards');

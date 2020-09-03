@@ -2,6 +2,7 @@
 
 namespace Lampion\Model;
 
+use Lampion\Application\Application;
 use Lampion\Session\Main as Session;
 
 /**
@@ -17,7 +18,7 @@ class ModelLoader
     public function object(string $path, int $id = null) {
         $className = explode("/", $path);
         $className = end($className);
-        $path = APP . Session::get("Lampion")['app'] . "/" . ENTITY . "$path.obj.php";
+        $path = APP . Application::name() . "/" . ENTITY . "$path.obj.php";
 
         if(is_file($path)) {
             include_once $path;

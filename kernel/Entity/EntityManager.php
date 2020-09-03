@@ -2,9 +2,13 @@
 
 namespace Lampion\Entity;
 
+use Carnival\Entity\Order;
 use Lampion\Database\Query;
 use Lampion\Debug\Console;
+use Lampion\FileSystem\Entity\Dir;
+use Lampion\FileSystem\Entity\File;
 use Lampion\Misc\Util;
+use Lampion\User\Entity\User;
 use ReflectionClass;
 use stdClass;
 
@@ -122,12 +126,12 @@ class EntityManager {
                 'entity_name' => $file['entity_name'],
                 'entity_id'   => $file['entity_id'],
                 'property'    => $file['property']
-            ]);
+            ], null, null, false);
 
             # If ID is 0, that means it is being cleared
             if($file['file_id'] != 0) {
                 if(empty($uses[0])) {
-                    Query::insert('file_uses', $file);
+                    Query::insert('file_uses', $file, false);
                 }
 
                 else {
@@ -135,7 +139,7 @@ class EntityManager {
                         'file_id' => $file['file_id']
                     ], [
                         'id' => $uses[0]['id']
-                    ]);
+                    ], false);
                 }
             }
         }
@@ -143,7 +147,7 @@ class EntityManager {
         return true;
     }
 
-    public function find(string $entityName, $id, $sortBy = null, $sortOrder = null) {
+    public function find(string $entityName, $id, $sortBy = null, $sortOrder = null, $log = true) {
         $ids = [];
         
         if(Util::validateJson($id)) {
@@ -158,10 +162,14 @@ class EntityManager {
 
         $table = $this->getTableName($entityName);
 
+        if($entityName == File::class || $entityName == Dir::class || User::class) {
+            $log = false;
+        }
+
         if(empty($ids)) {
             $fields = Query::select($table, ['*'], [
                 'id' => $id
-            ], $sortBy, $sortOrder)[0];
+            ], $sortBy, $sortOrder, $log)[0];
     
             if(!isset($fields['id'])) {
                 return false;
@@ -178,7 +186,7 @@ class EntityManager {
             foreach($ids as $id) {
                 $fields = Query::select($table, ['*'], [
                     'id' => $id
-                ], $sortBy, $sortOrder)[0];
+                ], $sortBy, $sortOrder, $log)[0];
         
                 if(!isset($fields['id'])) {
                     continue;
@@ -200,12 +208,16 @@ class EntityManager {
         return !empty($entities) ? $entities : $entity;
     }
 
-    public function findBy(string $entityName, array $searchFields, $sortBy = null, $sortOrder = null) {
+    public function findBy(string $entityName, array $searchFields, $sortBy = null, $sortOrder = null, $log = true) {
         $table = $this->getTableName($entityName);
 
         $searchFields = $this->transformFieldsToColumns($entityName, $searchFields);
 
-        $results = Query::select($table, ['*'], $searchFields, $sortBy, $sortOrder);
+        if($entityName == File::class || $entityName == Dir::class || $entityName == User::class) {
+            $log = false;
+        }
+
+        $results = Query::select($table, ['*'], $searchFields, $sortBy, $sortOrder, $log);
 
         foreach($results as $key => $result) {
             if(!isset($result['id'])) {
@@ -256,13 +268,13 @@ class EntityManager {
         $fileUses = Query::select('file_uses', ['id'], [
             'entity_name' => get_class($entity),
             'entity_id'   => $entity->id
-        ]);
+        ], null, null, false);
 
         if(!empty($fileUses[0])) {
             foreach($fileUses as $fileUse) {
                 Query::delete('file_uses', [
                     'id' => $fileUse['id']
-                ]);
+                ], false);
             }
         }
 
@@ -323,13 +335,15 @@ class EntityManager {
 
         # Check if entity has a getter declared, if so, use it
         foreach($fields as $key => $value) {
-            $getMethod = 'get' . ucfirst($key);
+            //$getMethod = 'get' . ucfirst($key);
 
             $entity->{$key} = $value;
 
+            /*
             if(method_exists($entity, $getMethod)) {
                 $entity->{$key} = $entity->$getMethod();
             }
+            */
         }
 
         # Get differenece between columns and metadata
@@ -368,7 +382,13 @@ class EntityManager {
             if(isset($metadata->{$key}->entity)) {
                 $entity->{$key} = [];
 
-                $entityIds = json_decode($value);
+                if(is_string($value)) {
+                    $entityIds = json_decode($value);
+                }
+
+                else {
+                    $entityIds = json_decode(is_array($value) ? $value[0] : $value);
+                }
 
                 if(is_iterable($entityIds)) {
                     foreach($entityIds as $entityId) {
@@ -392,11 +412,17 @@ class EntityManager {
                 }
             }
 
+            /*
             $getMethod = 'get' . ucfirst($key);
 
             if(method_exists($entity, $getMethod)) {
                 $entity->{$key} = $entity->$getMethod();
             }
+            */
+        }
+
+        if(get_class($entity) == Order::class) {
+            //var_dump($entity);
         }
     }
 

@@ -4,10 +4,12 @@ namespace Lampion\View;
 
 use Lampion\Application\Application;
 use Lampion\Controller\ControllerLoader;
+use Lampion\FileSystem\Path;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Twig\Markup;
 use Lampion\Http\Url;
+use stdClass;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
@@ -64,12 +66,12 @@ class View {
             $initialPath = APP;
         }
 
-        $args['__css__']     = WEB_ROOT . $initialPath . $this->app . CSS;
-        $args['__scripts__'] = WEB_ROOT . $initialPath . $this->app . SCRIPTS;
-        $args['__img__']     = WEB_ROOT . $initialPath . $this->app . IMG;
-        $args['__storage__'] = WEB_ROOT . $initialPath . $this->app . STORAGE;
+        $args['__css__']        = WEB_ROOT . $initialPath . $this->app . CSS;
+        $args['__scripts__']    = WEB_ROOT . $initialPath . $this->app . SCRIPTS;
+        $args['__img__']        = WEB_ROOT . $initialPath . $this->app . IMG;
         $args['__webStorage__'] = WEB_ROOT . $initialPath . $this->app . STORAGE;
-        $args['__webRoot__'] = WEB_ROOT;
+        $args['__webRoot__']    = WEB_ROOT;
+        $args['__get__']        = $_GET;
 
         echo $this->twig->render("$path.twig", !empty($args) ? $args : get_object_vars($this));
 
@@ -117,6 +119,7 @@ class View {
             $args['__img__']        = WEB_ROOT . $initialPath . $this->app . IMG;
             $args['__webStorage__'] = WEB_ROOT . $initialPath . $this->app . STORAGE;
             $args['__webRoot__']    = WEB_ROOT;
+            $args['__get__']        = $_GET;
 
             return new Markup($this->twig->render("$path.twig", $args), 'UTF-8');
         }
@@ -133,6 +136,13 @@ class View {
             }
             
             return Url::link($route);
+        }));
+
+        $this->twig->addFunction(new TwigFunction('asset', function($path) {
+            $app  = Path::getApp($path);
+            $path = explode(':', $path)[1] ?? $path;
+
+            return WEB_ROOT . APP . $app . ASSETS . $path;
         }));
     }
 

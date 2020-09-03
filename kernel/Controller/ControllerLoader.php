@@ -16,7 +16,7 @@ class ControllerLoader
     public $app;
 
     public function __construct(string $app = null) {
-        $this->app = $app ?? Session::get('app');
+        $this->app = $app ?? $_SESSION['Lampion']['app'];
     }
 
     /**

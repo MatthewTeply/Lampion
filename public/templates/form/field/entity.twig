@@ -1,22 +1,50 @@
-<div class="form-input-around col-lg-12">
-    {% if entities %}
-        <select
-            name="{{ name }}[value]{{ metadata.multiple ? '[]' : '' }}" 
-            class="form-control {{ attr.class }}" 
-            id="{{ attr.id }}"
-            {% if attr.disabled %}
-                disabled="disabled"
-            {% endif %}
-            {% if metadata.multiple %}
-                multiple="multiple"
-            {% endif %}
-        >
-            {% for entity in entities %}
-                <option {{ entity.selected ? 'selected' : '' }} value="{{ entity.id }}">{{ entity }}</option>
-            {% endfor %}
-        </select>
+{% if entities %}
+    <select
+        name="{{ name }}[value]{{ metadata.multiple ? '[]' : '' }}" 
+        class="form-control {{ attr.class }}" 
+        id="{{ attr.id }}"
+        {% if attr.disabled %}
+            disabled="disabled"
+        {% endif %}
+        {% if metadata.multiple %}
+            multiple="multiple"
+        {% endif %}
+    >
+        {% for entity in entities %}
+            <option {{ entity.selected ? 'selected' : '' }} value="{{ entity.id }}">{{ entity }}</option>
+        {% endfor %}
+    </select>
+{% else %}
+    {% if entity is iterable %}
+        <div class="{{ attr.class }} form-input-around" style="{{ type == 'hidden' ? 'display: none !important;' : '' }}">
+            <label class="field-label">{{ label }}</label>
+            
+            <div class="form-control">
+                {% if entity|toArray|length == 0 %}
+                    <div class="badge badge-light">NULL</div>
+                {% else %}
+                    {% for item in entity|toArray %}
+                        <a href="{{ path(item|getClassName) }}/show?id={{ item.id }}">
+                            <div class="badge badge-primary">
+                                {{ item }}
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
     {% else %}
-        {{ dump(entity) }}
+        <div class="{{ attr.class }} form-input-around" style="{{ type == 'hidden' ? 'display: none !important;' : '' }}">
+            <label class="field-label">{{ label }}</label>
+            
+            <div class="form-control">
+                <a href="{{ path(entity|getClassName) }}/show?id={{ entity.id }}">
+                    <div class="badge badge-primary">
+                        {{ entity }}
+                    </div>
+                </a>
+            </div>
+            
+        </div>
     {% endif %}
-
-</div>
+{% endif %}

@@ -40,7 +40,7 @@ class FileSystem {
      */
     public function __construct($storagePath = null) {
         $this->em   = new EntityManager();
-        $this->user = unserialize(LampionSession::get('user')) ?? null;
+        $this->user = unserialize($_SESSION['Lampion']['user']) ?? null;
 
         if($storagePath === null) {
             $this->storagePath = ROOT . APP . Application::name() . STORAGE;
@@ -304,7 +304,7 @@ class FileSystem {
                             ], 'entity_name', 'ASC') ?? [];
 
                             if(!empty($fileUses[0])) {
-                                $translator = new Translator(LampionSession::get('lang'));
+                                $translator = new Translator($_SESSION['Lampion']['lang']);
 
                                 foreach($fileUses as $key => $fileUse) {
                                     $entityNameEnd = explode('\\', $fileUse['entity_name']);
