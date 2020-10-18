@@ -44,7 +44,7 @@ class View {
         # Register custom filters
         $this->customFilters();
 
-        $this->app = empty($app) ? Application::name() : strtolower($app);
+        $this->app = strtolower($app);
         $this->isPlugin = $isPlugin;
     }
 
@@ -127,7 +127,7 @@ class View {
 
     private function customFunctions() {
         $this->twig->addFunction(new TwigFunction('icon', function($icon) {
-            return file_get_contents(ROOT . APP . Application::name() . ASSETS . 'images/icons/' . $icon . '.svg');
+            return file_get_contents(ROOT . APP . $this->app . ASSETS . 'images/icons/' . $icon . '.svg');
         }));
 
         $this->twig->addFunction(new TwigFunction('path', function($route) {
@@ -143,6 +143,13 @@ class View {
             $path = explode(':', $path)[1] ?? $path;
 
             return WEB_ROOT . APP . $app . ASSETS . $path;
+        }));
+
+        $this->twig->addFunction(new TwigFunction('storage', function($path) {
+            $app  = Path::getApp($path);
+            $path = explode(':', $path)[1] ?? $path;
+
+            return WEB_ROOT . APP . $app . STORAGE . $path;
         }));
     }
 

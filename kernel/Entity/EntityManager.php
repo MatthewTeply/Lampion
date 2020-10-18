@@ -446,7 +446,7 @@ class EntityManager {
             # Transform field's value here
             switch($fieldMetadata->type) {
                 case 'entity':
-                    $fieldValue = $field->id;
+                    $fieldValue = '["' . $field->id . '"]';
                     break;
                 default:
                     $fieldValue = $field;

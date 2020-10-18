@@ -2,6 +2,7 @@
 
 namespace Lampion\Core;
 
+use Lampion\Debug\Console;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Twig\Markup;
@@ -53,7 +54,7 @@ class Runtime
             $paramsInfo[$key]['value'] = $param;
             $paramsInfo[$key]['type']  = gettype($param);
 
-            $queryTranslated = str_replace(":$key", is_string($param) ? "'$param'" : $param, $queryTranslated);
+            $queryTranslated = str_replace("$key", is_string($param) ? "'$param'" : $param, $queryTranslated);
         }
 
         $_SESSION['Lampion']['DB']['queryCount']++; // Add one to query count

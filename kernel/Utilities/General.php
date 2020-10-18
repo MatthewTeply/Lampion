@@ -17,4 +17,10 @@ class General {
         return str_replace('//', '/', $string);
     }
 
+    public static function strReplaceFirst($from, $to, $content) {
+        $from = '/'.preg_quote($from, '/').'/';
+
+        return preg_replace($from, $to, $content, 1);
+    }
+
 }
