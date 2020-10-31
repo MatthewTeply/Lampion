@@ -4,6 +4,7 @@ namespace Lampion\View;
 
 use Lampion\Application\Application;
 use Lampion\Controller\ControllerLoader;
+use Lampion\Debug\Console;
 use Lampion\FileSystem\Path;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
@@ -146,6 +147,12 @@ class View {
         }));
 
         $this->twig->addFunction(new TwigFunction('storage', function($path) {
+            if(filter_var(
+                explode(Path::getApp($path) . ':', $path)[1],
+                FILTER_VALIDATE_URL)) {
+                return explode(Path::getApp($path) . ':', $path)[1];
+            }
+
             $app  = Path::getApp($path);
             $path = explode(':', $path)[1] ?? $path;
 

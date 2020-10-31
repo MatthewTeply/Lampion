@@ -2,10 +2,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 
-session_start();
-$rustart = getrusage();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
-unset($_SESSION['Lampion']['queryCount']);
+$rustart = getrusage();
 
 # Configs
 require_once 'config/config.php';
